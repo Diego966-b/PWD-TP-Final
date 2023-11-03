@@ -18,6 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+DROP DATABASE bdcarritocompras;
+CREATE DATABASE bdcarritocompras;
+USE bdcarritocompras;
+
 --
 -- Base de datos: `bdcarritocompras`
 --
@@ -29,9 +33,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `compra` (
-  `idcompra` bigint(20) NOT NULL,
-  `cofecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `idusuario` bigint(20) NOT NULL
+  `idCompra` bigint(20) NOT NULL,
+  `coFecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `idUsuario` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -40,12 +44,12 @@ CREATE TABLE `compra` (
 -- Estructura de tabla para la tabla `compraestado`
 --
 
-CREATE TABLE `compraestado` (
-  `idcompraestado` bigint(20) UNSIGNED NOT NULL,
-  `idcompra` bigint(11) NOT NULL,
-  `idcompraestadotipo` int(11) NOT NULL,
-  `cefechaini` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `cefechafin` timestamp NULL DEFAULT NULL
+CREATE TABLE `compraEstado` (
+  `idCompraEstado` bigint(20) UNSIGNED NOT NULL,
+  `idCompra` bigint(11) NOT NULL,
+  `idCompraestadoTipo` int(11) NOT NULL,
+  `ceFechaIni` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ceFechaFin` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -54,17 +58,17 @@ CREATE TABLE `compraestado` (
 -- Estructura de tabla para la tabla `compraestadotipo`
 --
 
-CREATE TABLE `compraestadotipo` (
-  `idcompraestadotipo` int(11) NOT NULL,
-  `cetdescripcion` varchar(50) NOT NULL,
-  `cetdetalle` varchar(256) NOT NULL
+CREATE TABLE `compraEstadoTipo` (
+  `idCompraEstadoTipo` int(11) NOT NULL,
+  `cetDescripcion` varchar(50) NOT NULL,
+  `cetDetalle` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `compraestadotipo`
 --
 
-INSERT INTO `compraestadotipo` (`idcompraestadotipo`, `cetdescripcion`, `cetdetalle`) VALUES
+INSERT INTO `compraEstadoTipo` (`idCompraEstadoTipo`, `cetDescripcion`, `cetDetalle`) VALUES
 (1, 'iniciada', 'cuando el usuario : cliente inicia la compra de uno o mas productos del carrito'),
 (2, 'aceptada', 'cuando el usuario administrador da ingreso a uno de las compras en estado = 1 '),
 (3, 'enviada', 'cuando el usuario administrador envia a uno de las compras en estado =2 '),
@@ -76,11 +80,11 @@ INSERT INTO `compraestadotipo` (`idcompraestadotipo`, `cetdescripcion`, `cetdeta
 -- Estructura de tabla para la tabla `compraitem`
 --
 
-CREATE TABLE `compraitem` (
-  `idcompraitem` bigint(20) UNSIGNED NOT NULL,
-  `idproducto` bigint(20) NOT NULL,
-  `idcompra` bigint(20) NOT NULL,
-  `cicantidad` int(11) NOT NULL
+CREATE TABLE `compraItem` (
+  `idCompraItem` bigint(20) UNSIGNED NOT NULL,
+  `idProducto` bigint(20) NOT NULL,
+  `idCompra` bigint(20) NOT NULL,
+  `ciCantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -90,18 +94,18 @@ CREATE TABLE `compraitem` (
 --
 
 CREATE TABLE `menu` (
-  `idmenu` bigint(20) NOT NULL,
-  `menombre` varchar(50) NOT NULL COMMENT 'Nombre del item del menu',
-  `medescripcion` varchar(124) NOT NULL COMMENT 'Descripcion mas detallada del item del menu',
-  `idpadre` bigint(20) DEFAULT NULL COMMENT 'Referencia al id del menu que es subitem',
-  `medeshabilitado` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha en la que el menu fue deshabilitado por ultima vez'
+  `idMenu` bigint(20) NOT NULL,
+  `meNombre` varchar(50) NOT NULL COMMENT 'Nombre del item del menu',
+  `meDescripcion` varchar(124) NOT NULL COMMENT 'Descripcion mas detallada del item del menu',
+  `idPadre` bigint(20) DEFAULT NULL COMMENT 'Referencia al id del menu que es subitem',
+  `meDeshabilitado` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha en la que el menu fue deshabilitado por ultima vez'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `menu`
 --
 
-INSERT INTO `menu` (`idmenu`, `menombre`, `medescripcion`, `idpadre`, `medeshabilitado`) VALUES
+INSERT INTO `menu` (`idMenu`, `meNombre`, `meDescripcion`, `idPadre`, `meDeshabilitado`) VALUES
 (7, 'nuevo', 'kkkkk', NULL, NULL),
 (8, 'nuevo', 'kkkkk', NULL, NULL),
 (9, 'nuevo', 'kkkkk', 7, NULL),
@@ -114,9 +118,9 @@ INSERT INTO `menu` (`idmenu`, `menombre`, `medescripcion`, `idpadre`, `medeshabi
 -- Estructura de tabla para la tabla `menurol`
 --
 
-CREATE TABLE `menurol` (
-  `idmenu` bigint(20) NOT NULL,
-  `idrol` bigint(20) NOT NULL
+CREATE TABLE `menuRol` (
+  `idMenu` bigint(20) NOT NULL,
+  `idRol` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -126,10 +130,10 @@ CREATE TABLE `menurol` (
 --
 
 CREATE TABLE `producto` (
-  `idproducto` bigint(20) NOT NULL,
-  `pronombre` int(11) NOT NULL,
-  `prodetalle` varchar(512) NOT NULL,
-  `procantstock` int(11) NOT NULL
+  `idProducto` bigint(20) NOT NULL,
+  `proNombre` varchar(50) NOT NULL, -- !!! MODIFICACION MIA !!! ANTES ERA: `proNombre` int(11) NOT NULL,
+  `proDetalle` varchar(512) NOT NULL,
+  `proCantStock` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -139,8 +143,8 @@ CREATE TABLE `producto` (
 --
 
 CREATE TABLE `rol` (
-  `idrol` bigint(20) NOT NULL,
-  `rodescripcion` varchar(50) NOT NULL
+  `idRol` bigint(20) NOT NULL,
+  `rolDescripcion` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -150,11 +154,11 @@ CREATE TABLE `rol` (
 --
 
 CREATE TABLE `usuario` (
-  `idusuario` bigint(20) NOT NULL,
-  `usnombre` varchar(50) NOT NULL,
-  `uspass` int(11) NOT NULL,
-  `usmail` varchar(50) NOT NULL,
-  `usdeshabilitado` timestamp NULL DEFAULT NULL
+  `idUsuario` bigint(20) NOT NULL,
+  `usNombre` varchar(50) NOT NULL,
+  `usPass` int(11) NOT NULL,
+  `usMail` varchar(50) NOT NULL,
+  `usDeshabilitado` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -163,9 +167,9 @@ CREATE TABLE `usuario` (
 -- Estructura de tabla para la tabla `usuariorol`
 --
 
-CREATE TABLE `usuariorol` (
-  `idusuario` bigint(20) NOT NULL,
-  `idrol` bigint(20) NOT NULL
+CREATE TABLE `usuarioRol` (
+  `idUsuario` bigint(20) NOT NULL,
+  `idRol` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -176,77 +180,77 @@ CREATE TABLE `usuariorol` (
 -- Indices de la tabla `compra`
 --
 ALTER TABLE `compra`
-  ADD PRIMARY KEY (`idcompra`),
-  ADD UNIQUE KEY `idcompra` (`idcompra`),
-  ADD KEY `fkcompra_1` (`idusuario`);
+  ADD PRIMARY KEY (`idCompra`),
+  ADD UNIQUE KEY `idCompra` (`idCompra`),
+  ADD KEY `fkcompra_1` (`idUsuario`);
 
 --
 -- Indices de la tabla `compraestado`
 --
-ALTER TABLE `compraestado`
-  ADD PRIMARY KEY (`idcompraestado`),
-  ADD UNIQUE KEY `idcompraestado` (`idcompraestado`),
-  ADD KEY `fkcompraestado_1` (`idcompra`),
-  ADD KEY `fkcompraestado_2` (`idcompraestadotipo`);
+ALTER TABLE `compraEstado`
+  ADD PRIMARY KEY (`idCompraEstado`),
+  ADD UNIQUE KEY `idCompraEstado` (`idCompraEstado`),
+  ADD KEY `fkcompraEstado_1` (`idCompra`),
+  ADD KEY `fkcompraEstado_2` (`idCompraEstadoTipo`);
 
 --
 -- Indices de la tabla `compraestadotipo`
 --
-ALTER TABLE `compraestadotipo`
-  ADD PRIMARY KEY (`idcompraestadotipo`);
+ALTER TABLE `compraEstadoTipo`
+  ADD PRIMARY KEY (`idCompraEstadoTipo`);
 
 --
 -- Indices de la tabla `compraitem`
 --
-ALTER TABLE `compraitem`
-  ADD PRIMARY KEY (`idcompraitem`),
-  ADD UNIQUE KEY `idcompraitem` (`idcompraitem`),
-  ADD KEY `fkcompraitem_1` (`idcompra`),
-  ADD KEY `fkcompraitem_2` (`idproducto`);
+ALTER TABLE `compraItem`
+  ADD PRIMARY KEY (`idCompraItem`),
+  ADD UNIQUE KEY `idCompraItem` (`idCompraItem`),
+  ADD KEY `fkcompraItem_1` (`idCompra`),
+  ADD KEY `fkcompraItem_2` (`idProducto`);
 
 --
 -- Indices de la tabla `menu`
 --
 ALTER TABLE `menu`
-  ADD PRIMARY KEY (`idmenu`),
-  ADD UNIQUE KEY `idmenu` (`idmenu`),
-  ADD KEY `fkmenu_1` (`idpadre`);
+  ADD PRIMARY KEY (`idMenu`),
+  ADD UNIQUE KEY `idMenu` (`idMenu`),
+  ADD KEY `fkmenu_1` (`idPadre`);
 
 --
 -- Indices de la tabla `menurol`
 --
-ALTER TABLE `menurol`
-  ADD PRIMARY KEY (`idmenu`,`idrol`),
-  ADD KEY `fkmenurol_2` (`idrol`);
+ALTER TABLE `menuRol`
+  ADD PRIMARY KEY (`idMenu`,`idRol`),
+  ADD KEY `fkmenuRol_2` (`idRol`);
 
 --
 -- Indices de la tabla `producto`
 --
 ALTER TABLE `producto`
-  ADD PRIMARY KEY (`idproducto`),
-  ADD UNIQUE KEY `idproducto` (`idproducto`);
+  ADD PRIMARY KEY (`idProducto`),
+  ADD UNIQUE KEY `idProducto` (`idProducto`);
 
 --
 -- Indices de la tabla `rol`
 --
 ALTER TABLE `rol`
-  ADD PRIMARY KEY (`idrol`),
-  ADD UNIQUE KEY `idrol` (`idrol`);
+  ADD PRIMARY KEY (`idRol`),
+  ADD UNIQUE KEY `idRol` (`idRol`);
 
 --
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`idusuario`),
-  ADD UNIQUE KEY `idusuario` (`idusuario`);
+  ADD PRIMARY KEY (`idUsuario`),
+  ADD UNIQUE KEY `idUsuario` (`idUsuario`);
 
 --
 -- Indices de la tabla `usuariorol`
 --
-ALTER TABLE `usuariorol`
-  ADD PRIMARY KEY (`idusuario`,`idrol`),
-  ADD KEY `idusuario` (`idusuario`),
-  ADD KEY `idrol` (`idrol`);
+ALTER TABLE `usuarioRol`
+  ADD PRIMARY KEY (`idUsuario`,`idRol`),
+  ADD KEY `idUsuario` (`idUsuario`),
+  ADD KEY `idRol` (`idRol`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -256,43 +260,43 @@ ALTER TABLE `usuariorol`
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `idcompra` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCompra` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `compraestado`
 --
-ALTER TABLE `compraestado`
-  MODIFY `idcompraestado` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `compraEstado`
+  MODIFY `idCompraEstado` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `compraitem`
 --
-ALTER TABLE `compraitem`
-  MODIFY `idcompraitem` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `compraItem`
+  MODIFY `idCompraItem` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `idmenu` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idMenu` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idproducto` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `idProducto` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `idrol` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `idRol` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUsuario` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
@@ -302,41 +306,41 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `compra`
 --
 ALTER TABLE `compra`
-  ADD CONSTRAINT `fkcompra_1` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fkcompra_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `compraestado`
 --
-ALTER TABLE `compraestado`
-  ADD CONSTRAINT `fkcompraestado_1` FOREIGN KEY (`idcompra`) REFERENCES `compra` (`idcompra`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fkcompraestado_2` FOREIGN KEY (`idcompraestadotipo`) REFERENCES `compraestadotipo` (`idcompraestadotipo`) ON UPDATE CASCADE;
+ALTER TABLE `compraEstado`
+  ADD CONSTRAINT `fkcompraEstado_1` FOREIGN KEY (`idCompra`) REFERENCES `compra` (`idCompra`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fkcompraEstado_2` FOREIGN KEY (`idCompraEstadoTipo`) REFERENCES `compraEstadoTipo` (`idCompraEstadoTipo`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `compraitem`
 --
-ALTER TABLE `compraitem`
-  ADD CONSTRAINT `fkcompraitem_1` FOREIGN KEY (`idcompra`) REFERENCES `compra` (`idcompra`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fkcompraitem_2` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`idproducto`) ON UPDATE CASCADE;
+ALTER TABLE `compraItem`
+  ADD CONSTRAINT `fkcompraItem_1` FOREIGN KEY (`idCompra`) REFERENCES `compra` (`idCompra`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fkcompraItem_2` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `menu`
 --
 ALTER TABLE `menu`
-  ADD CONSTRAINT `fkmenu_1` FOREIGN KEY (`idpadre`) REFERENCES `menu` (`idmenu`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fkmenu_1` FOREIGN KEY (`idPadre`) REFERENCES `menu` (`idMenu`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `menurol`
 --
-ALTER TABLE `menurol`
-  ADD CONSTRAINT `fkmenurol_1` FOREIGN KEY (`idmenu`) REFERENCES `menu` (`idmenu`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fkmenurol_2` FOREIGN KEY (`idrol`) REFERENCES `rol` (`idrol`) ON UPDATE CASCADE;
+ALTER TABLE `menuRol`
+  ADD CONSTRAINT `fkmenuRol_1` FOREIGN KEY (`idMenu`) REFERENCES `menu` (`idMenu`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fkmenuRol_2` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuariorol`
 --
-ALTER TABLE `usuariorol`
-  ADD CONSTRAINT `fkmovimiento_1` FOREIGN KEY (`idrol`) REFERENCES `rol` (`idrol`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `usuariorol_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`) ON UPDATE CASCADE;
+ALTER TABLE `usuarioRol`
+  ADD CONSTRAINT `fkmovimiento_1` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `usuarioRol_ibfk_2` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
