@@ -128,9 +128,17 @@ class Rol {
                 }
             }
         } else {
-            $this->setMensajeoperacion("Rol->listar: " . $base->getError());
+            //$this->setMensajeoperacion("Rol->listar: " . $base->getError());
         }
         return $arreglo;
+    }
+
+    public function __toString()
+    {
+        $frase =
+            "<br>El Id del Rol es: " . $this->getIdRol() .
+            ".<br>La descripcion es: " . $this->getRolDescripcion()."<br>";
+        return $frase;
     }
 }
 ?>

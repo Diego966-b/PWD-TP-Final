@@ -87,7 +87,7 @@ class AbmUsuario{
           }
         return $obj;
     }
-    
+
     /**
      * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto que son claves
      * @param array $param
@@ -95,10 +95,9 @@ class AbmUsuario{
     private function cargarObjetoConClave($param){
         $obj = null;
         
-        if( isset($param['idUsuario']) and (isset($param['usNombre'])) and (
-            isset($param['usPass'])) and (isset($param['usMail'])) and (isset($param['usDeshabilitado'])) ){
+        if (isset($param['idUsuario'])) {
             $obj = new Usuario();
-            $obj->setear($param['idUsaurio'], $param['usNombre'], $param['usPass'], $param['usMail'],$param['usDeshabilitado']);
+            $obj->setear($param['idUsaurio'], null, null, null,null);
         }
         return $obj;
     }
@@ -132,6 +131,24 @@ class AbmUsuario{
         }
         return $resp; 
     }
+
+    /**
+     * Realiza un alta logica, es decir setea en null el campo usDeshabilitado.
+     * Retorna un booleano.
+     * @param array $param
+     * @return boolean
+     */
+    public function altaLogica ($param){
+        $resp = false;
+        if ($this->seteadosCamposClaves($param)){
+            $objtUsers = $this->buscar($param);
+            $user=$objtUsers[0];
+            if($user->activarUsuario()){
+                $resp = true;
+            }
+        }
+        return $resp;
+    }
     
     /**
      * Borra un usuario de la BD. Espera un array como parametro.
@@ -162,24 +179,6 @@ class AbmUsuario{
             $objtUsers = $this->buscar($param);
             $user=$objtUsers[0];
             if( $user->eliminarLogico()){
-                $resp = true;
-            }
-        }
-        return $resp;
-    }
-
-    /**
-     * Realiza un alta logica, es decir setea en null el campo usDeshabilitado.
-     * Retorna un booleano.
-     * @param array $param
-     * @return boolean
-     */
-    public function altaLogica ($param){
-        $resp = false;
-        if ($this->seteadosCamposClaves($param)){
-            $objtUsers = $this->buscar($param);
-            $user=$objtUsers[0];
-            if($user->activarUsuario()){
                 $resp = true;
             }
         }

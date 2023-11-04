@@ -42,18 +42,20 @@ class AbmRol {
         }
         return $array;
     }
+
     /**
      * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto.
      * @param array $param
      */
-     private function cargarObjeto($param){
+    private function cargarObjeto($param)
+    {
         $obj = null;
         if(array_key_exists('idRol', $param) && array_key_exists('rolDescripcion', $param)){
             $obj = new Rol();
             $obj->setear($param['idRol'], $param['rolDescripcion']);
         }
         return $obj;
-     }
+    }
 
     /**
      * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto que son claves

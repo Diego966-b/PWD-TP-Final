@@ -1,7 +1,7 @@
 <?php
 class AbmUsuarioRol {
     
-    // Métodos
+    // Metodos
 
     /**
      * Funcion ABM. Espera un array de parametro. Indicando la accion a realizar.
@@ -58,14 +58,42 @@ class AbmUsuarioRol {
             $array = [];
             $array ['idUsuario'] = $param['idUsuario'];
             $array ['idRol'] = $param['idRol'];
-            $objUsuario = $abmUsuario -> buscar ($array);
-            $objRol = $abmRol -> buscar ($array);
-           //Fin modificacion Marco
+            // MODIFICADO!!!
+            $listaUsuarios = $abmUsuario -> buscar ($array);
+            $listaRoles = $abmRol -> buscar ($array);
+            $objUsuario = $listaUsuarios[0];
+            $objRol = $listaRoles[0];
+            // MODIFICADO!!!
+            //Fin modificacion Marco
             $obj -> setear($objUsuario, $objRol);
         }
         return $obj;
     }
 
+    /**
+     * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto que son claves.
+     * ES IGUAL A cargarObjeto()
+     * @param array $param
+     */
+    private function cargarObjetoConClave($param){
+        $obj = null;
+        if (isset($param['idUsuario']) && isset($param['idRol'])) {
+            $obj = new UsuarioRol();
+            $abmUsuario = new AbmUsuario ();
+            $abmRol = new AbmRol ();
+            $array = [];
+            $array ['idUsuario'] = $param['idUsuario'];
+            $array ['idRol'] = $param['idRol'];
+            // MODIFICADO!!!
+            $listaUsuarios = $abmUsuario -> buscar ($array);
+            $listaRoles = $abmRol -> buscar ($array);
+            $objUsuario = $listaUsuarios[0];
+            $objRol = $listaRoles[0];
+            // MODIFICADO!!!
+            $obj -> setear($objUsuario, $objRol);
+        }
+        return $obj;
+    }
     /**
      * Corrobora que dentro del arreglo asociativo estan seteados los campos claves
      * @param array $param

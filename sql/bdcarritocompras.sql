@@ -131,7 +131,7 @@ CREATE TABLE `menuRol` (
 
 CREATE TABLE `producto` (
   `idProducto` bigint(20) NOT NULL,
-  `proNombre` varchar(50) NOT NULL, -- !!! MODIFICACION MIA !!! ANTES ERA: `proNombre` int(11) NOT NULL,
+  `proNombre` varchar(50) NOT NULL, -- !!! MODIFICACDO ANTES ERA: `proNombre` int(11) NOT NULL,
   `proDetalle` varchar(512) NOT NULL,
   `proCantStock` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

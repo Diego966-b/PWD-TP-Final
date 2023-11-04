@@ -53,9 +53,12 @@ class UsuarioRol
                     $array = [];
                     $array ['idUsuario'] = $row['idUsuario'];
                     $array ['idRol'] = $row['idRol'];
-
-                    $objUsuario = $abmUsuario -> buscar ($array);
-                    $objRol = $abmRol -> buscar ($array);
+                    // MODIFICADO!!!
+                    $listaUsuarios = $abmUsuario -> buscar ($array);
+                    $listaRoles = $abmRol -> buscar ($array);
+                    $objUsuario = $listaUsuarios[0];
+                    $objRol = $listaRoles[0];
+                    // MODIFICADO!!!
                     $this->setear($objUsuario, $objRol);
                 }
             }
@@ -69,10 +72,14 @@ class UsuarioRol
     {
         $respuesta = false;
         $base = new BaseDatos();
-        $objUsuario = $this->getObjUsuario();
-        $objRol = $this->getObjRol();
-        $objUsuarioDeverdad = $objUsuario[0]; //Modificado por Marco
-        $objRolDeVerdad = $objRol[0]; //Modificado por Marco  
+        $objUsuarioDeverdad = $this->getObjUsuario();
+        $objRolDeVerdad = $this->getObjRol();
+        /*
+        MODIFICADO!!!
+            $objUsuarioDeverdad = $objUsuario[0]; //Modificado por Marco
+            $objRolDeVerdad = $objRol[0]; //Modificado por Marco  
+        MODIFICADO!!!
+        */
         $sql = 
         "INSERT INTO usuarioRol (idUsuario, idRol)
             VALUES ('" . $objUsuarioDeverdad->getIdUsuario() . "', '" . $objRolDeVerdad->getIdRol() . "')";
@@ -128,20 +135,30 @@ class UsuarioRol
                     $abmRol = new AbmRol ();
                     $obj = new UsuarioRol();
                     $array = [];
-
                     $array ['idUsuario'] = $row['idUsuario'];
-                    $objUsuario = $abmUsuario -> buscar ($array);
                     $array ['idRol'] = $row['idRol'];
-                    $objRol = $abmRol -> buscar ($array);
-                    
+                    // MODIFICADO!!!
+                    $listaUsuarios = $abmUsuario -> buscar ($array);
+                    $listaRoles = $abmRol -> buscar ($array);
+                    $objUsuario = $listaUsuarios[0];
+                    $objRol = $listaRoles[0];
+                    // MODIFICADO!!!
                     $obj->setear($objUsuario, $objRol);
                     array_push($arreglo, $obj);
                 }
             }
         } else {
-            $this->setMensajeoperacion("usuarioRol->listar: " . $base->getError());
+            //$this->setMensajeoperacion("usuarioRol->listar: " . $base->getError());
         }
         return $arreglo;
+    }
+
+    public function __toString()
+    {
+        $frase =
+            "<br>El obj. rol es: " . $this->getObjRol() .
+            ".<br>El obj. usuario es: " . $this->getObjUsuario()."<br>";
+        return $frase;
     }
 }
 ?>
