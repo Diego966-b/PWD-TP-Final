@@ -27,6 +27,7 @@ class Compra
         $this -> setCoFecha($coFecha);
         $this -> setObjUsuario($objUsuario);
     }
+    
     // Gets
 
     public function getIdCompra() { return $this->idCompra; }

@@ -155,9 +155,11 @@ class UsuarioRol
 
     public function __toString()
     {
+        $objRol = $this->getObjRol();
+        $objUsuario = $this -> getObjUsuario();
         $frase =
-            "<br>El obj. rol es: " . $this->getObjRol() .
-            ".<br>El obj. usuario es: " . $this->getObjUsuario()."<br>";
+            "<br>El id del rol es: " . $objRol->getIdRol() .
+            ".<br>El id del usuario es: " . $objUsuario->getIdUsuario()."<br>";
         return $frase;
     }
 }
