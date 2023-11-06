@@ -1,7 +1,7 @@
 <?php
     include_once("../../config.php");
-    $pagSeleccionada = "vistaPublica";
-    $rol = "cliente";
+    $pagSeleccionada = "";
+    $rol = "";
 ?>
 <!DOCTYPE html>
 <html lang="en">
