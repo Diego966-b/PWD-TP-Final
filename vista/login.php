@@ -16,15 +16,16 @@
         <div>
             <form name="loginForm" id="loginForm" method="post" action="<?php echo $VISTA; ?>/accion/verificarLogin.php" class="mb-3">
                 <label for="usNombre" class="form-label">Nombre de usuario</label>
-                <input type="text" class="form-control" id="usNombre" name="usNombre" placeholder="Pepe" value="Nombre">
+                <input type="text" class="form-control" id="usNombre" name="usNombre" placeholder="Pepe" value="cliente">
                 <br>
                 <label for="usPass" class="form-label">Contrase&ntilde;a</label>
-                <input type="password" class="form-control" id="usPass" name="usPass" placeholder="****" value="12345abc">
+                <input type="password" class="form-control" id="usPass" name="usPass" placeholder="****" value="1">
                 <input type="submit" value="Iniciar sesion" class="btn btn-success mt-4">
                 <a href="<?php echo $VISTA; ?>/registrarse.php" class="btn btn-primary mt-4">Registrarse</a>
             </form>
         </div>
     </div>
     <?php include($ESTRUCTURA . "/pie.php"); ?>
+    <script src="<?php echo $JS; ?>/validar.js"></script>
 </body>
 </html>

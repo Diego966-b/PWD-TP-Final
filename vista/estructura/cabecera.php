@@ -1,5 +1,4 @@
 <?php
-
     $rolCliente = [];
     array_push($rolCliente, "vistaPublica");
     array_push($rolCliente, "articulos");

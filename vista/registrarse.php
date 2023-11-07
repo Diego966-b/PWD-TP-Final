@@ -29,6 +29,6 @@
         </div>
     </div>
     <?php include($ESTRUCTURA . "/pie.php"); ?>
+    <script src="<?php echo $JS; ?>/validar.js"></script>
 </body>
-
 </html>

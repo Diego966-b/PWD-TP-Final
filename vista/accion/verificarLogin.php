@@ -21,12 +21,18 @@
         {
             $objSesion = new Sesion();
             $objSesion -> iniciar($nombreIngresado, $usPassEncriptada);
-            echo "<h1>Valido</h1>";
+            echo '
+            <div class="bg-success-subtle">
+                <h3 class="text-success fs-5 text-center p-3">Sesion iniciada, redirigiendo</h3>
+            </div>';
             header("Refresh: 2; URL='$VISTA/'");
         }
         else
         {
-            echo "<h1>NoValido</h1>";
+            echo '
+            <div class="bg-danger">
+                <h3 class="fs-5 text-center p-3">Error, usuario o contrase&ntilde;a incorrectos, redirigiendo</h3>
+            </div>';
             header("Refresh: 2; URL='$VISTA/login.php'");
         }
     ?>

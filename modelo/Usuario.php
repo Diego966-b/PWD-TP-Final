@@ -78,8 +78,8 @@ class Usuario
         $base = new BaseDatos();
         // no paso el id por que es autoIncrement
         $sql = 
-        "INSERT INTO usuario (usNombre,usPass,usMail,usDeshabilitado)  
-        VALUES('" . $this->getUsNombre() . "','" . $this->getUsPass() . "','" . $this->getUsMail() . "','" . $this->getUsDeshabilitado() . "');";
+        "INSERT INTO usuario (usNombre, usPass, usMail, usDeshabilitado)  
+        VALUES('" . $this->getUsNombre() . "', '" . $this->getUsPass() . "', '" . $this->getUsMail() . "', NULL);"; // MODIFICADO!!!
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;

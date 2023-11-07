@@ -37,9 +37,6 @@ class AbmUsuario{
             }
             if($datos['accion']=='nuevo')
             {
-                $objEncriptar = new Encriptar();
-                $passEncriptada = $objEncriptar -> encriptarMd5($datos ["usPass"]);
-                $datos["usPass"] = $passEncriptada;
                 if ($this->alta($datos)) {
                     $array ["exito"] = true;
                 }
@@ -65,9 +62,9 @@ class AbmUsuario{
                 }
             }
             if ($array ["exito"]) {
-                $array ["mensaje"] = "<h3 class='text-success'>La accion " . $datos['accion'] . " se realizo correctamente.</h3>";
+                $array ["mensaje"] = "La accion " . $datos['accion'] . " se realizo correctamente.";
             } else {
-                $array ["mensaje"] = "<h3 class='text-danger'>La accion " . $datos['accion'] . " no pudo concretarse.</h3>";
+                $array ["mensaje"] = "La accion " . $datos['accion'] . " no pudo concretarse.";
             } 
         }
         return $array;
@@ -80,10 +77,9 @@ class AbmUsuario{
     private function cargarObjeto($param){
         $obj = null;
         if( array_key_exists('idUsuario',$param) and array_key_exists('usNombre',$param)and
-        array_key_exists('usPass',$param) and array_key_exists('usMail',$param)  
-        ){
+        array_key_exists('usPass',$param) and array_key_exists('usMail',$param)){
             $obj = new Usuario();
-            $obj->setear($param['idUsuario'], $param['usNombre'], $param['usPass'], $param['usMail'],null);
+            $obj->setear($param['idUsuario'], $param['usNombre'], $param['usPass'], $param['usMail'], null);
           }
         return $obj;
     }
@@ -124,7 +120,7 @@ class AbmUsuario{
      */
     public function alta($param){
         $resp = false;
-        $param['idUsuario'] =null; // MODIFICADO!!!
+        $param['idUsuario'] = null; // MODIFICADO!!!
         $elObjtUser= $this->cargarObjeto($param);
         if ($elObjtUser!=null and $elObjtUser->insertar()){
             $resp = true;
@@ -210,10 +206,10 @@ class AbmUsuario{
     public function darRoles($param){
         $where = " true ";
         if ($param<>NULL){
-            if  (isset($param['idusuario']))
-                $where.=" and idusuario =".$param['idusuario'];
-            if  (isset($param['idrol']))
-                $where.=" and idrol ='".$param['idrol']."'";
+            if  (isset($param['idUsuario']))
+                $where.=" and idUsuario =".$param['idUsuario'];
+            if  (isset($param['idRol']))
+                $where.=" and idRol ='".$param['idRol']."'";
         }
         $obj = new UsuarioRol();
         $arreglo = $obj->listar($where);
@@ -228,9 +224,9 @@ class AbmUsuario{
      */
     public function borrarRol($param){
         $resp = false;
-        if(isset($param['idusuario']) && isset($param['idrol'])){
+        if(isset($param['idUsuario']) && isset($param['idRol'])){
             $elObjUsuarioRol = new UsuarioRol();
-            $elObjUsuarioRol->setearConClave($param['idusuario'],$param['idrol']);
+            $elObjUsuarioRol->setearConClave($param['idUsuario'],$param['idRol']);
             $resp = $elObjUsuarioRol->eliminar();
         }
         return $resp;
@@ -244,9 +240,9 @@ class AbmUsuario{
      */
     public function altaRol($param){
         $resp = false;
-        if(isset($param['idusuario']) && isset($param['idrol'])){
+        if(isset($param['idUsuario']) && isset($param['idRol'])){
             $elObjUsuarioRol = new UsuarioRol();
-            $elObjUsuarioRol -> setearConClave($param['idusuario'],$param['idrol']);
+            $elObjUsuarioRol -> setearConClave($param);
             $resp = $elObjUsuarioRol->insertar();
         }
         return $resp;  

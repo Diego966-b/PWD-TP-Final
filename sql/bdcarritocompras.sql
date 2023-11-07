@@ -156,9 +156,9 @@ CREATE TABLE `rol` (
 CREATE TABLE `usuario` (
   `idUsuario` bigint(20) NOT NULL,
   `usNombre` varchar(50) NOT NULL,
-  `usPass` varchar(50) NOT NULL, -- MODIFICADO!!! ANTES ERA int(11)
+  `usPass` varchar(50) NOT NULL, -- MODIFICADO!!! ANTES ERA: int(11)
   `usMail` varchar(50) NOT NULL,
-  `usDeshabilitado` timestamp NULL DEFAULT NULL
+  `usDeshabilitado` timestamp NULL DEFAULT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

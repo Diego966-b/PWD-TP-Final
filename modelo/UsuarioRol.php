@@ -153,6 +153,14 @@ class UsuarioRol
         return $arreglo;
     }
 
+    public function setearConClave($param){
+        // print_r($param);
+        $objRol = $this -> getObjRol();
+        $objUsuario = $this -> getObjUsuario();
+        $objRol->setIdRol($param['idRol']);
+        $objUsuario->setIdUsuario($param['idUsuario']);
+    }
+
     public function __toString()
     {
         $objRol = $this->getObjRol();
