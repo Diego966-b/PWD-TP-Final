@@ -34,33 +34,28 @@
             echo 
             '<h2 class="m-3"><a class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover '.$seleccionado.'" href="'.$VISTA.'/'.$rolCliente[$i].'.php">'.$rolCliente[$i].'</a></h2>';
         }
-        echo "</div>";
     }
     if ($rol == "noSeguro")
     {
-        echo "<div class='d-flex justify-content-center'>";
         echo '<h2 class="m-3 link-light">Rol NoSeguro:</h2>';
         for ($i = 0; $i < count($rolNoSeguro); $i++) {
             $seleccionado = ($pagSeleccionada == $rolNoSeguro[$i]) ? "link-underline-light link-underline-opacity-100" : "";
             echo 
             '<h2 class="m-3"><a class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover '.$seleccionado.'" href="'.$VISTA.'/'.$rolNoSeguro[$i].'.php">'.$rolNoSeguro[$i].'</a></h2>';
         }
-        echo "</div>";
     }
     if ($rol == "deposito")
     {
-        echo "<div class='d-flex justify-content-center'>";
         echo '<h2 class="m-3 link-light">Rol Deposito:</h2>';
         for ($i = 0; $i < count($rolDeposito); $i++) {
             $seleccionado = ($pagSeleccionada == $rolDeposito[$i]) ? "link-underline-light link-underline-opacity-100" : "";
             echo 
             '<h2 class="m-3"><a class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover '.$seleccionado.'" href="'.$VISTA.'/'.$rolDeposito[$i].'.php">'.$rolDeposito[$i].'</a></h2>';
         }
-        echo "</div>";
+        
     }
     if ($rol == "admin")
     {
-        echo "<div class='d-flex justify-content-center'>";
         echo '<h2 class="m-3 link-light">Rol Admin:</h2>';
         for ($i = 0; $i < count($rolAdmin); $i++) {
             $seleccionado = ($pagSeleccionada == $rolAdmin[$i]) ? "link-underline-light link-underline-opacity-100" : "";
@@ -68,43 +63,7 @@
             '<h2 class="m-3"><a class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover '.$seleccionado.'" href="'.$VISTA.'/'.$rolAdmin[$i].'.php">'.$rolAdmin[$i].'</a></h2>';
         }
     }
-    // Todos los roles juntos: 
-    // Cliente:
-    /*
-    echo '<h2 class="m-3 link-light">Rol cliente:</h2>';
-    for ($i = 0; $i < count($rolCliente); $i++) {
-        $seleccionado = ($pagSeleccionada == $rolCliente[$i]) ? "link-underline-light link-underline-opacity-100" : "";
-        echo 
-        '<h2 class="m-3"><a class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover '.$seleccionado.'" href="'.$VISTA.'/'.$rolCliente[$i].'.php">'.$rolCliente[$i].'</a></h2>';
-    }
+    echo "<h2 class='m-3'><a class='link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover' href=".$VISTA."/home/index.php>Home</a></h2>";
     echo "</div>";
-    // noSeguro:
-    echo "<div class='d-flex justify-content-center'>";
-    echo '<h2 class="m-3 link-light">Rol NoSeguro:</h2>';
-    for ($i = 0; $i < count($rolNoSeguro); $i++) {
-        $seleccionado = ($pagSeleccionada == $rolNoSeguro[$i]) ? "link-underline-light link-underline-opacity-100" : "";
-        echo 
-        '<h2 class="m-3"><a class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover '.$seleccionado.'" href="'.$VISTA.'/'.$rolNoSeguro[$i].'.php">'.$rolNoSeguro[$i].'</a></h2>';
-    }
-    echo "</div>";
-    // deposito:
-    echo "<div class='d-flex justify-content-center'>";
-    echo '<h2 class="m-3 link-light">Rol Deposito:</h2>';
-    for ($i = 0; $i < count($rolDeposito); $i++) {
-        $seleccionado = ($pagSeleccionada == $rolDeposito[$i]) ? "link-underline-light link-underline-opacity-100" : "";
-        echo 
-        '<h2 class="m-3"><a class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover '.$seleccionado.'" href="'.$VISTA.'/'.$rolDeposito[$i].'.php">'.$rolDeposito[$i].'</a></h2>';
-    }
-    echo "</div>";
-    // admin:
-    echo "<div class='d-flex justify-content-center'>";
-    echo '<h2 class="m-3 link-light">Rol Admin:</h2>';
-    for ($i = 0; $i < count($rolAdmin); $i++) {
-        $seleccionado = ($pagSeleccionada == $rolAdmin[$i]) ? "link-underline-light link-underline-opacity-100" : "";
-        echo 
-        '<h2 class="m-3"><a class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover '.$seleccionado.'" href="'.$VISTA.'/'.$rolAdmin[$i].'.php">'.$rolAdmin[$i].'</a></h2>';
-    }
-    */
-?>
-       
+?>    
 </div>
