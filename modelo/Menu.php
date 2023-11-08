@@ -162,5 +162,11 @@ class Menu {
         } 
         return $arreglo;
     }
+
+    public function __toString()
+    {
+        $frase = "Datos del objMenu: ".$this -> GetMeDeshabilitado(). $this -> getObjMenu(). $this -> getMeDescripcion().$this -> getMeNombre(). $this -> getIdMenu();
+        return $frase;
+    }
 }
 ?>

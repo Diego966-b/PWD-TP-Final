@@ -173,7 +173,24 @@ class AbmMenuRol {
             }
         }
         $arreglo = MenuRol::listar($where);
+        //echo "<br>".print_r($arreglo)."<br>";
         return $arreglo;  
+    }
+
+
+    public function darMenusPorRol($idRolActual)
+    {
+        $arrayMenus = [];
+        $array = [];
+        $array ["idRol"] = $idRolActual;
+        $listaMenus = $this -> buscar($array);
+        foreach ($listaMenus as $objMenuRol)
+        {
+            $objMenu = $objMenuRol -> getObjMenu();
+            echo "<br>".$objMenu."<br>";
+            array_push($arrayMenus, $objMenu);
+        }
+        return $arrayMenus;
     }
 }
 ?>

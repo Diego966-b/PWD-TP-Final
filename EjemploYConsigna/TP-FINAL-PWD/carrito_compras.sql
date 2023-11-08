@@ -20,7 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `carrito_compras`
 --
-
+drop database carrito_compras;
+create database carrito_compras;
+use carrito_compras;
 -- --------------------------------------------------------
 
 --

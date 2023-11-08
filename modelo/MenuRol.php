@@ -22,7 +22,7 @@ class MenuRol
     public function setear($objRol, $objMenu)
     {
         $this -> setObjRol($objRol);
-        $this -> setObjRol($objMenu);
+        $this -> setObjMenu($objMenu);
     }
 
     // Gets
@@ -128,6 +128,7 @@ class MenuRol
         $res = $base->Ejecutar($sql);
         if ($res > -1) {
             if ($res > 0) {
+                $i = 0;
                 while ($row = $base->Registro()) {
                     $obj = new MenuRol();
                     $abmMenu = new AbmMenu();
@@ -138,11 +139,12 @@ class MenuRol
                     // MODIFICADO!!!
                     $listaMenus = $abmMenu -> buscar ($array);
                     $listaRoles = $abmRol -> buscar ($array);
-                    $objMenu = $listaMenus[0];
+                    $objMenu = $listaMenus[$i];
                     $objRol = $listaRoles[0]; // Si hay mas de 1 rol aca priorizaria el primero que encuentra!!!
                     // MODIFICADO!!!
                     $obj->setear($objRol, $objMenu);
                     array_push($arreglo, $obj);
+                    $i ++;
                 }
             }
         } else {

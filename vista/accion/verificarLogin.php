@@ -25,7 +25,7 @@
             <div class="bg-success-subtle">
                 <h3 class="text-success fs-5 text-center p-3">Sesion iniciada, redirigiendo</h3>
             </div>';
-            header("Refresh: 2; URL='$VISTA/'");
+            header("Refresh: 2; URL='$VISTA/usuarios/usuarios.php'");
         }
         else
         {

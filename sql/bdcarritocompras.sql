@@ -106,11 +106,13 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`idMenu`, `meNombre`, `meDescripcion`, `idPadre`, `meDeshabilitado`) VALUES
-(7, 'nuevo', 'kkkkk', NULL, NULL),
-(8, 'nuevo', 'kkkkk', NULL, NULL),
-(9, 'nuevo', 'kkkkk', 7, NULL),
-(10, 'nuevo', 'kkkkk', NULL, NULL),
-(11, 'nuevo', 'kkkkk', NULL, NULL);
+(1, 'Productos', '../Productos/Productos.php', NULL, NULL),
+(2, 'Mis Compras', '../', NULL, NULL),
+(3, 'Mi Perfil', '', NULL, NULL),
+(4, 'Usuarios', '../usuarios/usuarios.php', NULL, NULL),
+(5, 'Permisos', '', NULL, NULL),
+(6, 'Estado de Compras', '', NULL, NULL),
+(7, 'Listar Productos', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -122,6 +124,19 @@ CREATE TABLE `menuRol` (
   `idMenu` bigint(20) NOT NULL,
   `idRol` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `menurol`
+--
+
+INSERT INTO `menurol` (`idMenu`, `idRol`) VALUES
+(4, 1), -- 1 - admin
+(5, 1), -- 2 - cliente
+(1, 2), -- 3 - deposito
+(2, 2),
+(3, 2),
+(6, 3),
+(7, 3);
 
 -- --------------------------------------------------------
 
@@ -146,6 +161,15 @@ CREATE TABLE `rol` (
   `idRol` bigint(20) NOT NULL,
   `rolDescripcion` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `rol`
+--
+
+INSERT INTO `rol` (`idRol`, `rolDescripcion`) VALUES
+(1, 'admin'),
+(2, 'cliente'),
+(3, 'deposito');
 
 -- --------------------------------------------------------
 

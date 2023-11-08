@@ -127,7 +127,7 @@ class Sesion
         {
             $obj = new AbmUsuario();
             $param ['idUsuario'] = $_SESSION ['idUsuario'];
-            $resultado = $obj -> buscar ($param); // Usa: $obj -> darRoles ($param);
+            $resultado = $obj -> darRoles ($param);
             if (count($resultado) > 0)
             {
                 $listaRoles = $resultado [0];
