@@ -114,14 +114,14 @@ INSERT INTO `menu` (`idMenu`, `meNombre`, `meDescripcion`, `idPadre`, `meDeshabi
 -- deposito:
 (5, 'Gestionar Articulos', '../articulos/gestionarArticulos.php', NULL, NULL),
                 -- (6, 'Nuevo Articulo', '../', NULL, NULL),
-(7, 'Gestionar Compras', '../compras/gestionarCompras.php', NULL, NULL),
+(6, 'Gestionar Compras', '../compras/gestionarCompras.php', NULL, NULL),
 -- admin:
-(8, 'Gestionar Usuarios', '../usuarios/usuarios.php', NULL, NULL),
+(7, 'Gestionar Usuarios', '../usuarios/usuarios.php', NULL, NULL),
             -- (9, 'Nuevo Usuario', '../usuarios/usuarios.php', NULL, NULL),
-(10, 'Gestionar Roles', '../roles/roles.php', NULL, NULL),
+(8, 'Gestionar Roles', '../roles/roles.php', NULL, NULL),
             -- (11, 'Nuevo Rol', '../usuarios/usuarios.php', NULL, NULL),
             -- (12, 'Nuevo Menu', '../usuarios/usuarios.php', NULL, NULL),
-(13, 'Gestionar Menus', '../menus/menus.php', NULL, NULL);
+(9, 'Gestionar Menus', '../menus/menus.php', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -149,14 +149,10 @@ INSERT INTO `menuRol` (`idMenu`, `idRol`) VALUES
 -- Deposito:
 (5, 3),
 (6, 3),
-(7, 3),
 -- Admin:
+(7, 1),
 (8, 1),
-(9, 1),
-(10, 1),
-(11, 1),
-(12, 1),
-(13, 1);
+(9, 1);
 
 -- --------------------------------------------------------
 
