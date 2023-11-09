@@ -9,7 +9,7 @@
     <?php include_once($ESTRUCTURA."/cabeceraBD.php"); 
     if ($objSession->validar())
     {
-        $tienePermiso = $objSession -> tienePermiso (2); // Id del rol dependiendo de la pag. 
+        $tienePermiso = $objSession -> tienePermiso (1); // Id del rol dependiendo de la pag. 
         echo $tienePermiso;
         if (!$tienePermiso)
         {

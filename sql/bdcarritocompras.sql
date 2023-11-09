@@ -107,21 +107,21 @@ CREATE TABLE `menu` (
 
 INSERT INTO `menu` (`idMenu`, `meNombre`, `meDescripcion`, `idPadre`, `meDeshabilitado`) VALUES
 -- cliente:
-(1, 'Productos', '../Productos/Productos.php', NULL, NULL),
-(2, 'Mi Perfil', '', NULL, NULL),
-(3, 'Carrito', '', NULL, NULL),
-(4, 'Mis Compras', '../', NULL, NULL),
+(1, 'Productos', '../productos/productos.php', NULL, NULL),
+(2, 'Mi Perfil', '../usuarios/perfil.php', NULL, NULL),
+(3, 'Carrito', '../carrito/carrito.php', NULL, NULL),
+(4, 'Mis Compras', '../usuarios/compras.php', NULL, NULL),
 -- deposito:
-(5, 'Gestionar Articulos', '../', NULL, NULL),
-(6, 'Nuevo Articulo', '../', NULL, NULL),
-(7, 'Gestionar Compras', '../', NULL, NULL),
+(5, 'Gestionar Articulos', '../articulos/gestionarArticulos.php', NULL, NULL),
+                -- (6, 'Nuevo Articulo', '../', NULL, NULL),
+(7, 'Gestionar Compras', '../compras/gestionarCompras.php', NULL, NULL),
 -- admin:
 (8, 'Gestionar Usuarios', '../usuarios/usuarios.php', NULL, NULL),
-(9, 'Nuevo Usuario', '../usuarios/usuarios.php', NULL, NULL),
-(10, 'Gestionar Roles', '../usuarios/usuarios.php', NULL, NULL),
-(11, 'Nuevo Rol', '../usuarios/usuarios.php', NULL, NULL),
-(12, 'Nuevo Menu', '../usuarios/usuarios.php', NULL, NULL),
-(13, 'Gestionar Rol', '../usuarios/usuarios.php', NULL, NULL);
+            -- (9, 'Nuevo Usuario', '../usuarios/usuarios.php', NULL, NULL),
+(10, 'Gestionar Roles', '../roles/roles.php', NULL, NULL),
+            -- (11, 'Nuevo Rol', '../usuarios/usuarios.php', NULL, NULL),
+            -- (12, 'Nuevo Menu', '../usuarios/usuarios.php', NULL, NULL),
+(13, 'Gestionar Menus', '../menus/menus.php', NULL, NULL);
 
 -- --------------------------------------------------------
 

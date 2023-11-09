@@ -11,7 +11,6 @@
         $objMenuRol = new AbmMenuRol();
         $objRol = new AbmRol();
         $menues = $objMenuRol->darMenusPorRol($idRol);
-        
         // $objRoles = $objRol->obtenerObj($idRoles);
     }
     else
