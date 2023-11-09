@@ -121,7 +121,11 @@ INSERT INTO `menu` (`idMenu`, `meNombre`, `meDescripcion`, `idPadre`, `meDeshabi
 (8, 'Gestionar Roles', '../roles/roles.php', NULL, NULL),
             -- (11, 'Nuevo Rol', '../usuarios/usuarios.php', NULL, NULL),
             -- (12, 'Nuevo Menu', '../usuarios/usuarios.php', NULL, NULL),
-(9, 'Gestionar Menus', '../menus/menus.php', NULL, NULL);
+(9, 'Gestionar Menus', '../menus/menus.php', NULL, NULL),
+-- Usuario sin rol:
+(10, 'Iniciar Sesion', '../acceso/login.php', NULL, NULL),
+(11, 'Registrarse', '../acceso/registrarse.php', NULL, NULL),
+(12, 'Home', '../home/index.php', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -146,14 +150,17 @@ INSERT INTO `menuRol` (`idMenu`, `idRol`) VALUES
 (2, 2),
 (3, 2),
 (4, 2),
+(12, 2),
 -- Deposito:
 (5, 3),
 (6, 3),
+(12, 3),
 -- Admin:
 (7, 1),
 (8, 1),
-(9, 1);
- 
+(9, 1),
+(12, 1);
+
 -- --------------------------------------------------------
 
 --

@@ -151,4 +151,42 @@ class Session
         }
         return $tienePermiso;
     }   
+
+    /**
+     * 
+     */
+    public function tienePermisoPorUsuario ($objUsuario)
+    {
+        
+        $tienePermiso = false;
+        /*
+        $array ["idUsuario"] = $objUsuario -> getIdUsuario();
+        $abmUsuarioRol = new AbmUsuarioRol ();
+        $objUsuarioRol = $abmUsuarioRol -> buscar($array);
+        $objUsuarioRol = $objUsuarioRol [0];
+
+        $objRol = $objUsuarioRol -> getObjRol();
+        $idRol = $objRol -> getIdRol();
+        $arregloIdRol = [];
+        $arregloIdRol ["idRol"] = $idRol;
+        $arreglo = [];
+        $arreglo ["idRol"] = $idRol;
+
+
+
+
+
+
+
+        $tienePermiso = false;
+        $objSession = new Session();
+        $listaRoles = $objSession -> getRol();
+        $idRol = $listaRoles -> getObjRol() -> getIdRol();
+        if (($listaRoles <> null) && ($idRol == $idRolIngresado))
+        {
+            $tienePermiso = true;
+        }
+        */
+        return $tienePermiso;
+    }   
 }

@@ -159,7 +159,6 @@ class AbmUsuarioRol {
      * Busca en la BD con o sin parametros. Espera un array como parametro.
      * Retorna un array con lo encontrado.
      * @param array $param
-     * @return array
      */
     public function buscar($param){
         $where = " true ";

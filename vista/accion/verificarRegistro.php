@@ -1,7 +1,6 @@
 <?php
     include_once("../../config.php");
-    $pagSeleccionada = "registrarse";
-    $rol = "noSeguro";
+    $pagSeleccionada = "Registrarse";
     $colDatos = devolverDatos();
     $usPassIngresada = $colDatos ["usPass"];
     $usNombreIngresado = $colDatos ["usNombre"];

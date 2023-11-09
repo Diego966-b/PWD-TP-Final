@@ -4,20 +4,28 @@
     $sesionValida = $objSession->validar();
     $menues = [];
     if ($sesionValida) {
+        /*
         $objUsuarioRol = $objSession->getRol();
         $objRol = $objUsuarioRol -> getObjRol();
         $idRol = $objRol -> getIdRol();
-        // echo "IDROL: ".$idRol."<br>";
-        $objMenuRol = new AbmMenuRol();
+        echo "IDROL: ".$idRol."<br>";
         $objRol = new AbmRol();
-        $menues = $objMenuRol->darMenusPorRol($idRol);
+        */
+        $objMenuRol = new AbmMenuRol();
+        $menues = $objMenuRol->darMenusPorUsuario($objSession->getUsuario());
         // $objRoles = $objRol->obtenerObj($idRoles);
     }
     else
     {
-        //$objSession -> cerrar();
-        //header("Refresh: 2; URL='$VISTA/acceso/login.php'");
-        //echo session_status();
+        $abmMenu = new AbmMenu();
+        $array = [];
+        $array ["idMenu"] = 10;
+        $menu = $abmMenu -> buscar($array);
+        $menues = [];
+        array_push($menues, $menu[0]);
+        $array ["idMenu"] = 11;
+        $menu = $abmMenu -> buscar($array);
+        array_push($menues, $menu[0]);
     }
 ?>
 <div class="bg-dark sticky-top">
@@ -41,34 +49,6 @@
         <input class="m-3 p-2"type="submit" value="Cerrar Sesion">
         </form>';
     }
-    else
-    {
-        $nombrePagina = [];
-        array_push($nombrePagina, "Iniciar Sesion");
-        array_push($nombrePagina, "Registrarse");
-        //array_push($nombrePagina, "Vista Segura");
-        $ubicacionPagina = [];
-        array_push($ubicacionPagina, "/acceso/login");
-        array_push($ubicacionPagina, "/acceso/registrarse");
-        //array_push($ubicacionPagina, "UBICACIONVISTASEGURA");
-        for ($i = 0; $i < count($nombrePagina); $i++)
-        {
-            $seleccionado = ($pagSeleccionada == $nombrePagina[$i]) ? "link-underline-light link-underline-opacity-100" : "";
-            echo 
-            '<h2 class="m-3">
-            <a class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover '.$seleccionado.'" href="'.$VISTA.$ubicacionPagina[$i].'.php">
-            '.$nombrePagina[$i].'
-            </a>
-            </h2>';
-        }
-    }
-    $seleccionado = ($pagSeleccionada == "Home") ? "link-underline-light link-underline-opacity-100" : "";
-    echo 
-    '<h2 class="m-3">
-    <a class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover '.$seleccionado.'" href="'.$VISTA.'/home/index.php">
-    Home
-    </a>
-    </h2>';
 ?>
     </div>
 </div>

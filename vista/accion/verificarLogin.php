@@ -1,7 +1,6 @@
 <?php
     include_once("../../config.php");
-    $pagSeleccionada = "login";
-    $rol = "noSeguro";
+    $pagSeleccionada = "Iniciar Sesion";
     $colDatos = devolverDatos();
     $contraseniaIngresada = $colDatos ["usPass"];
     $nombreIngresado = $colDatos ["usNombre"];

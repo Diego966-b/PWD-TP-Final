@@ -1,7 +1,6 @@
 <?php
     include_once("../../config.php");
     $pagSeleccionada = "Registrarse";
-    $rol = "noSeguro";
 ?>
 <!DOCTYPE html>
 <html lang="en">

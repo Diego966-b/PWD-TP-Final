@@ -195,5 +195,33 @@ class AbmMenuRol {
         }
         return $arrayMenus;
     }
+
+    public function darMenusPorUsuario($objUsuario)
+    {
+        $arrayMenus = [];
+        $array ["idUsuario"] = $objUsuario -> getIdUsuario();
+        //$abmUsuario = new AbmUsuario();
+        $abmUsuarioRol = new AbmUsuarioRol ();
+        // $objUsuario = $abmUsuario -> buscar ($array);
+        // $objUsuario = $objUsuario [0];
+        $objUsuarioRol = $abmUsuarioRol -> buscar($array);
+        $objUsuarioRol = $objUsuarioRol [0];
+
+        $objRol = $objUsuarioRol -> getObjRol();
+        $idRol = $objRol -> getIdRol();
+        $arregloIdRol = [];
+        $arregloIdRol ["idRol"] = $idRol;
+        $arreglo = [];
+        $arreglo ["idRol"] = $idRol;
+
+        $abmMenuRol = new AbmMenuRol();
+        $listaMenus = $abmMenuRol -> buscar($arreglo);
+        foreach ($listaMenus as $objMenuRol)
+        {
+            $objMenu = $objMenuRol -> getObjMenu();
+            array_push($arrayMenus, $objMenu);
+        }
+        return $arrayMenus;
+    }
 }
 ?>
