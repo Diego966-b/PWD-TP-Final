@@ -12,20 +12,20 @@
     <?php include_once($ESTRUCTURA."/header.php");?>
 </head>
 <body>
-    <?php include_once($ESTRUCTURA."/cabecera.php");
+    <?php include_once($ESTRUCTURA."/cabeceraBD.php");
         $objEncriptar = new Encriptar();
         $objUsuarioAuth = new UsuarioAuth();
         $usPassEncriptada = $objEncriptar -> encriptarMd5($contraseniaIngresada);
         $valido = $objUsuarioAuth -> validarCredenciales($nombreIngresado, $usPassEncriptada);
         if ($valido)
         {
-            $objSesion = new Sesion();
+            $objSesion = new Session();
             $objSesion -> iniciar($nombreIngresado, $usPassEncriptada);
             echo '
             <div class="bg-success-subtle">
                 <h3 class="text-success fs-5 text-center p-3">Sesion iniciada, redirigiendo</h3>
             </div>';
-            header("Refresh: 2; URL='$VISTA/usuarios/usuarios.php'");
+            header("Refresh: 2; URL='$VISTA/home/index.php'");
         }
         else
         {
@@ -33,7 +33,7 @@
             <div class="bg-danger">
                 <h3 class="fs-5 text-center p-3">Error, usuario o contrase&ntilde;a incorrectos, redirigiendo</h3>
             </div>';
-            header("Refresh: 2; URL='$VISTA/login.php'");
+            header("Refresh: 2; URL='$VISTA/acceso/login.php'");
         }
     ?>
     <?php include_once($ESTRUCTURA."/pie.php");?>

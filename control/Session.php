@@ -9,7 +9,7 @@ Implementar dentro de la capa de Control la clase Session con los siguientes mé
 • getRol(). Devuelve el rol del usuario  logeado.
 • cerrar(). Cierra la sesión actual.
 */
-class Sesion
+class Session
 {
 
     // Métodos 
@@ -135,4 +135,20 @@ class Sesion
             return $listaRoles;
         }
     }
+
+    /**
+     * 
+     */
+    public function tienePermiso ($idRolIngresado)
+    {
+        $tienePermiso = false;
+        $objSession = new Session();
+        $listaRoles = $objSession -> getRol();
+        $idRol = $listaRoles -> getObjRol() -> getIdRol();
+        if (($listaRoles <> null) && ($idRol == $idRolIngresado))
+        {
+            $tienePermiso = true;
+        }
+        return $tienePermiso;
+    }   
 }

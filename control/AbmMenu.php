@@ -106,12 +106,10 @@ class AbmMenu{
      */
     public function buscar($param){
         $where = " true ";
-        /*if ($param<>NULL){
-            if  (isset($param['id']))
-                $where.=" and id =".$param['id'];
-            if  (isset($param['descrip']))
-                 $where.=" and descrip ='".$param['descrip']."'";
-        }*/
+        if ($param<>NULL){
+            if  (isset($param['idMenu']))
+                $where.=" and idMenu =".$param['idMenu'];
+        }
         $arreglo = Menu::listar($where);  
         return $arreglo;
     }

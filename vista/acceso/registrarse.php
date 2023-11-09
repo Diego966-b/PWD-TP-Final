@@ -1,6 +1,6 @@
 <?php
-    include_once("../config.php");
-    $pagSeleccionada = "registrarse";
+    include_once("../../config.php");
+    $pagSeleccionada = "Registrarse";
     $rol = "noSeguro";
 ?>
 <!DOCTYPE html>
@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo $CSS ?>/estilos.css">
 </head>
 <body>
-    <?php include($ESTRUCTURA . "/cabecera.php"); ?>
+    <?php include($ESTRUCTURA . "/cabeceraBD.php"); ?>
     <div class="container text-center p-4 mt-3 cajaLista col-4">
         <h3>Registro</h3>
         <div>

@@ -1,20 +1,14 @@
 <?php
     include_once("../../config.php");
-    $pagSeleccionada = "vistaPublica";
+    $pagSeleccionada = "Home";
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include_once($ESTRUCTURA."/header.php"); 
-    $rol = "cliente";
-    include($ESTRUCTURA."/cabecera.php");
-    $rol = "noSeguro";
-    include($ESTRUCTURA."/cabecera.php");
-    $rol = "deposito";
-    include($ESTRUCTURA."/cabecera.php");
-    $rol = "admin";
-    include($ESTRUCTURA."/cabecera.php");
-    ?>
+    <?php include_once($ESTRUCTURA."/header.php"); ?>
+    <h2>adw</h2>
+    <a href="../pagSegura/pagSegura.php">PagSegura</a>
+    <?php include_once($ESTRUCTURA."/cabeceraBD.php"); ?>
 </head>
 <body>
     <?php include_once($ESTRUCTURA."/pie.php"); ?>

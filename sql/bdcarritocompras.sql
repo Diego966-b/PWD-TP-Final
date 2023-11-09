@@ -106,13 +106,22 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`idMenu`, `meNombre`, `meDescripcion`, `idPadre`, `meDeshabilitado`) VALUES
+-- cliente:
 (1, 'Productos', '../Productos/Productos.php', NULL, NULL),
-(2, 'Mis Compras', '../', NULL, NULL),
-(3, 'Mi Perfil', '', NULL, NULL),
-(4, 'Usuarios', '../usuarios/usuarios.php', NULL, NULL),
-(5, 'Permisos', '', NULL, NULL),
-(6, 'Estado de Compras', '', NULL, NULL),
-(7, 'Listar Productos', '', NULL, NULL);
+(2, 'Mi Perfil', '', NULL, NULL),
+(3, 'Carrito', '', NULL, NULL),
+(4, 'Mis Compras', '../', NULL, NULL),
+-- deposito:
+(5, 'Gestionar Articulos', '../', NULL, NULL),
+(6, 'Nuevo Articulo', '../', NULL, NULL),
+(7, 'Gestionar Compras', '../', NULL, NULL),
+-- admin:
+(8, 'Gestionar Usuarios', '../usuarios/usuarios.php', NULL, NULL),
+(9, 'Nuevo Usuario', '../usuarios/usuarios.php', NULL, NULL),
+(10, 'Gestionar Roles', '../usuarios/usuarios.php', NULL, NULL),
+(11, 'Nuevo Rol', '../usuarios/usuarios.php', NULL, NULL),
+(12, 'Nuevo Menu', '../usuarios/usuarios.php', NULL, NULL),
+(13, 'Gestionar Rol', '../usuarios/usuarios.php', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -128,15 +137,26 @@ CREATE TABLE `menuRol` (
 --
 -- Volcado de datos para la tabla `menurol`
 --
-
-INSERT INTO `menurol` (`idMenu`, `idRol`) VALUES
-(4, 1), -- 1 - admin
-(5, 1), -- 2 - cliente
-(1, 2), -- 3 - deposito
+INSERT INTO `menuRol` (`idMenu`, `idRol`) VALUES
+-- 1 - admin
+-- 2 - cliente
+-- 3 - deposito
+-- Cliente:
+(1, 2),
 (2, 2),
 (3, 2),
+(4, 2),
+-- Deposito:
+(5, 3),
 (6, 3),
-(7, 3);
+(7, 3),
+-- Admin:
+(8, 1),
+(9, 1),
+(10, 1),
+(11, 1),
+(12, 1),
+(13, 1);
 
 -- --------------------------------------------------------
 
@@ -185,6 +205,16 @@ CREATE TABLE `usuario` (
   `usDeshabilitado` timestamp NULL DEFAULT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+--
+--
+
+INSERT INTO `usuario` (`idUsuario`, `usNombre`, `usPass`, `usMail`, `usDeshabilitado`) VALUES
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.com', null),
+(2, 'cliente', '4983a0ab83ed86e0e7213c8783940193', 'cliente@cliente.com', null),
+(3, 'deposito', 'caaf856169610904e4f188e6ee23e88c', 'deposito@deposito.com', null),
+(4, 'superUsuario', 'ffe09170f7a7392f185dea2f4067ceeb', 'deposito@deposito.com', null);
+
 -- --------------------------------------------------------
 
 --
@@ -195,6 +225,18 @@ CREATE TABLE `usuarioRol` (
   `idUsuario` bigint(20) NOT NULL,
   `idRol` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+--
+--
+
+INSERT INTO `usuarioRol` (`idUsuario`, `idRol`) VALUES
+(4, 1),
+(4, 2),
+(4, 3),
+(1, 1),
+(2, 2),
+(3, 3);
 
 --
 -- Índices para tablas volcadas

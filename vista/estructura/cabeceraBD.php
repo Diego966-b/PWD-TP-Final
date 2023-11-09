@@ -1,38 +1,75 @@
 <?php
     include_once("../../config.php");
-    $objSession = new Sesion();
+    $objSession = new Session();
+    $sesionValida = $objSession->validar();
     $menues = [];
-    if ($objSession->activa()) {
+    if ($sesionValida) {
         $objUsuarioRol = $objSession->getRol();
-        // $rolActual = $arregloRoles [0];
         $objRol = $objUsuarioRol -> getObjRol();
         $idRol = $objRol -> getIdRol();
-        //echo "Obj: ".$objUsuarioRol;
-
-
+        // echo "IDROL: ".$idRol."<br>";
         $objMenuRol = new AbmMenuRol();
         $objRol = new AbmRol();
         $menues = $objMenuRol->darMenusPorRol($idRol);
+        
         // $objRoles = $objRol->obtenerObj($idRoles);
+    }
+    else
+    {
+        //$objSession -> cerrar();
+        //header("Refresh: 2; URL='$VISTA/acceso/login.php'");
+        //echo session_status();
     }
 ?>
 <div class="bg-dark sticky-top">
     <div class="d-flex justify-content-center">
 <?php
     foreach ($menues as $objMenu) {
-        // print_r($menues);
         if ($objMenu->getMeDeshabilitado() == NULL) {
             $nombreMenu = $objMenu -> getMeNombre();
-            echo "pagSelcinad = ".$pagSeleccionada."<br>";
-            echo "nombreMenu = ".$nombreMenu."<br>";
             $seleccionado = ($pagSeleccionada == $nombreMenu) ? "link-underline-light link-underline-opacity-100" : "";
-        //echo '<h2 class="m-3"><a class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover>'.$objMenu->getMeDescripcion().'</a></h2><br>';
-            // echo $seleccionado."<br>";
-        //echo '<h2 class="m-3"><a class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover>'.$objMenu->getMeNombre().'</a></h2><br>';
-echo 
-'<h2 class="m-3"><a class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover '.$seleccionado.'" href="'.$objMenu->getMeDescripcion().'">'.$objMenu->getMeNombre().'</a></h2>';
-}
+            echo 
+            '<h2 class="m-3">
+            <a class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover '.$seleccionado.'" href="'.$objMenu->getMeDescripcion().'">'
+            .$objMenu->getMeNombre().
+            '</a>
+            </h2>';
+        }
     }
-      ?>
+    if ($sesionValida) {
+        echo 
+        '<form name="cerrarSesion" id="cerrarSesion" method="post" action='.$VISTA.'/accion/eliminarSesion.php>
+        <input class="m-3 p-2"type="submit" value="Cerrar Sesion">
+        </form>';
+    }
+    else
+    {
+        $nombrePagina = [];
+        array_push($nombrePagina, "Iniciar Sesion");
+        array_push($nombrePagina, "Registrarse");
+        //array_push($nombrePagina, "Vista Segura");
+        $ubicacionPagina = [];
+        array_push($ubicacionPagina, "/acceso/login");
+        array_push($ubicacionPagina, "/acceso/registrarse");
+        //array_push($ubicacionPagina, "UBICACIONVISTASEGURA");
+        for ($i = 0; $i < count($nombrePagina); $i++)
+        {
+            $seleccionado = ($pagSeleccionada == $nombrePagina[$i]) ? "link-underline-light link-underline-opacity-100" : "";
+            echo 
+            '<h2 class="m-3">
+            <a class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover '.$seleccionado.'" href="'.$VISTA.$ubicacionPagina[$i].'.php">
+            '.$nombrePagina[$i].'
+            </a>
+            </h2>';
+        }
+    }
+    $seleccionado = ($pagSeleccionada == "Home") ? "link-underline-light link-underline-opacity-100" : "";
+    echo 
+    '<h2 class="m-3">
+    <a class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover '.$seleccionado.'" href="'.$VISTA.'/home/index.php">
+    Home
+    </a>
+    </h2>';
+?>
     </div>
 </div>
