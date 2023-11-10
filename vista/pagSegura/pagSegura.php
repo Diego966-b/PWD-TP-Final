@@ -7,6 +7,19 @@
 <head>
     <?php include_once($ESTRUCTURA."/header.php"); ?>
     <?php include_once($ESTRUCTURA."/cabeceraBD.php"); 
+        if ($objSession -> validar())
+        {
+            $tienePermiso = $objSession -> tienePermisoB($objSession->getUsuario());
+            if (!$tienePermiso)
+            {
+                header("Refresh: 3; URL='$VISTA/acceso/login.php'");
+            }
+        }
+        else
+        {
+            header("Refresh: 3; URL='$VISTA/acceso/login.php'");
+        }
+    /*
     if ($objSession->validar())
     {
         $tienePermiso = $objSession -> tienePermiso (1); // Id del rol dependiendo de la pag. 
@@ -20,6 +33,7 @@
     {
         header("Refresh: 3; URL='$VISTA/acceso/login.php'");
     }
+    */
     ?>
 </head>
 <body>

@@ -155,10 +155,42 @@ class Session
     /**
      * 
      */
-    public function tienePermisoPorUsuario ($objUsuario)
+    public function tienePermisoB ($objUsuario)
     {
-        
         $tienePermiso = false;
+        $url = $_SERVER["REQUEST_URI"];
+        
+        $array ["idUsuario"] = $objUsuario -> getIdUsuario();
+        $abmUsuarioRol = new AbmUsuarioRol ();
+        $objUsuarioRol = $abmUsuarioRol -> buscar($array);
+        $objUsuarioRol = $objUsuarioRol [0];
+
+        
+        $objRol = $objUsuarioRol -> getObjRol();
+        $idRol = $objRol -> getIdRol();
+        $arrayRol = [];
+        $arrayRol ["idRol"] = $idRol;
+        
+        $abmMenuRol = new AbmMenuRol();
+        $listaMenus = $abmMenuRol -> buscar($arrayRol);
+        foreach ($listaMenus as $objMenuRol)
+        {
+            $objMenu = $objMenuRol -> getObjMenu();
+            $urlMenu = $objMenu -> getMeDescripcion();
+            $urlMenu = substr($urlMenu , 2);
+            echo "<br>";
+            echo "urlPagActual: ".$url;
+            echo "<br>";
+            echo "urlMenu: ".$urlMenu;
+            echo "<br>";
+            if (strpos($url, $urlMenu) <> false)
+            {
+                echo "ENTRE!";
+                $tienePermiso = true;
+            }
+        }
+        return $tienePermiso;
+
         /*
         $array ["idUsuario"] = $objUsuario -> getIdUsuario();
         $abmUsuarioRol = new AbmUsuarioRol ();
@@ -187,6 +219,5 @@ class Session
             $tienePermiso = true;
         }
         */
-        return $tienePermiso;
     }   
 }
