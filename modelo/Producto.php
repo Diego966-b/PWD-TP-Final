@@ -3,7 +3,7 @@ class Producto
 {
     // Atributos
 
-    private $idProducto, $proNombre, $proDetalle, $proCantStock, $mensajeOperacion;
+    private $idProducto, $proNombre, $proDetalle, $imagen, $proCantStock, $mensajeOperacion;
 
     // Constructor y setear 
 
@@ -12,15 +12,17 @@ class Producto
         $this -> idProducto = "";
         $this -> proNombre = "";
         $this -> proDetalle = "";
+        $this-> imagen = "";
         $this -> proCantStock = "";
         $this -> mensajeOperacion = "";
     }
 
-    public function setear ($idProducto, $proNombre, $proDetalle, $proCantStock)
+    public function setear ($idProducto, $proNombre, $proDetalle, $imagen, $proCantStock)
     {
         $this->setIdProducto($idProducto);
         $this->setProNombre($proNombre);
         $this->setProDetalle($proDetalle);
+        $this->setImagen($imagen);
         $this->setProCantStock($proCantStock);
     }
 
@@ -31,6 +33,7 @@ class Producto
     public function getProDetalle() { return $this->proDetalle; }
     public function getProCantStock() { return $this->proCantStock; }
     public function getMensajeOperacion() { return $this->mensajeOperacion; }
+    public function getImagen(){return $this->imagen;}
     
     // Sets
 
@@ -38,6 +41,7 @@ class Producto
     public function setProNombre($proNombreNuevo) { $this->proNombre = $proNombreNuevo; }
     public function setProDetalle($proDetalleNuevo) { $this->proDetalle = $proDetalleNuevo; }
     public function setProCantStock($proCantStockNuevo) { $this->proCantStock = $proCantStockNuevo; }
+    public function setImagen($imagen){$this->imagen = $imagen;}
     public function setMensajeOperacion($mensajeOperacionNuevo) { $this->mensajeOperacion = $mensajeOperacionNuevo; }
     
     // Metodos
@@ -56,8 +60,9 @@ class Producto
                     $idProducto = $row['idProducto'];
                     $proNombre = $row['proNombre'];
                     $proDetalle = $row['proDetalle'];
+                    $imagen = $row['imagen'];
                     $proCantStock = $row['proCantStock'];
-                    $this->setear($idProducto, $proNombre, $proDetalle, $proCantStock);
+                    $this->setear($idProducto, $proNombre, $proDetalle, $imagen, $proCantStock);
                 }
             }
         } else {
@@ -73,7 +78,7 @@ class Producto
         // no paso el id por que es autoIncrement
         $sql = 
         "INSERT INTO producto (proNombre, proDetalle, proCantStock)  
-        VALUES('" . $this->getProNombre() . "','" . $this->getProDetalle() . "','" . $this->getProCantStock()."');";
+        VALUES('" . $this->getProNombre() . "','" . $this->getProDetalle() . "','" . $this->getImagen() . "','". $this->getProCantStock()."');";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -94,6 +99,7 @@ class Producto
         "UPDATE producto SET 
             proNombre='" . $this->getProNombre() . "',
             proDetalle='" . $this->getProDetalle()."',
+            imagen='" . $this->getImagen()."',
             proCantStock='" . $this->getProCantStock()."'
         WHERE idProducto='" . $this->getIdProducto() . "'";
         if ($base->Iniciar()) {
@@ -143,8 +149,9 @@ class Producto
                     $idProducto = $row['idProducto'];
                     $proNombre = $row['proNombre'];
                     $proDetalle = $row['proDetalle'];
+                    $imagen = $row['imagen'];
                     $proCantStock = $row['proCantStock'];
-                    $obj->setear($idProducto, $proNombre, $proDetalle, $proCantStock);
+                    $obj->setear($idProducto, $proNombre, $proDetalle, $imagen, $proCantStock);
                     array_push($arreglo, $obj);
                 }
             }
@@ -160,6 +167,7 @@ class Producto
             "<br>El Id del Producto es: " . $this->getIdProducto() .
             ".<br>El nombre es: " . $this->getProNombre() .
             ".<br>Los detalles son: " . $this->getProDetalle() .
+            ".<br>la ruta de la imagen es: " . $this->getImagen() .
             ".<br>La cant de stock es: " . $this->getProCantStock()."<br>";
         return $frase;
     }

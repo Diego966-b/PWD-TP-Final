@@ -171,9 +171,14 @@ CREATE TABLE `producto` (
   `idProducto` bigint(20) NOT NULL,
   `proNombre` varchar(50) NOT NULL, -- !!! MODIFICACDO ANTES ERA: `proNombre` int(11) NOT NULL,
   `proDetalle` varchar(512) NOT NULL,
+  'imagen' varchar(150) NOT NULL,
   `proCantStock` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `producto` (`idProducto`,  `proNombre`, `proDetalle`, 'imagen', `proCantStock`) VALUES
+(1, 'Dulce de leche', 'el mejor dulce de leche', '../imagenes/dulceDeLeche200x200.jpg', 5),
+(2, 'Yerba', 'la mejor yerba','../imagenes/yerba200x200.jpg', 6),
+(3, 'Fideos', 'los mejores fideos', '../imagenes/fideos200x200.jpg');
 -- --------------------------------------------------------
 
 --

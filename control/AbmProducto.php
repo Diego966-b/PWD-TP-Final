@@ -33,9 +33,9 @@ class AbmProducto
                 }
             }
             if ($array ["exito"]) {
-                $array ["mensaje"] = "<h3 class='text-success'>La accion " . $datos['accion'] . " se realizo correctamente.</h3>";
+                $array ["mensaje"] = "La accion " . $datos['accion'] . " se realizo correctamente.";
             } else {
-                $array ["mensaje"] = "<h3 class='text-danger'>La accion " . $datos['accion'] . " no pudo concretarse.</h3>";
+                $array ["mensaje"] = "La accion " . $datos['accion'] . " no pudo concretarse.";
             } 
         }
         return $array;
@@ -49,9 +49,9 @@ class AbmProducto
     {
         $obj = null;
         if(array_key_exists('idProducto', $param) && array_key_exists('proNombre', $param) && 
-        array_key_exists('proDetalle', $param) && array_key_exists('proCantStock', $param)) {
+        array_key_exists('proDetalle', $param) && array_key_exists('imagen', $param) && array_key_exists('proCantStock', $param)) {
             $obj = new Producto();
-            $obj->setear($param['idProducto'], $param['proNombre'], $param['proDetalle'], $param['proCantStock']);
+            $obj->setear($param['idProducto'], $param['proNombre'], $param['proDetalle'], $param['imagen'],$param['proCantStock']);
         }
         return $obj;
     }
@@ -65,7 +65,7 @@ class AbmProducto
         $obj = null;
         if (isset($param['idProducto'])) {
             $obj = new Producto();
-            $obj->setear($param['idProducto'], null, null, null);
+            $obj->setear($param['idProducto'], null, null, null, null);
         }
         return $obj;
     }
@@ -125,7 +125,7 @@ class AbmProducto
      * @return boolean
      */
     public function modificacion($param)
-    {
+    {       
         $respuesta = false;
         if ($this->seteadosCamposClaves($param)) {
             $elObjProducto = $this->cargarObjeto($param);
@@ -154,6 +154,9 @@ class AbmProducto
             }
             if (isset($param['proDetalle'])) {
                 $where .= " and proDetalle =" . $param['proDetalle'];
+            }
+            if (isset($param['imagen'])) {
+                $where .= " and imagen =" . $param['imagen'];
             }
             if (isset($param['proCantStock'])) {
                 $where .= " and proCantStock ='" . $param['proCantStock'] . "'";
