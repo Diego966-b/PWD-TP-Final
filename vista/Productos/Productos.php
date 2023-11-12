@@ -35,6 +35,10 @@
                 {
                     echo "<div class='col-md-4 mb-4'>";
                     echo "<div class='card'>";
+
+                    echo "IMAGEN";
+                    echo "<img href=".$objProducto->getImagen()."></img>";
+                    
                     echo "<div class='card-body'>";
                     echo "<h5 class='card-title'>".$objProducto->getProNombre()."</h5>";
                     echo "<p class='card-text'>Precio: $ ".$objProducto->getProPrecio()."</p>";

@@ -35,7 +35,7 @@
                 echo '<div class="card">';
                 echo '<div class="card-body">';
                 echo '<h5 class="card-title">Nombre: ' . $objUsuario->getUsNombre() . '</h5>';
-                echo '<p class="card-text">Contrase&ntilde;a: ' . $objUsuario->getUsPass() . '</p>';
+                echo '<p class="card-text">Contrase&ntilde;a:'.$objUsuario->getUsPass().'<a href="#">Modificar contrase&ntilde;a</a></p>';
                 echo '<p class="card-text">Correo Electrónico: ' . $objUsuario->getUsMail() . '</p>';
                 echo '<p class="card-text">Rol actual: ' . $objRol->getRolDescripcion() . '</p>';
                 echo "<a href='#'>Editar tus datos</a>";

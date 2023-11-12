@@ -1,10 +1,10 @@
 <?php
 $Titulo = "Tabla Productos";
 include_once './Estructura/cabecera.php';
-if (!$sesion->verificarPermiso('./tablaProductos.php')) {
-    $mensaje = "No tiene permiso para acceder a este sitio.";
-    echo "<script> window.location.href='./index.php?mensaje=" . urlencode($mensaje) . "'</script>";
-} else {
+//if (!$sesion->verificarPermiso('./tablaProductos.php')) {
+    //$mensaje = "No tiene permiso para acceder a este sitio.";
+    //echo "<script> window.location.href='./index.php?mensaje=" . urlencode($mensaje) . "'</script>";
+if (1==1) {
 ?>
     <!-- INCLUIMOS MODALES -->
     <?php include './Estructura/Modales/Productos/modal_add_producto.php'; ?>

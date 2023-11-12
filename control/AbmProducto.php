@@ -21,8 +21,14 @@ class AbmProducto
             }
             if($datos['accion']=='borrar') 
             {
-                if ($this->baja($datos)) 
+                if ($this->bajaLogica($datos)) 
                 {
+                    $array ["exito"] = true;
+                }
+            }
+            if ($datos['accion'] == 'alta') {
+                $datos ["proDeshabilitado"] = null;
+                if ($this->altaLogica($datos)) {
                     $array ["exito"] = true;
                 }
             }
@@ -139,6 +145,42 @@ class AbmProducto
             }
         }
         return $respuesta;
+    }
+    
+    /**
+     * Realiza un alta logica, es decir setea en null el campo usDeshabilitado.
+     * Retorna un booleano.
+     * @param array $param
+     * @return boolean
+     */
+    public function altaLogica ($param){
+        $resp = false;
+        if ($this->seteadosCamposClaves($param)){
+            $listaProductos = $this->buscar($param);
+            $producto=$listaProductos[0];
+            if($producto->activarProducto()){
+                $resp = true;
+            }
+        }
+        return $resp;
+    }
+
+    /**
+     * Realiza un borrado logico. Espera un array como parametro.
+     * Retorna un booleano.
+     * @param array $param
+     * @return boolean
+     */
+    public function bajaLogica($param){
+        $resp = false;
+        if ($this->seteadosCamposClaves($param)){
+            $listaProductos = $this->buscar($param);
+            $producto=$listaProductos[0];
+            if($producto->eliminarLogico()){
+                $resp = true;
+            }
+        }
+        return $resp;
     }
 
     /**

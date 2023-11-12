@@ -147,6 +147,40 @@ class Producto
         return $resp;
     }
 
+    public function eliminarLogico(){
+        $resp = false;
+        $base = new BaseDatos();
+        $sql = 
+        "UPDATE producto SET proDeshabilitado = NOW() WHERE idProducto='" . $this->getIdProducto() . "'";
+        if ($base->Iniciar()) {
+            if ($base->Ejecutar($sql)) {
+                return true;
+            } else {
+                $this->setmensajeoperacion("producto->eliminarLogico: " . $base->getError());
+            }
+        } else {
+            $this->setmensajeoperacion("producto->eliminarLogico: " . $base->getError());
+        }
+        return $resp;
+    }
+
+    public function activarProducto (){
+        $resp = false;
+        $base = new BaseDatos();
+        $sql = 
+        "UPDATE producto SET proDeshabilitado = null WHERE idProducto='" . $this->getIdProducto() . "'"; // VER!!!
+        if ($base->Iniciar()) {
+            if ($base->Ejecutar($sql)) {
+                return true;
+            } else {
+                $this->setmensajeoperacion("producto->eliminarLogico: " . $base->getError());
+            }
+        } else {
+            $this->setmensajeoperacion("producto->eliminarLogico: " . $base->getError());
+        }
+        return $resp;
+    }
+
     public static function listar($parametro = "")
     {
         $arreglo = array();

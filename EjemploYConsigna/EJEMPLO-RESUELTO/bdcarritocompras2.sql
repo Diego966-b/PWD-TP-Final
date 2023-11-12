@@ -18,9 +18,11 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `bdcarritocompras`
+-- Base de datos: `bdcarritocompras2`
 --
-
+DROP DATABASE bdcarritocompras2;
+CREATE DATABASE bdcarritocompras2;
+USE bdcarritocompras2;
 -- --------------------------------------------------------
 
 --
