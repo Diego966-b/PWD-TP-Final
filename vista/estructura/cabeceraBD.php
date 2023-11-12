@@ -4,16 +4,8 @@
     $sesionValida = $objSession->validar();
     $menues = [];
     if ($sesionValida) {
-        /*
-        $objUsuarioRol = $objSession->getRol();
-        $objRol = $objUsuarioRol -> getObjRol();
-        $idRol = $objRol -> getIdRol();
-        echo "IDROL: ".$idRol."<br>";
-        $objRol = new AbmRol();
-        */
         $objMenuRol = new AbmMenuRol();
         $menues = $objMenuRol->darMenusPorUsuario($objSession->getUsuario());
-        // $objRoles = $objRol->obtenerObj($idRoles);
     }
     else
     {
@@ -26,11 +18,12 @@
         $array ["idMenu"] = 11;
         $menu = $abmMenu -> buscar($array);
         array_push($menues, $menu[0]);
+        $array ["idMenu"] = 12;
+        $menu = $abmMenu -> buscar($array);
+        array_push($menues, $menu[0]);
     }
-?>
-<div class="bg-dark sticky-top">
-    <div class="d-flex justify-content-center">
-<?php
+    echo'<div class="bg-dark sticky-top">';
+    echo'<div class="d-flex justify-content-center">';
     foreach ($menues as $objMenu) {
         if ($objMenu->getMeDeshabilitado() == NULL) {
             $nombreMenu = $objMenu -> getMeNombre();
@@ -49,6 +42,6 @@
         <input class="m-3 p-2"type="submit" value="Cerrar Sesion">
         </form>';
     }
+    echo '</div>';
+    echo '</div>';
 ?>
-    </div>
-</div>

@@ -130,7 +130,6 @@ class MenuRol
             if ($res > 0) {
                 while ($row = $base->Registro()) {
                     //echo "<br><br><br>";
-                    print_r($row);
                     //echo "<br><br><br>";
                     $obj = new MenuRol();
                     $abmMenu = new AbmMenu();

@@ -108,19 +108,15 @@ CREATE TABLE `menu` (
 INSERT INTO `menu` (`idMenu`, `meNombre`, `meDescripcion`, `idPadre`, `meDeshabilitado`) VALUES
 -- cliente:
 (1, 'Productos', '../productos/productos.php', NULL, NULL),
-(2, 'Mi Perfil', '../usuarios/perfil.php', NULL, NULL),
+(2, 'Mi Perfil', '../usuarios/perfil.php', NULL, NULL), -- MODIFICADO!!!, Ahora todos los roles tienen acceso a esto
 (3, 'Carrito', '../carrito/carrito.php', NULL, NULL),
 (4, 'Mis Compras', '../usuarios/compras.php', NULL, NULL),
 -- deposito:
 (5, 'Gestionar Articulos', '../articulos/gestionarArticulos.php', NULL, NULL),
-                -- (6, 'Nuevo Articulo', '../', NULL, NULL),
 (6, 'Gestionar Compras', '../compras/gestionarCompras.php', NULL, NULL),
 -- admin:
 (7, 'Gestionar Usuarios', '../usuarios/usuarios.php', NULL, NULL),
-            -- (9, 'Nuevo Usuario', '../usuarios/usuarios.php', NULL, NULL),
 (8, 'Gestionar Roles', '../roles/roles.php', NULL, NULL),
-            -- (11, 'Nuevo Rol', '../usuarios/usuarios.php', NULL, NULL),
-            -- (12, 'Nuevo Menu', '../usuarios/usuarios.php', NULL, NULL),
 (9, 'Gestionar Menus', '../menus/menus.php', NULL, NULL),
 -- Usuario sin rol:
 (10, 'Iniciar Sesion', '../acceso/login.php', NULL, NULL),
@@ -146,20 +142,23 @@ INSERT INTO `menuRol` (`idMenu`, `idRol`) VALUES
 -- 2 - cliente
 -- 3 - deposito
 -- Cliente:
+(12, 2),
 (1, 2),
-(2, 2),
 (3, 2),
 (4, 2),
-(12, 2),
+(2, 2),
 -- Deposito:
+(12, 3),
 (5, 3),
 (6, 3),
-(12, 3),
+(2, 3), -- Modificado!!!
 -- Admin:
+(12, 1),
 (7, 1),
 (8, 1),
 (9, 1),
-(12, 1);
+(2, 1); -- Modificado!!!
+
 
 -- --------------------------------------------------------
 
@@ -171,8 +170,16 @@ CREATE TABLE `producto` (
   `idProducto` bigint(20) NOT NULL,
   `proNombre` varchar(50) NOT NULL, -- !!! MODIFICACDO ANTES ERA: `proNombre` int(11) NOT NULL,
   `proDetalle` varchar(512) NOT NULL,
-  `proCantStock` int(11) NOT NULL
+  `proCantStock` int(11) NOT NULL,
+  `proPrecio` int(11) NOT NULL, -- NUEVO!!!
+  `proImagen` varchar(200) NOT NULL, -- NUEVO!!!
+  `proDeshabilitado` timestamp NULL DEFAULT NULL -- NUEVO!!!
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `producto` (`idProducto`, `proNombre`, `proDetalle`, `proCantStock`, `proPrecio`,`proImagen`, `prodeshabilitado`) VALUES
+(1, 'Dulce de leche', 'Marca la serenisima', 10, 1000, 'nombreImagen.extension', null),
+(2, 'Cafe', 'Marca cabrales', 10, 10000, 'nombreImagen.extension', null),
+(3, 'estoyDeshabilitado', 'No deberia verse', 10000000000000000000, 100000000000000000000, 'deshabilitado', '2023-11-11 21:43:23');
 
 -- --------------------------------------------------------
 
@@ -209,14 +216,14 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
---
+-- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`idUsuario`, `usNombre`, `usPass`, `usMail`, `usDeshabilitado`) VALUES
 (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.com', null),
 (2, 'cliente', '4983a0ab83ed86e0e7213c8783940193', 'cliente@cliente.com', null),
 (3, 'deposito', 'caaf856169610904e4f188e6ee23e88c', 'deposito@deposito.com', null),
-(4, 'superUsuario', 'ffe09170f7a7392f185dea2f4067ceeb', 'deposito@deposito.com', null);
+(4, 'deshabilitado', 'add0296c267f58af06b223537e0bff66', 'deshabilitado@deshabilitado.com', '2023-11-11 21:43:23');
 
 -- --------------------------------------------------------
 
