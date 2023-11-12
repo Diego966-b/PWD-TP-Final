@@ -7,133 +7,151 @@ $pagSeleccionada = "Deposito";
 
 <head>
     <?php include_once($ESTRUCTURA . "/header.php"); ?>
-    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/icon.css">
-    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/color.css">
-    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/demo/demo.css">
-    <script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.min.js"></script>
-    <script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo $CSS ?>/estilos.css">
-    <a href="../pagSegura/pagSegura.php">PagSegura</a>
+    <!-- <a href="../pagSegura/pagSegura.php">PagSegura</a>-->
     <?php include_once($ESTRUCTURA . "/cabeceraBD.php"); ?>
+    
 </head>
 
 <body>
-    <div class='container text-center p-4 mt-3 cajaLista col-4'>
-        <h1>Gestion de Articulos</h1>
-        <table id="dg" title="Productos" class="easyui-datagrid table m-auto" style="width:900px;height:250px" url="obtenerArticulos.php" toolbar="#toolbar" pagination="true" rownumbers="true" fitColumns="true" singleSelect="true">
-            <thead class="table-dark fw-bold">
-                <tr>
-                    <th field="idProducto" width="50">#</th>
-                    <th field="proNombre" width="50">Nombre</th>
-                    <th field="proDetalle" width="50">Detalle</th>
-                    <th field="imagen" width="50">imagen</th>
-                    <th field="proCantStock" width="50">Cantidad Stock</th>
-                </tr>
-            </thead>
-        </table>
-        <div id="toolbar">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="nuevoArticulo()">Nuevo Articulo</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editarArticulo()">Editar Articulo</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="eliminarArticulo()">Eliminar Producto</a>
-        </div>
+    <h1>Gestion de Articulos</h1>
 
-        <div id="dlg" class="easyui-dialog" style="width:400px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
-            <form id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
-                <h3>Informacion del Producto</h3>
-                <div style="margin-bottom:10px">
-                    <input name="proNombre" id="proNombre" class="easyui-textbox" required="true" label="Nombre del producto:" style="width:100%">
+    <button type="button" class="btn btn-primary" id="abrirModal">
+        Agregar Producto
+    </button>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre Producto</th>
+                <th scope="col">Detalle del Producto</th>
+                <th scope="col">Imagen</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Habilitado</th>
+                <th scope="col">Acciones</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <?php
+                $objControl = new AbmProducto();
+                $list = $objControl->buscar(null);
+                foreach ($list as $elem) {
+                    echo '<td>' . $elem->getIdProducto() . '</td>';
+                    echo '<td>' . $elem->getProNombre() . '</td>';
+                    echo '<td>' . $elem->getProDetalle() . '</td>';
+                    echo '<td>' . $elem->getProImagen() . '</td>';
+                    echo '<td>' . $elem->getProCantStock() . '</td>';                  
+                    echo '<td>' . $elem->getProPrecio() . '</td>';
+                    if($elem->getProDeshabilitado()== null){
+                        echo '<td> Activo </td>';
+                    }  else{
+                        echo '<td>' . $elem->getProDeshabilitado() . '</td>';
+                    }                      
+                    //<button class="btn btn-danger" onclick="eliminarArticulo(' .  $elem->getIdProducto() . ')">Eliminar</button>
+                    echo '<td><button class="btn btn-primary mx-1" id="modificar">Modificar</button>';
+                   
+                            if ($elem->getProDeshabilitado() == null) {
+                                echo '<button class="btn btn-danger mx-1" onclick="eliminarArticulo(' .  $elem->getIdProducto() . ')">Dar baja</button>';
+                               // echo '<a class="btn btn-danger mx-1" href="' . $VISTA . '/action/abmUsuarios.php?accion=borrar&idUsuario=' . $user->getIdUsuario() . '">Dar baja</a>';
+                            } else {
+                                echo '<button class="btn btn-success mx-1" onclick="altaArticulo(' .  $elem->getIdProducto() . ')">Dar de alta</button>';
+                               // echo '<a class="btn btn-success mx-1" href="' . $VISTA . '/action/abmUsuarios.php?accion=alta&idUsuario=' . $user->getIdUsuario() . '">Dar de alta</a>';
+                            }
+                            echo '</td>';
+                    echo '</tr>';
+                } ?>
+        </tbody>
+    </table>
+
+
+
+
+    <!-- Modal -->
+    <div class="modal" id="miModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Cabecera del modal -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Cargar nuevo producto</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-                <div style="margin-bottom:10px">
-                    <input name="proDetalle" id="proDetalle" class="easyui-textbox" required="true" label="Detalle:" style="width:100%">
+
+                <!-- Cuerpo del modal con el formulario -->
+                <div class="modal-body">
+                    <form id="miFormulario">
+                        <label for="nombre">Nombre del Producto:</label>
+                        <input type="text" id="proNombre" name="proNombre" class="form-control" required>
+
+                        <label for="proDetalle">Descripcion del producto:</label>
+                        <input type="text" id="proDetalle" name="proDetalle" class="form-control" required>
+
+                        <label for="proImagen">Imagen del Producto:</label>
+                        <input type="text" id="proImagen" name="proImagen" class="form-control" required>
+
+                        <label for="proCantStock">Cantidad de stock:</label>
+                        <input type="number" id="proCantStock" name="proCantStock" class="form-control" required>
+
+                        <label for="proPrecio">Precio:</label>
+                        <input type="number" id="proPrecio" name="proPrecio" class="form-control" required>
+
+                        <br>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </form>
                 </div>
-                <div style="margin-bottom:10px">
-                    <input name="imagen" id="imagen" class="easyui-textbox" required="true" label="Ruta de imagen:" style="width:100%">
+
+                <!-- Pie del modal -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
-                <div style="margin-bottom:10px">
-                    <input name="proCantStock" id="proCantStock" class="easyui-textbox" required="true" validType="stock" label="Stock:" style="width:100%">
-                </div>
-            </form>
-        </div>
-        <div id="dlg-buttons">
-            <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="guardarArticulo()" style="width:90px">Guardar</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
+            </div>
         </div>
     </div>
-        <?php include_once($ESTRUCTURA . "/pie.php"); ?>
+
+    <!-- Modal de Modificación -->
+
+    <div class="modal" id="modalModificar">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Modificar Producto</h4>
+                </div>
+
+                <div class="modal-body">
+                    <input type="number" id="proIdModificar" hidden>
+                    <label for="nombre">Nombre del Producto:</label>
+                    <input type="text" id="proNombreModificar" name="proNombre" class="form-control" required>
+
+                    <label for="proDetalle">Descripcion del producto:</label>
+                    <input type="text" id="proDetalleModificar" name="proDetalle" class="form-control" required>
+
+                    <label for="imagen">Imagen del Producto:</label>
+                    <input type="text" id="proImagenModificar" name="imagen" class="form-control" required>
+
+                    <label for="proCantStock">Cantidad de stock:</label>
+                    <input type="number" id="proCantStockModificar" name="proCantStock" class="form-control" required>
+
+                    <br>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarCambios()">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+    <?php include_once($ESTRUCTURA . "/pie.php"); ?>
+    <script src="./js/funcionesABMarticulo.js"></script>
+ 
 </body>
-
-<script type="text/javascript">
-    var url;
-
-    function nuevoArticulo() {
-        $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'New User');
-        $('#fm').form('clear');
-        url = 'nuevoArticulo.php';
-    }
-
-    function editarArticulo() {
-        var row = $('#dg').datagrid('getSelected');
-        if (row) {
-            $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar Menu');
-            $('#fm').form('load', row);
-            url = "editarArticulo.php?idProducto=" + row.idProducto;
-        }
-    }
-
-    function guardarArticulo() {
-        $('#fm').form('submit', {
-            url: url,
-            onSubmit: function() {
-                return $(this).form('validate');
-            },
-            success: function(result) {
-                console.log(result)
-                try {
-                    var resultObj = JSON.parse(result);
-                    if (resultObj.errorMsg) {
-                        $.messager.show({
-                            title: 'Error',
-                            msg: resultObj.errorMsg
-                        });
-                    } else {
-                        $('#dlg').dialog('close');
-                        $('#dg').datagrid('reload');
-                    }
-                } catch (e) {
-                    console.error('Error al analizar el resultado JSON: ', e);
-                }
-            }
-
-        });
-    }
-
-    function eliminarArticulo() {
-        var row = $('#dg').datagrid('getSelected');
-        if (row) {
-            $.messager.confirm('confirm', 'Are you sure you want to destroy this user?', function(r) {
-                if (r) {
-                    console.log(r);
-                    $.post('eliminarArticulo.php?idProducto' + row.idProducto, {
-                        idProducto: row.idProducto
-                    }, function(result) {
-                        console.log(result);
-                        if (result.success) {
-                            $('#dg').datagrid('reload'); // reload the user data
-                        } else {
-                            $.messager.show({ // show error message
-                                title: 'Error',
-                                msg: result.errorMsg
-                            });
-                        }
-                    }, 'json');
-                }
-            });
-        }
-    }
-</script>
-</body>
-
-</html>
 
 </html>

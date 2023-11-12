@@ -21,8 +21,14 @@ class AbmProducto
             }
             if($datos['accion']=='borrar') 
             {
-                if ($this->baja($datos)) 
+                if ($this->bajaLogica($datos)) 
                 {
+                    $array ["exito"] = true;
+                }
+            }
+            if ($datos['accion'] == 'alta') {
+                $datos ["proDeshabilitado"] = null;
+                if ($this->altaLogica($datos)) {
                     $array ["exito"] = true;
                 }
             }
@@ -33,9 +39,9 @@ class AbmProducto
                 }
             }
             if ($array ["exito"]) {
-                $array ["mensaje"] = "La accion " . $datos['accion'] . " se realizo correctamente.";
+                $array ["mensaje"] = "<h3 class='text-success'>La accion " . $datos['accion'] . " se realizo correctamente.</h3>";
             } else {
-                $array ["mensaje"] = "La accion " . $datos['accion'] . " no pudo concretarse.";
+                $array ["mensaje"] = "<h3 class='text-danger'>La accion " . $datos['accion'] . " no pudo concretarse.</h3>";
             } 
         }
         return $array;
@@ -49,9 +55,14 @@ class AbmProducto
     {
         $obj = null;
         if(array_key_exists('idProducto', $param) && array_key_exists('proNombre', $param) && 
-        array_key_exists('proDetalle', $param) && array_key_exists('imagen', $param) && array_key_exists('proCantStock', $param)) {
+        array_key_exists('proDetalle', $param) && array_key_exists('proCantStock', $param) &&
+        array_key_exists('proImagen', $param) && array_key_exists('proPrecio', $param)) {
             $obj = new Producto();
-            $obj->setear($param['idProducto'], $param['proNombre'], $param['proDetalle'], $param['imagen'],$param['proCantStock']);
+            $obj->setear(
+                $param['idProducto'], $param['proNombre'], 
+                $param['proDetalle'], $param['proCantStock'], 
+                $param['proImagen'], $param['proPrecio'],
+                null);
         }
         return $obj;
     }
@@ -65,7 +76,7 @@ class AbmProducto
         $obj = null;
         if (isset($param['idProducto'])) {
             $obj = new Producto();
-            $obj->setear($param['idProducto'], null, null, null, null);
+            $obj->setear($param['idProducto'], null, null, null, null, null, null);
         }
         return $obj;
     }
@@ -125,7 +136,7 @@ class AbmProducto
      * @return boolean
      */
     public function modificacion($param)
-    {       
+    {
         $respuesta = false;
         if ($this->seteadosCamposClaves($param)) {
             $elObjProducto = $this->cargarObjeto($param);
@@ -134,6 +145,42 @@ class AbmProducto
             }
         }
         return $respuesta;
+    }
+    
+    /**
+     * Realiza un alta logica, es decir setea en null el campo usDeshabilitado.
+     * Retorna un booleano.
+     * @param array $param
+     * @return boolean
+     */
+    public function altaLogica ($param){
+        $resp = false;
+        if ($this->seteadosCamposClaves($param)){
+            $listaProductos = $this->buscar($param);
+            $producto=$listaProductos[0];
+            if($producto->activarProducto()){
+                $resp = true;
+            }
+        }
+        return $resp;
+    }
+
+    /**
+     * Realiza un borrado logico. Espera un array como parametro.
+     * Retorna un booleano.
+     * @param array $param
+     * @return boolean
+     */
+    public function bajaLogica($param){
+        $resp = false;
+        if ($this->seteadosCamposClaves($param)){
+            $listaProductos = $this->buscar($param);
+            $producto=$listaProductos[0];
+            if($producto->eliminarLogico()){
+                $resp = true;
+            }
+        }
+        return $resp;
     }
 
     /**
@@ -155,12 +202,20 @@ class AbmProducto
             if (isset($param['proDetalle'])) {
                 $where .= " and proDetalle =" . $param['proDetalle'];
             }
-            if (isset($param['imagen'])) {
-                $where .= " and imagen =" . $param['imagen'];
-            }
             if (isset($param['proCantStock'])) {
                 $where .= " and proCantStock ='" . $param['proCantStock'] . "'";
+            }  
+            //setear ($idProducto, $proNombre, $proDetalle, $proCantStock, $proImagen, $proPrecio, $proDeshabilitado)
+            if (isset($param['proImagen'])) {
+                $where .= " and proImagen ='" . $param['proImagen'] . "'";
             }
+            if (isset($param['proPrecio'])) {
+                $where .= " and proPrecio ='" . $param['proPrecio'] . "'";
+            }
+            if  (isset($param['proDeshabilitado'])) 
+            {
+                $where.=" and proDeshabilitado is null";
+            }  
         }
         $arreglo = Producto::listar($where);
         return $arreglo;

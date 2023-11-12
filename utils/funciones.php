@@ -14,6 +14,7 @@ function devolverDatos()
             $colDatos = $_GET;
         }
     }
+    
     if (count($colDatos)) {
         foreach ($colDatos as $indice => $valor) {
             if ($valor == "") {
@@ -21,6 +22,7 @@ function devolverDatos()
             }
         }
     }
+    
     return $colDatos;
 }
 

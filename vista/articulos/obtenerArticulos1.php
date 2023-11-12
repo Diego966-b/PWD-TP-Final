@@ -2,7 +2,7 @@
 include_once "../../config.php";
 $data = devolverDatos();
 $objControl = new AbmProducto();
-$list = $objControl->buscar($data);
+$list = $objControl->buscar(null);
 $arreglo_salida =  array();
 foreach ($list as $elem ){
     
