@@ -16,7 +16,7 @@
     else
     {
         //$objSession -> cerrar();
-        //header("Refresh: 2; URL='$VISTA/acceso/login.php'");
+        header("Refresh: 2; URL='$VISTA/acceso/login.php'");
         //echo session_status();
     }
 ?>
