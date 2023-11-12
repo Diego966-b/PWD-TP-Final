@@ -173,7 +173,6 @@ class AbmMenuRol {
             }
         }
         $arreglo = MenuRol::listar($where);
-        //echo "<br>".print_r($arreglo)."<br>";
         return $arreglo;  
     }
 
@@ -184,13 +183,9 @@ class AbmMenuRol {
         $array = [];
         $array ["idRol"] = $idRolIngresado;
         $listaMenus = $this -> buscar($array);
-        //print_r($listaMenus);
         foreach ($listaMenus as $objMenuRol)
         {
             $objMenu = $objMenuRol -> getObjMenu();
-            //echo "idRolIngresado:".$idRolIngresado."<br>";
-            //echo "COMPARO CON:".$idRolIngresado."<br>";
-            //echo "<br>".$objMenu."<br>";
             array_push($arrayMenus, $objMenu);
         }
         return $arrayMenus;

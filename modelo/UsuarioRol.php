@@ -154,7 +154,6 @@ class UsuarioRol
     }
 
     public function setearConClave($param){
-        // print_r($param);
         $objRol = $this -> getObjRol();
         $objUsuario = $this -> getObjUsuario();
         $objRol->setIdRol($param['idRol']);

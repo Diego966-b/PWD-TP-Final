@@ -19,21 +19,6 @@
         {
             header("Refresh: 3; URL='$VISTA/acceso/login.php'");
         }
-    /*
-    if ($objSession->validar())
-    {
-        $tienePermiso = $objSession -> tienePermiso (1); // Id del rol dependiendo de la pag. 
-        echo $tienePermiso;
-        if (!$tienePermiso)
-        {
-            header("Refresh: 3; URL='$VISTA/acceso/login.php'");
-        }
-    }
-    else
-    {
-        header("Refresh: 3; URL='$VISTA/acceso/login.php'");
-    }
-    */
     ?>
 </head>
 <body>

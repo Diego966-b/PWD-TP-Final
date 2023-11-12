@@ -136,9 +136,7 @@ class Session
         }
     }
 
-    /**
-     * 
-     */
+    /*
     public function tienePermiso ($idRolIngresado)
     {
         $tienePermiso = false;
@@ -151,21 +149,19 @@ class Session
         }
         return $tienePermiso;
     }   
+    */
 
-    /**
-     * 
-     */
     public function tienePermisoB ($objUsuario)
     {
         $tienePermiso = false;
         $url = $_SERVER["REQUEST_URI"];
-        
+
+        $array = [];
         $array ["idUsuario"] = $objUsuario -> getIdUsuario();
         $abmUsuarioRol = new AbmUsuarioRol ();
         $objUsuarioRol = $abmUsuarioRol -> buscar($array);
         $objUsuarioRol = $objUsuarioRol [0];
-
-        
+    
         $objRol = $objUsuarioRol -> getObjRol();
         $idRol = $objRol -> getIdRol();
         $arrayRol = [];
@@ -178,46 +174,11 @@ class Session
             $objMenu = $objMenuRol -> getObjMenu();
             $urlMenu = $objMenu -> getMeDescripcion();
             $urlMenu = substr($urlMenu , 2);
-            echo "<br>";
-            echo "urlPagActual: ".$url;
-            echo "<br>";
-            echo "urlMenu: ".$urlMenu;
-            echo "<br>";
             if (strpos($url, $urlMenu) <> false)
             {
-                echo "ENTRE!";
                 $tienePermiso = true;
             }
         }
         return $tienePermiso;
-
-        /*
-        $array ["idUsuario"] = $objUsuario -> getIdUsuario();
-        $abmUsuarioRol = new AbmUsuarioRol ();
-        $objUsuarioRol = $abmUsuarioRol -> buscar($array);
-        $objUsuarioRol = $objUsuarioRol [0];
-
-        $objRol = $objUsuarioRol -> getObjRol();
-        $idRol = $objRol -> getIdRol();
-        $arregloIdRol = [];
-        $arregloIdRol ["idRol"] = $idRol;
-        $arreglo = [];
-        $arreglo ["idRol"] = $idRol;
-
-
-
-
-
-
-
-        $tienePermiso = false;
-        $objSession = new Session();
-        $listaRoles = $objSession -> getRol();
-        $idRol = $listaRoles -> getObjRol() -> getIdRol();
-        if (($listaRoles <> null) && ($idRol == $idRolIngresado))
-        {
-            $tienePermiso = true;
-        }
-        */
     }   
 }
