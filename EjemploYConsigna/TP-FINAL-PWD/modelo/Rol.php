@@ -86,7 +86,7 @@ class Rol
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO rol(idRol,rolDescripcion)  VALUES('" . $this->getIdrol() . "','" . $this->getRolDescripcion() . "');";
+        $sql = "INSERT INTO rol(rolDescripcion)  VALUES('" . $this->getRolDescripcion() . "');";
         if ($base->Iniciar()) {
             if ($elid = $base->Ejecutar($sql)) {
                 $this->setIdRol($elid);

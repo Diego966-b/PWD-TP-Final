@@ -190,16 +190,18 @@ INSERT INTO `producto` (`idProducto`, `proNombre`, `proDetalle`, `proCantStock`,
 CREATE TABLE `rol` (
   `idRol` bigint(20) NOT NULL,
   `rolDescripcion` varchar(50) NOT NULL
+  `rolDeshabilitado` timestamp NULL DEFAULT NULL -- NUEVO!!!
+
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `rol`
 --
 
-INSERT INTO `rol` (`idRol`, `rolDescripcion`) VALUES
-(1, 'admin'),
-(2, 'cliente'),
-(3, 'deposito');
+INSERT INTO `rol` (`idRol`, `rolDescripcion`,`rolDeshabilitado`) VALUES
+(1, 'admin',null),
+(2, 'cliente',null),
+(3, 'deposito',null);
 
 -- --------------------------------------------------------
 
