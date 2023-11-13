@@ -81,7 +81,7 @@ class UsuarioRol
         MODIFICADO!!!
         */
         $sql = 
-        "INSERT INTO usuarioRol (idUsuario, idRol)
+        "INSERT INTO usuariorol (idUsuario, idRol)
             VALUES ('" . $objUsuarioDeverdad->getIdUsuario() . "', '" . $objRolDeVerdad->getIdRol() . "')";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
@@ -97,6 +97,21 @@ class UsuarioRol
 
     public function modificar(){
         $resp = false;
+        $base=new BaseDatos();
+        $sql=" UPDATE usuariorol SET ";
+        $sql.=" idRol = ".$this->getObjRol()->getIdrol();
+        $sql.=" WHERE idUsuario =".$this->getObjUsuario()->getIdUsuario();
+        echo $sql;
+        if ($base->Iniciar()) {
+            if ($base->Ejecutar($sql)) {
+                $resp = true;
+                
+            } else {
+                $this->setmensajeoperacion("Usuariorol->modificar 1: ".$base->getError());
+            }
+        } else {
+            $this->setmensajeoperacion("Usuariorol->modificar 2: ".$base->getError());
+        }
         return $resp;
     }
 

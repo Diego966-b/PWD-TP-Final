@@ -101,7 +101,7 @@ class AbmUsuarioRol {
      */
      private function seteadosCamposClaves($param){
         $resp = false;
-        if (isset($param['objRol']) && (isset($param['objUsuario']))) // VER!!!
+        if (isset($param['idRol']) && (isset($param['idUsuario']))) // VER!!!
             $resp = true;
         return $resp;
     }
