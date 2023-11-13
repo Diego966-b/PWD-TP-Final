@@ -138,7 +138,7 @@ function altaRol(idRol){
 function accionSuccess() {
     Swal.fire({
         icon: 'success',
-        title: 'El Rol se ha eliminado correctamente!',
+        title: 'La accion se realizo correctamente!',
         showConfirmButton: false,
         timer: 1500
     })
@@ -150,7 +150,7 @@ function accionSuccess() {
 function accionFailure() {
     Swal.fire({
         icon: 'error',
-        title: 'No se ha podido eliminar el Rol!',
+        title: 'No se ha realizado la accion!',
         showConfirmButton: false,
         timer: 1500
     })

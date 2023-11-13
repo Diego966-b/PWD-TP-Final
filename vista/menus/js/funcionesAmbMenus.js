@@ -6,15 +6,21 @@ $(document).ready(function() {
         // Obtener la fila actual del boton
         var fila = $(this).closest("tr");
         // Obtener datos de las celdas de esa fila
-        var idUsuario = fila.find("td:eq(0)").text(); // Ajusta el índice según la posición de la columna
-        var usNombre = fila.find("td:eq(1)").text();
-        var usPass = fila.find("td:eq(2)").text();
-        var usMail = fila.find("td:eq(3)").text();
+        var idMenu = fila.find("td:eq(0)").text(); // Ajusta el índice según la posición de la columna
+        var meNombre = fila.find("td:eq(1)").text();
+        var meDescripcion = fila.find("td:eq(2)").text();
+        var meDeshabilitado = null;
+        console.log(idMenu);
+        console.log(meNombre);
+        console.log(meDescripcion);
+        console.log(meDeshabilitado);
+        
         // Llenar el modal con los datos capturados
-        $("#idUsuario").val(idUsuario);// ids de los campos del modal
-        $("#usNombre").val(usNombre);
-        $("#usPass").val(usPass);
-        $("#usMail").val(usMail);
+        $("#idMenuEditar").val(idMenu);// ids de los campos del modal
+        $("#meNombreEditar").val(meNombre);
+        $("#meDescripcionEditar").val(meDescripcion);
+        $("#meDeshabilitadoEditar").val(meDeshabilitado);
+       
         // Mostrar el modal con los campos llenos
         $("#editarModal").modal("show");
     });
@@ -23,23 +29,23 @@ $(document).ready(function() {
 
 
 
-async function guardarCambios() {
+function guardarCambiosNuevo() {
     // trae los valores del formulario
-    var idUsuario =$("#idUsuario").val();
-    var usNombre = $("#usNombre").val();
-    var usPass = $("#usPass").val();
-    var usMail = $("#usMail").val();
-    var idRol = $("#idRol").val();
+    var accion =$("#accion").val();
+    var meNombre = $("#meNombre").val();
+    var meDescripcion = $("#meDescripcion").val();
+    var idPadre = $("#idMenuPadre").val();
+
+
     $.ajax({
         type: "POST",
-        url: "./accion/accionesUsuario.php?accion=editar", // Asegúrate de crear este archivo para eliminar el producto
+        url: "./accion/accionesMenus.php", // Asegúrate de crear este archivo para eliminar el producto
         data: {
             // envia el siguiente arreglo de datos por post(datos del modal)
-            idUsuario: idUsuario,
-            usNombre:  usNombre,
-            usPass : usPass,
-            usMail : usMail,
-            idRol : idRol,
+            accion:accion,
+            meNombre:meNombre,
+            meDescripcion:  meDescripcion,
+            idPadre:  idPadre,
         },
         success: function(response) {
             // Maneja la respuesta según tus necesidades (puede ser una confirmación o cualquier otra cosa)
@@ -55,14 +61,54 @@ async function guardarCambios() {
 }
 
 
-function eliminarUsuario(idUsuario) {
+function guardarCambiosEditar() {
+    // trae los valores del formulario
+    var accion =$("#accionEditar").val();
+    var idMenu =$("#idMenuEditar").val();
+    var meNombre = $("#meNombreEditar").val();
+    var meDescripcion = $("#meDescripcionEditar").val();
+    var idPadre = $("#idMenuPadreEditar").val();
+
+    
+    var meDeshabilitado = null;
+    
+
+
+    $.ajax({
+        type: "POST",
+        url: "./accion/accionesMenus.php", // Asegúrate de crear este archivo para eliminar el producto
+        data: {
+            // envia el siguiente arreglo de datos por post(datos del modal)
+            accion: accion,
+            idMenu: idMenu,
+            meNombre:meNombre,
+            idPadre: idPadre,
+            meDescripcion:  meDescripcion,
+            meDeshabilitado: meDeshabilitado,
+        },
+        success: function(response) {
+            // Maneja la respuesta según tus necesidades (puede ser una confirmación o cualquier otra cosa)
+            console.log(response);
+            // Elimina la fila de la tabla (puedes hacerlo directamente aquí o recargar la página)
+            // Recargar la página después de actualizar el usuario
+            accionSuccess();
+        },
+        error: function(error) {
+            console.error("Error en la solicitud AJAX:", error);
+        }
+    });
+}
+
+
+
+function eliminarMenu(idMenu) {
     console.log("entro");
     // Realiza la solicitud AJAX para eliminar el producto
     $.ajax({
         type: "POST",
-        url: "./accion/accionesUsuario.php?accion=borrar", // Asegúrate de crear este archivo para eliminar el producto
+        url: "./accion/accionesMenus.php?accion=borrar", // Asegúrate de crear este archivo para eliminar el producto
         data: {
-            idUsuario: idUsuario
+            idMenu: idMenu
         },
         success: function(response) {
             // Maneja la respuesta según tus necesidades (puede ser una confirmación o cualquier otra cosa)
@@ -78,12 +124,12 @@ function eliminarUsuario(idUsuario) {
     });
 }
 
-function altaUsuario(idUsuario){
+function altaMenu(idMenu){
     $.ajax({
         type: "POST",
-        url: "./accion/accionesUsuario.php?accion=alta", // Asegúrate de crear este archivo para eliminar el producto
+        url: "./accion/accionesMenus.php?accion=alta", // Asegúrate de crear este archivo para eliminar el producto
         data: {
-            idUsuario: idUsuario
+            idMenu: idMenu
         },
         success: function(response) {
             // Maneja la respuesta según tus necesidades (puede ser una confirmación o cualquier otra cosa)
