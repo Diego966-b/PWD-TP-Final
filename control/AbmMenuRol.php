@@ -34,6 +34,11 @@ class AbmMenuRol {
                     $array ["exito"] = true;
                 }
             }
+            if($datos['accion']=='editarRoles'){
+                if ($this->editarRoles($datos)) {
+                    $array ["exito"] = true;
+                }
+            }
             if ($array ["exito"]) {
                 $array ["mensaje"] = "<h3 class='text-success'>La accion " . $datos['accion'] . " se realizo correctamente.</h3>";
             } else {
@@ -42,7 +47,27 @@ class AbmMenuRol {
         }
         return $array;
     }
-    
+    private function editarRoles($datos){
+        $abmMenuRol=new AbmMenuRol();
+        $listaMenuRol=$abmMenuRol->buscar(null);
+        foreach($listaMenuRol as $menuRol){
+            // borro todos los roles de ese menu
+            if($menuRol->getObjMenu()->getIdMenu()==$datos['idMenu']){
+                $param['idMenu']=$menuRol->getObjMenu()->getIdMenu();
+                $param['idRol']=$menuRol->getObjRol()->getIdRol();
+
+                $abmMenuRol->baja($param);
+            }
+        }
+        // una vez  borrados todos los roles de ese menu, creo los nuevos con los roles que me mandaron
+        $arrayRolesNuevos=$datos['rolesSeleccionados'];
+        foreach($arrayRolesNuevos as $idRol){
+            $param['idRol']=$idRol;
+            $param['idMenu']=$datos['idMenu'];
+            $respuesta= $abmMenuRol->alta($param);
+        }
+        return $respuesta;
+    }
     /**
      * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto.
      * @param array $param
@@ -101,7 +126,7 @@ class AbmMenuRol {
      */
      private function seteadosCamposClaves($param){
         $resp = false;
-        if (isset($param['objRol']) && (isset($param['objMenu']))) // VER!!!
+        if (isset($param['idRol']) && (isset($param['idMenu']))) // VER!!!
             $resp = true;
         return $resp;
     }

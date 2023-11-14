@@ -88,7 +88,9 @@ $pagSeleccionada = "Gestionar Menus";
                                 } else {
                                     echo '<button class="btn btn-success mx-1  " onclick="altaMenu(' . $menu->getIdMenu() . ')">Dar de alta</button>';
                                 }
-                                echo '<button type="button mx-1" class="btn btn-primary btn-modificar"  id="modificar"  >Editar</button>';
+                                echo '<button  class="btn btn-primary  mx-1 btn-modificar"  id="modificar"  >Editar</button>';
+                                echo '<button  class="btn btn-primary mx-1 btn-modificarRoles"  id="modificarRoles" >Editar Roles</button>';
+
                                 echo "</td></tr>";
                             }
                         }
@@ -99,6 +101,39 @@ $pagSeleccionada = "Gestionar Menus";
         </div>
         <div class="text-center m-3">
             <button type="button" class="btn btn-success btn-nuevo" data-bs-toggle="modal" data-bs-target="#nuevoModal"> Nuevo Menu</button>
+        </div>
+        <!-- modal Editar Roles -->
+        <div class="modal fade" id="editarRolesModal" name="editarRolesModal" tabindex="-1" aria-labelledby="nuevoModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <form name="nuevoform" id="nuevoform" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header bg-dark text-light">
+                            <h1 class="modal-title fs-5" id="editarModalLabel">Editar Roles del Menu</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="menuMod" id="menuMod" >
+                            <div class="mb-3">
+                                <h3> Roles Disponibles</h3>
+                                <?php
+                                foreach ($listadoRoles as $rol) {
+                                    if ($rol->getRolDeshabilitado() == null) {
+                                        echo '<input type="checkbox" class="form-check-input" name="rol" id="rol' . $rol->getIdRol() . '" value="' . $rol->getIdRol() . '"> ' . $rol->getRolDescripcion() . '</input> <br>';
+                                    } else {
+                                        echo '<input type="checkbox" class=" form-check-input" name="rol" disabled id="' . $rol->getIdRol() . '" value="' . $rol->getIdRol() . '">' . $rol->getRolDescripcion() . '</input> Deshabilitado<br>';
+                                    }
+                                }
+                                ?>
+                            </div>
+                        </div>
+                        <input id="accionRoles" name="accionRoles" value="editarRoles" type="hidden">
+                        <div class="modal-footer  bg-dark">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-success" onclick="guardarCambiosRoles()">Agregar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
         <!-- Modal Nuevo -->
         <div class="modal fade" id="nuevoModal" name="nuevoModal" tabindex="-1" aria-labelledby="nuevoModalLabel" aria-hidden="true">
