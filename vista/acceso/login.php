@@ -15,10 +15,10 @@
         <div>
             <form name="loginForm" id="loginForm" method="post" action="<?php echo $VISTA; ?>/accion/verificarLogin.php" class="mb-3">
                 <label for="usNombre" class="form-label">Nombre de usuario</label>
-                <input type="text" class="form-control" id="usNombre" name="usNombre" placeholder="Pepe" value="admin">
+                <input type="text" class="form-control" id="usNombre" name="usNombre" placeholder="Pepe" value="cliente">
                 <br>
                 <label for="usPass" class="form-label">Contrase&ntilde;a</label>
-                <input type="password" class="form-control" id="usPass" name="usPass" placeholder="****" value="admin">
+                <input type="password" class="form-control" id="usPass" name="usPass" placeholder="****" value="cliente">
                 <input type="submit" value="Iniciar sesion" class="btn btn-success mt-4">
                 <a href="<?php echo $VISTA; ?>/registrarse.php" class="btn btn-primary mt-4">Registrarse</a>
             </form>

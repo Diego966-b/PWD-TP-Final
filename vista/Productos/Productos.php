@@ -35,17 +35,41 @@
                 {
                     echo "<div class='col-md-4 mb-4'>";
                     echo "<div class='card'>";
-
-                    echo "IMAGEN";
-                    echo "<img href=".$objProducto->getImagen()."></img>";
-                    
+                    echo "<div class='row no-gutters'>"; 
+                    echo "<div class='col-md-4 d-flex align-items-center justify-content-center p-3'>";
+                    echo "<img class='card-img' src=".$VISTA."/imagenes/".$objProducto->getProImagen()." alt='Imagen del producto'>";
+                    echo "</div>"; 
+                    echo "<div class='col-md-8'>"; 
                     echo "<div class='card-body'>";
-                    echo "<h5 class='card-title'>".$objProducto->getProNombre()."</h5>";
-                    echo "<p class='card-text'>Precio: $ ".$objProducto->getProPrecio()."</p>";
-                    echo "<p class='card-text'>".$objProducto -> getProDetalle()."</p>";
-                    echo "<p class='card-text'>Stock: ".$objProducto->getProCantStock()."</p>";
-                    echo "<a href='#' class='btn btn-primary'>Agregar al carrito</a>";
-                    echo "</div></div></div>";
+                    echo "<form id='formCarrito' name='formCarrito' method='post'>";
+                        echo "<h5 class='card-title'>".$objProducto->getProNombre()."</h5>";
+                        echo "<p class='card-text'>Precio: $ ".$objProducto->getProPrecio()."</p>";
+                        echo "<p class='card-text'>".$objProducto->getProDetalle()."</p>";
+                        echo "<p class='card-text'>Stock: ".$objProducto->getProCantStock()."</p>";
+                        echo "<label for='proCantidad'>Cantidad:</label>";
+                        echo "<input type='number' class='card-text proCantidad' name='proCantidad' value='1' id='proCantidad-" . $objProducto->getIdProducto() . "'>";
+                        echo "<br><br>";
+                        if ($objProducto->getProCantStock() == 0)
+                        {
+                            echo '<button class="btn btn-primary mx-1" disabled onclick="agregarItemCarrito('
+                            . $objProducto->getIdProducto() . ', \'' . $objProducto->getProImagen() . '\', '
+                            . $objProducto->getProPrecio() . ', \'' . $objProducto->getProDetalle() . '\', \''
+                            . $objProducto->getProNombre() . '\', ' . $objProducto->getProCantStock() . ')">Agregar al carrito</button>';
+                        }
+                        else
+                        {
+                            echo '<button class="btn btn-primary mx-1" onclick="agregarItemCarrito('
+                            . $objProducto->getIdProducto() . ', \'' . $objProducto->getProImagen() . '\', '
+                            . $objProducto->getProPrecio() . ', \'' . $objProducto->getProDetalle() . '\', \''
+                            . $objProducto->getProNombre() . '\', ' . $objProducto->getProCantStock() . ')">Agregar al carrito</button>';
+                        }
+                        echo "";
+                    echo "</form>";
+                    echo "</div>"; 
+                    echo "</div>";
+                    echo "</div>";
+                    echo "</div>";
+                    echo "</div>";
                 }
             }
         }
@@ -53,9 +77,11 @@
         {
             echo "<p>No hay productos cargados</p>";
         }
-        echo '</div>';
-        echo '</div>';
+        echo '</div></div>';
+        print_r($_SESSION);
         include_once($ESTRUCTURA."/pie.php"); 
+        // agrgagr validaciones js
     ?>
+    <script src="./js/agregarItem.js"></script>
 </body>
 </html>

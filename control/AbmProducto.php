@@ -200,17 +200,16 @@ class AbmProducto
                 $where .= " and proNombre ='" . $param['proNombre'] . "'";
             }
             if (isset($param['proDetalle'])) {
-                $where .= " and proDetalle =" . $param['proDetalle'];
+                $where .= " and proDetalle ='" . $param['proDetalle']. "'";
             }
             if (isset($param['proCantStock'])) {
-                $where .= " and proCantStock ='" . $param['proCantStock'] . "'";
+                $where .= " and proCantStock =" . $param['proCantStock'];
             }  
-            //setear ($idProducto, $proNombre, $proDetalle, $proCantStock, $proImagen, $proPrecio, $proDeshabilitado)
             if (isset($param['proImagen'])) {
                 $where .= " and proImagen ='" . $param['proImagen'] . "'";
             }
             if (isset($param['proPrecio'])) {
-                $where .= " and proPrecio ='" . $param['proPrecio'] . "'";
+                $where .= " and proPrecio =" . $param['proPrecio'];
             }
             if  (isset($param['proDeshabilitado'])) 
             {

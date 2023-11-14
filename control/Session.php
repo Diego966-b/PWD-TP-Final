@@ -151,6 +151,63 @@ class Session
     }   
     */
 
+    /**
+     * Valida si un idProducto ya esta cargado en el carrito
+     */
+    public function validarDuplicado ($idProductoIngresado)
+    {
+        $indice = "";
+        $arrayCarrito = $this -> setearCarrito();
+        for ($i = 0; $i < count($arrayCarrito); $i++)
+        {
+            $arrayProductoActual = [];
+            $arrayProductoActual = $arrayCarrito [$i];
+            $idProductoActual = $arrayProductoActual ["idProducto"];
+            if ($idProductoActual == $idProductoIngresado)
+            {
+                $indice = $i;
+            }
+        }
+        return $indice;
+    }
+
+    /**
+     * Agrega un item al carrito que es un arreglo de arreglos en sesion
+     * @param array $arregloItem
+     */
+    public function agregarItemCarrito ($arregloProducto)
+    {
+        $arrayCarrito = $this -> setearCarrito();
+        $arrayCarrito = $_SESSION['carrito'];
+        $idProducto = $arregloProducto['idProducto'];
+        $proCantidadInicial = $arregloProducto['proCantidad'];
+        $indice = $this -> validarDuplicado($idProducto);
+        if ($indice <> "")
+        {
+            $arrayCarrito[$indice]["proCantidad"] += $proCantidadInicial;
+            $arrayProducto ["idProducto"] = $arrayCarrito[$indice]["idProducto"];
+            //$arrayProducto ["proCantidad"] = $proCantidadFinal;
+        }
+        else
+        {
+            $arrayProducto ["idProducto"] = $idProducto;
+            $arrayProducto ["proCantidad"] = $proCantidadInicial;
+            $arrayCarrito [$idProducto] = $arrayProducto;    
+        }
+        $_SESSION['carrito'] = $arrayCarrito;
+    }
+
+    /**
+     * Setea el carrito en la variable $_SESSION
+     */
+    public function setearCarrito ()
+    {   
+        if (!isset($_SESSION['carrito'])) {
+            $_SESSION['carrito'] = array();
+        }
+        return $_SESSION['carrito'];
+    }
+    
     public function tienePermisoB ($objUsuario)
     {
         $tienePermiso = false;

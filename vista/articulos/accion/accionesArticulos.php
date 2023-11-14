@@ -9,11 +9,4 @@ if($respuesta){
 }else{
     echo "no anduvo";
 }
-
-
-
-
-
-
-
 ?>

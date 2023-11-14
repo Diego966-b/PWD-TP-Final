@@ -7,7 +7,6 @@
 <head>
     <?php include_once($ESTRUCTURA."/header.php"); ?>
     <?php include_once($ESTRUCTURA."/cabeceraBD.php"); ?>
-    <a href="../pagSegura/pagSegura.php">PagSegura</a>
     <h2>Home</h2>
 </head>
 <body>

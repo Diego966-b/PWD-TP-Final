@@ -114,8 +114,7 @@ class Producto
             proDetalle='" . $this->getProDetalle()."',
             proCantStock='" . $this->getProCantStock()."',
             proImagen='" . $this->getProImagen()."',
-            proPrecio='" . $this->getProPrecio()."',
-            proDeshabilitado='" . $this->getProDeshabilitado()."'
+            proPrecio='" . $this->getProPrecio()."'
         WHERE idProducto='" . $this->getIdProducto() . "'";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
