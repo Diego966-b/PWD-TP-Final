@@ -243,5 +243,8 @@ class AbmMenuRol {
         }
         return $arrayMenus;
     }
+    // public function darMenuPorRol(){
+        
+    // }
 }
 ?>
