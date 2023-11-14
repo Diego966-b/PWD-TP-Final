@@ -54,7 +54,7 @@ foreach ($menues as $objMenu) {
         $seleccionado = ($pagSeleccionada == $nombreMenu) ? "link-underline-light link-underline-opacity-100" : "";
         echo
         '<h2 class="m-3">
-            <a class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover ' . $seleccionado . '" href="' . $objMenu->getMeDescripcion() . '">'
+            <a class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover ' . $seleccionado . '" href="' . $objMenu->getMeDescripcion() . '?rol='.$idSeleccionado.'">'
             . $objMenu->getMeNombre() .
             '</a>
             </h2>';
