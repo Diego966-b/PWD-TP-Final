@@ -7,13 +7,26 @@ $pagSeleccionada = "Gestionar Roles";
 
 <head>
     <?php include_once($ESTRUCTURA . "/header.php"); ?>
-    <?php include_once($ESTRUCTURA . "/cabeceraBD.php"); ?>
+    <?php include_once($ESTRUCTURA . "/cabeceraBD.php");
+    if ($objSession->validar()) {
+        $tienePermiso = $objSession->tienePermisoB($objSession->getUsuario());
+        if (!$tienePermiso) {
+            header("Refresh: 3; URL='$VISTA/acceso/login.php'");
+        }
+        // agreegar para todas las paginas 
+        $estadoPagina = $objSession->estadoMenu();
+        if (!$estadoPagina) {
+            header("Refresh: 3; URL='$VISTA/home/index.php'");
+        }
+    } else {
+        header("Refresh: 3; URL='$VISTA/acceso/login.php'");
+    }
+    ?>
 </head>
 
 <body>
     <?php
     $objRol = new AbmRol;
-
     $listadoRoles = $objRol->buscar(null);
 
     ?>
@@ -42,7 +55,7 @@ $pagSeleccionada = "Gestionar Roles";
                             } else {
                                 echo '<td>Baja desde: ' . $rol->getRolDeshabilitado() . '  </td>';
                             }
-                
+
                             echo '</td>';
                             echo "<td>";
                             if ($rol->getRolDeshabilitado() == null) {
@@ -60,7 +73,7 @@ $pagSeleccionada = "Gestionar Roles";
         </div>
     </div>
     <div class="text-center m-3">
-        <button type="button"class="btn btn-success btn-nuevo"  data-bs-toggle="modal" data-bs-target="#nuevoModal"> Nuevo Rol</button>
+        <button type="button" class="btn btn-success btn-nuevo" data-bs-toggle="modal" data-bs-target="#nuevoModal"> Nuevo Rol</button>
     </div>
     <!-- Modal Nuevo -->
     <div class="modal fade" id="nuevoModal" name="nuevoModal" tabindex="-1" aria-labelledby="nuevoModalLabel" aria-hidden="true">
@@ -74,7 +87,7 @@ $pagSeleccionada = "Gestionar Roles";
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="rolDescripcion" class="form-label">Descripcion</label>
-                            <input  type="text" class="form-control" id="rolDescripcion" name="rolDescripcion">
+                            <input type="text" class="form-control" id="rolDescripcion" name="rolDescripcion">
                         </div>
                     </div>
                     <input id="accion" name="accion" value="nuevo" type="hidden">

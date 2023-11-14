@@ -181,4 +181,19 @@ class Session
         }
         return $tienePermiso;
     }   
+    public function estadoMenu(){
+        $habilitado =false;
+        $url = $_SERVER["REQUEST_URI"];
+        $ambMenu=new AbmMenu();
+        $listaMenus= $ambMenu->buscar(null);
+        foreach($listaMenus as $menu){
+            $urlMenu=$menu->getMeDescripcion();
+            $urlMenu = substr($urlMenu , 2);
+            if(strpos($url, $urlMenu) <> false && $menu->getMeDeshabilitado() == null){
+                $habilitado = true;
+            }
+        }
+        return $habilitado;
+
+    }
 }
