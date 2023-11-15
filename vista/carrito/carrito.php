@@ -9,7 +9,6 @@
     <?php include_once($ESTRUCTURA."/cabeceraBD.php"); ?>
 </head>
 <body>
-    <h1>Carrito</h1>
     <?php
         if ($objSession -> validar())
         {
@@ -26,10 +25,10 @@
 
         if (isset($_SESSION['carrito']))
         {
+            echo '<h1 class="text-center">Carrito</h1>';
             echo '<div class="container mt-5">';
             echo '<div class="row">';
             $carrito = $_SESSION['carrito'];
-            //print_r($carrito);
             $totalPagar = 0;
             $colProductos = [];
             for ($i = 0; $i < count($carrito); $i++) {
@@ -39,32 +38,34 @@
                 $array = [];
                 $array ["idProducto"] = $idProducto;
                 $listaProductos = $abmProducto -> buscar($array);
-                //print_r($listaProductos);
                 $objProducto = $listaProductos [0];
                 echo "<div class='row mb-3 border'>";
-                echo "<div class='col-md-3'>";
-                echo "<img class='img-fluid' src=".$VISTA."/imagenes/".$objProducto->getProImagen()." alt='Imagen del producto'>";
+                echo "<div class='col-md-3 mx-auto d-flex align-items-center'>";
+                echo "<img class='img-fluid' src=".$VISTA."/imagenes/".$objProducto->getProImagen()." alt='Imagen del producto' style='width: 200px;'>";
                 echo "</div>";
                 echo "<div class='col-md-8'>";
                 echo "<h5>".$objProducto->getProNombre()."</h5>";
                 echo "<p>Precio: $ ".$objProducto->getProPrecio()."</p>";
-                echo '<button class="btn btn-success mx-1" onclick="agregarUnidad('.$objProducto->getIdProducto().',\''.$producto["proCantidad"].'\','.')">+</button>';
+                //echo '<button class="btn btn-success mx-1" onclick="agregarUnidad('.$objProducto->getIdProducto().',\''.$producto["proCantidad"].'\','.')">+</button>';
 
                 echo "<div class='parrafo' id='parrafo-".$objProducto->getIdProducto()."'>";
-                echo "Cantidad: <p id='proCantidad-".$objProducto->getIdProducto()."' name='proCantidad' class='proCantidad'>".$producto["proCantidad"]."</p>";
+                echo "<p id='proCantidad-".$objProducto->getIdProducto()."' name='proCantidad' class='proCantidad'>Cantidad: ".$producto["proCantidad"]."</p>";
                 echo "</div>";
 
-                echo '<button class="btnRestar btn btn-danger mx-1" onclick="eliminarUnidad('.$objProducto->getIdProducto().',\''.$producto["proCantidad"].'\','.')">-</button>';
+                //echo '<button class="btnRestar btn btn-danger mx-1" onclick="eliminarUnidad('.$objProducto->getIdProducto().',\''.$producto["proCantidad"].'\','.')">-</button>';
                 echo "<p>".$objProducto->getProDetalle()."</p>";
-
                 echo "<input type='hidden' value=".$objProducto->getIdProducto()." name='idProducto' id='idProducto'>";
                 $totalPagar = (($objProducto -> getProPrecio()) * $producto["proCantidad"]) + $totalPagar;
                 echo "</div>";
                 echo "</div>";
+
+                /*
+                NO SIRVE DE NADA
                 $objProductoArray = [];
                 $objProductoArray = dismount($objProducto);
-                
                 array_push($colProductos, $objProductoArray); 
+                */
+
             }
             
             //$jsonProductos = json_encode($colProductos);
@@ -87,8 +88,7 @@
             echo "<a href=".$VISTA."/productos/productos.php>Ver productos disponibles</a>";
         }
     ?>
-    <a href="agregarCompraEstado.php">ACGREGARcomrpadwa </a>
-    <script src="./js/funcionesCarrito.js"></script>
     <?php include_once($ESTRUCTURA."/pie.php"); ?>
+    <script src="./js/funcionesCarrito.js"></script>
 </body>
 </html>

@@ -32,12 +32,11 @@
     $exito = $resultado["exito"];
     if ($exito)
     {
-        // Buscar idCompra y guardarlo
-        $idCompraABAC = $resultado ["id"]; 
+        $idCompra = $resultado ["id"]; 
     }
     else
     {
-        $idCompraABAC = "";
+        $idCompra = "";
     }
 
     // Creo un nuevo CompraEstado
@@ -47,32 +46,25 @@
     $arrayConsultaCE ["idCompraEstadoTipo"] = 1; // guardo 1 ya que es el id de la compra iniciada
     $arrayConsultaCE ["ceFechaIni"] = date("Y-m-d H:i:s");
     $arrayConsultaCE ["ceFechaFin"] = "0000-00-00 00:00:00";
-    $arrayConsultaCE ["idCompra"] = $idCompraABAC; 
+    $arrayConsultaCE ["idCompra"] = $idCompra; 
     $resultado = $abmCompraEstado -> abm($arrayConsultaCE);
 
     // Creo el CompraItem
 
     for ($i = 0; $i < count($carrito); $i++)
     {
-        $arrayBusqueda = [];
         $arrayConsulta = [];
         $arrayProducto = $carrito [$i];
         $idProducto = $arrayProducto ["idProducto"];
         $proCantidad = $arrayProducto ["proCantidad"];
-        
-        //$arrayBusqueda ["idProducto"] = $idProducto;
-        //$objProducto = $abmProducto -> buscar($arrayBusqueda);
-        //$objProducto = $objProducto [0];
-        
         // compraItem
         $arrayConsulta ["accion"] = "nuevo";
         $arrayConsulta ["ciCantidad"] = $proCantidad;
         $arrayConsulta ["idProducto"] = $idProducto;
-        $arrayConsulta ["idCompra"] = $idCompraABAC; 
+        $arrayConsulta ["idCompra"] = $idCompra; 
         $abmCompraItem -> abm($arrayConsulta);
         //array_push($colProductosCarrito, $objProducto);
     }
-    
-    //$objSession -> eliminarCarrito();
-    
+
+    $objSession -> eliminarCarrito();
 ?>

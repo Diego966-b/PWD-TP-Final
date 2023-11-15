@@ -16,11 +16,9 @@ function pagarCarrito() {
             alert("Pagado");
             console.log("este es mi carrito:");
             console.log(carrito);
-            /*
             setTimeout(function () {
                 location.reload();
             }, 100);
-            */
         },
         error: function(error) {
             console.error("Error en la solicitud AJAX:", error);
