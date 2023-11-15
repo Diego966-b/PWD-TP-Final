@@ -53,7 +53,7 @@ $pagSeleccionada = "Deposito";
                         echo '<td>' . $elem->getProDeshabilitado() . '</td>';
                     }                      
                     //<button class="btn btn-danger" onclick="eliminarArticulo(' .  $elem->getIdProducto() . ')">Eliminar</button>
-                    echo '<td><button class="btn btn-primary mx-1" id="modificar">Modificar</button>';
+                    echo '<td><button class="btn btn-primary mx-1 btn-modificar">Modificar</button>';
                    
                             if ($elem->getProDeshabilitado() == null) {
                                 echo '<button class="btn btn-danger mx-1" onclick="eliminarArticulo(' .  $elem->getIdProducto() . ')">Dar baja</button>';
@@ -83,10 +83,10 @@ $pagSeleccionada = "Deposito";
 
                 <!-- Cuerpo del modal con el formulario -->
                 <div class="modal-body">
-                    <form id="miFormulario">
-                        <label for="nombre">Nombre del Producto:</label>
+                    <form id="miFormularioNuevo" name="miFormulario">
+                        <label for="proNombre">Nombre del Producto:</label>
                         <input type="text" id="proNombre" name="proNombre" class="form-control" required>
-
+                        
                         <label for="proDetalle">Descripcion del producto:</label>
                         <input type="text" id="proDetalle" name="proDetalle" class="form-control" required>
 
@@ -120,23 +120,28 @@ $pagSeleccionada = "Deposito";
                 <div class="modal-header">
                     <h4 class="modal-title">Modificar Producto</h4>
                 </div>
+                    <div class="modal-body">
+                    <form id="miFormularioModificar" name="miFormulario">
+                        <input type="number" id="proIdModificar" hidden>
 
-                <div class="modal-body">
-                    <input type="number" id="proIdModificar" hidden>
-                    <label for="nombre">Nombre del Producto:</label>
-                    <input type="text" id="proNombreModificar" name="proNombre" class="form-control" required>
+                        <label for="proNombreModificar">Nombre del Producto:</label>
+                        <input type="text" id="proNombreModificar" name="proNombreModificar" class="form-control" required>
 
-                    <label for="proDetalle">Descripcion del producto:</label>
-                    <input type="text" id="proDetalleModificar" name="proDetalle" class="form-control" required>
+                        <label for="proDetalleModificar">Descripcion del producto:</label>
+                        <input type="text" id="proDetalleModificar" name="proDetalleModificar" class="form-control" required>
 
-                    <label for="imagen">Imagen del Producto:</label>
-                    <input type="text" id="proImagenModificar" name="imagen" class="form-control" required>
+                        <label for="proImagenModificar">Imagen del Producto:</label>
+                        <input type="text" id="proImagenModificar" name="proImagenModificar" class="form-control" required>
 
-                    <label for="proCantStock">Cantidad de stock:</label>
-                    <input type="number" id="proCantStockModificar" name="proCantStock" class="form-control" required>
+                        <label for="proCantStockModificar">Cantidad de stock:</label>
+                        <input type="number" id="proCantStockModificar" name="proCantStockModificar" class="form-control" required>
 
-                    <br>
-                    <button type="submit" class="btn btn-primary">Enviar</button>
+                        <label for="proPrecioModificar">Precio:</label>
+                        <input type="number" id="proPrecioModificar" name="proPrecioModificar" class="form-control" required>
+
+                        <br>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </form>
                 </div>
 
                 <div class="modal-footer">

@@ -1,5 +1,5 @@
 <?php
-class compraEstado
+class CompraEstado
 {
     // Atributos
 
@@ -59,12 +59,15 @@ class compraEstado
                     $row = $base->Registro();
                     $abmCompra = new AbmCompra ();
                     $abmCompraEstadoTipo = new AbmCompraEstadoTipo ();
-                    $array = [];
-                    $array ['idCompra'] = $row['idCompra'];
-                    $array ['idCompraEstadoTipo'] = $row['idCompraEstadoTipo'];
+                    $arrayCompra = [];
+                    $arrayCompraEstadoTipo = [];
+
+                    $arrayCompra ['idCompra'] = $row['idCompra'];
+                    $arrayCompraEstadoTipo ['idCompraEstadoTipo'] = $row['idCompraEstadoTipo'];
+
                     // MODIFICADO!!!
-                    $listaCompras = $abmCompra -> buscar($array);
-                    $listaCompraEstadoTipo = $abmCompraEstadoTipo -> buscar($array);
+                    $listaCompras = $abmCompra -> buscar($arrayCompra);
+                    $listaCompraEstadoTipo = $abmCompraEstadoTipo -> buscar($arrayCompraEstadoTipo);
                     $objCompra = $listaCompras[0];
                     $objCompraEstadoTipo = $listaCompraEstadoTipo[0];
                     // MODIFICADO!!!
@@ -87,13 +90,14 @@ class compraEstado
         $objCompra = $this -> getObjCompra();
         $objCompraEstadoTipo = $this -> getObjCompraEstadoTipo();
         $sql = 
-        "INSERT INTO compraEstado ()
-            VALUES ('" . 
-            $this->getIdCompraEstado() . "', '" . 
-            $this->getCeFechaIni() . "', '" . 
-            $this->getCeFechaFin() . "', '" .
-            $objCompraEstadoTipo->getIdCompraEstadoTipo() . "', '" .
-            $objCompra->getIdCompra() . "')";
+        "INSERT INTO compraEstado (ceFechaIni,ceFechaFin,idCompra, idCompraEstadoTipo) 
+        VALUES ('"
+         . $this->getCeFechaIni() . "', '" 
+         . $this->getCeFechaFin() . "', '" 
+         .$objCompra->getIdCompra() 
+         . "', '" .$objCompraEstadoTipo->getIdCompraEstadoTipo() . "')";
+        //echo "CONSULKTA;:".$sql."<br>";
+        //echo "(idCompraEstado, objCompra, objCompraEstadoTipo, ceFechaIni, ceFechaFin)";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $respuesta = true;
@@ -115,7 +119,7 @@ class compraEstado
         $sql = 
         "UPDATE compraEstado SET 
             idCompra='" . $objCompra->getIdCompra() . "',
-            idCompraEstado='" . $objCompraEstadoTipo->getIdCompraEstadoTipo() . "',
+            idCompraEstadoTipo='" . $objCompraEstadoTipo->getIdCompraEstadoTipo() . "',
             ceFechaIni='" . $this->getCeFechaIni() . "',
             ceFechaFin='" . $this->getceFechaFin() . "'
         WHERE idCompraEstado='" . $this->getIdCompraEstado() . "'";
@@ -166,7 +170,7 @@ class compraEstado
                     $obj = new CompraEstado ();
                     $array = [];
                     $array ['idCompra'] = $row['idCompra'];
-                    $array ['idCompraEstadoTipo'] = $row['idCompraEstadoTipo'];
+                    $array ['idCompraEstado'] = $row['idCompraEstado'];
                     // MODIFICADO!!!
                     $listaCompras = $abmCompra -> buscar($array);
                     $listaCompraEstadoTipo = $abmCompraEstadoTipo -> buscar($array);

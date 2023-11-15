@@ -29,12 +29,14 @@ class AbmCompra
                     $array ["exito"] = true;
                 }
             }
-            if($datos['accion']=='nuevo')
-            {
-                if ($this->alta($datos)) {
-                    $array ["exito"] = true;
+            if ($datos['accion'] == 'nuevo') {
+                $id = $this->alta($datos);
+                if ($id <> null) {
+                    $array["exito"] = true;
+                    $array["id"] = $id;
+                    echo "el id de la compra es ".$id;
                 }
-            }
+            }            
             if ($array ["exito"]) {
                 $array ["mensaje"] = "<h3 class='text-success'>La accion " . $datos['accion'] . " se realizo correctamente.</h3>";
             } else {
@@ -50,8 +52,8 @@ class AbmCompra
      */
     private function cargarObjeto ($param){
         $obj = null;
-        if (array_key_exists('idCompra',$param) and array_key_exists('coFecha',$param) and
-            array_key_exists('idUsuario',$param))
+        if ((array_key_exists('idCompra',$param) && array_key_exists('coFecha',$param) &&
+            array_key_exists('idUsuario',$param)))
         {
             $obj = new Compra();
             $abmUsuario = new AbmUsuario();
@@ -96,15 +98,17 @@ class AbmCompra
      * Carga un compra a la BD. Espera un array como parametro.
      * Retorna un booleano
      * @param array $param
-     * @return boolean
      */
     public function alta($param){
-        $resp = false;
+        //$resp = false;
+        $param['idCompra'] = null; 
+        $idCompraInsertada = null;
         $elObjCompra = $this->cargarObjeto($param);
-        if ($elObjCompra!=null and $elObjCompra->insertar()){
-            $resp = true;
+        if ($elObjCompra != null and (($ultimoId=$elObjCompra->insertar()) <> null)){
+            echo "ultimoID".$ultimoId;
+            //$resp = true;
         }
-        return $resp;
+        return $ultimoId;
     }
 
     /**

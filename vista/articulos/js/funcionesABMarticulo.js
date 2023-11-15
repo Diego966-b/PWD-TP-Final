@@ -5,7 +5,7 @@ $(document).ready(function() {
     });
 
     // Evento de envío del formulario dentro del modal
-    $("#miFormulario").submit(function(event) {
+    $("#miFormularioNuevo").submit(function(event) {
         // Evitar el envío del formulario de manera tradicional
         event.preventDefault();
 
@@ -41,7 +41,7 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     // Evento de clic en el botón "Modificar"
-    $("#modificar").click(function() {
+    $(".btn-modificar").click(function() {
         // Obtener la fila actual
         var fila = $(this).closest("tr");
 
@@ -51,6 +51,7 @@ $(document).ready(function() {
         var proDetalle = fila.find("td:eq(2)").text();
         var proImagen = fila.find("td:eq(3)").text();
         var proStock = fila.find("td:eq(4)").text();
+        var proPrecio = fila.find("td:eq(5)").text();
         // ... Obtener otros datos según sea necesario
 
         // Llenar el modal con los datos capturados
@@ -59,6 +60,7 @@ $(document).ready(function() {
         $("#proDetalleModificar").val(proDetalle);
         $("#proImagenModificar").val(proImagen);
         $("#proCantStockModificar").val(proStock);
+        $("#proPrecioModificar").val(proPrecio);
         // ... Llenar otros campos del modal según sea necesario
 
         // Mostrar el modal
@@ -75,6 +77,7 @@ function guardarCambios() {
     var detalleProducto = $("#proDetalleModificar").val();
     var imagenProducto = $("#proImagenModificar").val();
     var stockProducto = $("#proCantStockModificar").val();
+    var precioProducto = $("#proPrecioModificar").val();
 
     $.ajax({
         type: "POST",
@@ -83,8 +86,9 @@ function guardarCambios() {
             idProducto: idProducto,
             proNombre:  nombreProducto,
             proDetalle : detalleProducto,
-            imagen : imagenProducto,
-            proCantStock : stockProducto
+            proImagen : imagenProducto,
+            proCantStock : stockProducto,
+            proPrecio : precioProducto,
         },
         success: function(response) {
             // Maneja la respuesta según tus necesidades (puede ser una confirmación o cualquier otra cosa)

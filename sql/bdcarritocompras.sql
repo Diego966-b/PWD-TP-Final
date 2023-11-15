@@ -47,7 +47,7 @@ CREATE TABLE `compra` (
 CREATE TABLE `compraEstado` (
   `idCompraEstado` bigint(20) UNSIGNED NOT NULL,
   `idCompra` bigint(11) NOT NULL,
-  `idCompraestadoTipo` int(11) NOT NULL,
+  `idCompraEstadoTipo` int(11) NOT NULL,
   `ceFechaIni` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ceFechaFin` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -176,10 +176,12 @@ CREATE TABLE `producto` (
   `proDeshabilitado` timestamp NULL DEFAULT NULL -- NUEVO!!!
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `producto` (`idProducto`, `proNombre`, `proDetalle`, `proCantStock`, `proPrecio`,`proImagen`, `prodeshabilitado`) VALUES
-(1, 'Dulce de leche', 'Marca la serenisima', 10, 1000, 'nombreImagen.extension', null),
-(2, 'Cafe', 'Marca cabrales', 10, 10000, 'nombreImagen.extension', null),
-(3, 'estoyDeshabilitado', 'No deberia verse', 10000000000000000000, 100000000000000000000, 'deshabilitado', '2023-11-11 21:43:23');
+INSERT INTO `producto` 
+(`idProducto`, `proNombre`, `proDetalle`, `proCantStock`, `proPrecio`,`proImagen`, `prodeshabilitado`) VALUES
+(1, 'Dulce de leche', 'Marca la serenisima', 1000000000, 1000, 'dulceDeLeche.jpg', null),
+(2, 'Fideos', 'Ricos', 1000000000, 10000, 'fideos.jpg', null),
+(3, 'Yerba', 'Mate', 3, 10000, 'yerba.jpg', null),
+(4, 'estoyDeshabilitado', 'No deberia verse', 10000000000000000000, 100000000000000000000, 'deshabilitado', '2023-11-11 21:43:23');
 
 -- --------------------------------------------------------
 
@@ -266,8 +268,8 @@ ALTER TABLE `compra`
 ALTER TABLE `compraEstado`
   ADD PRIMARY KEY (`idCompraEstado`),
   ADD UNIQUE KEY `idCompraEstado` (`idCompraEstado`),
-  ADD KEY `fkcompraEstado_1` (`idCompra`),
-  ADD KEY `fkcompraEstado_2` (`idCompraEstadoTipo`);
+  ADD KEY `fkcompraestado_1` (`idCompra`), -- 
+  ADD KEY `fkcompraestado_2` (`idCompraEstadoTipo`); --
 
 --
 -- Indices de la tabla `compraestadotipo`
@@ -281,8 +283,8 @@ ALTER TABLE `compraEstadoTipo`
 ALTER TABLE `compraItem`
   ADD PRIMARY KEY (`idCompraItem`),
   ADD UNIQUE KEY `idCompraItem` (`idCompraItem`),
-  ADD KEY `fkcompraItem_1` (`idCompra`),
-  ADD KEY `fkcompraItem_2` (`idProducto`);
+  ADD KEY `fkcompraitem_1` (`idCompra`), --
+  ADD KEY `fkcompraitem_2` (`idProducto`); --
 
 --
 -- Indices de la tabla `menu`

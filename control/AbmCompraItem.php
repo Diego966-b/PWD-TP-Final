@@ -56,12 +56,13 @@ class AbmCompraItem
             $obj = new CompraItem();
             $abmProducto = new AbmProducto();
             $abmCompra = new AbmCompra();
-            $array = [];
-            $array ['idCompra'] = $param['idCompra'];
-            $array ['idProducto'] = $param['idProducto'];
+            $arrayCompra = [];
+            $arrayProducto = [];
+            $arrayCompra ['idCompra'] = $param['idCompra'];
+            $arrayProducto ['idProducto'] = $param['idProducto'];
             // MODIFICADO!!!
-            $listaCompras = $abmCompra -> buscar ($array);
-            $listaProductos = $abmProducto -> buscar ($array);
+            $listaCompras = $abmCompra -> buscar ($arrayCompra);
+            $listaProductos = $abmProducto -> buscar ($arrayProducto);
             $objCompra = $listaCompras[0];
             $objProducto = $listaProductos[0];
             // MODIFICADO!!!
@@ -104,6 +105,7 @@ class AbmCompraItem
      */
     public function alta($param){
         $resp = false;
+        $param['idCompraItem'] = null; // MODIFICADO!!!
         $elObjCompraItem = $this->cargarObjeto($param);
         if ($elObjCompraItem!=null and $elObjCompraItem->insertar()){
             $resp = true;
@@ -159,13 +161,13 @@ class AbmCompraItem
                 $where.=" and idCompraItem=".$param['idCompraItem'];
             }
             if  (isset($param['ciCantidad'])) {
-                $where.=" and ciCantidad ='".$param['ciCantidad']."'";
+                $where.=" and ciCantidad =".$param['ciCantidad'];
             }
             if  (isset($param['idProducto'])) {
                 $where.=" and idProducto=".$param['idProducto'];
             }
             if  (isset($param['idCompra'])) {
-                $where.=" and idCompra ='".$param['idCompra']."'";
+                $where.=" and idCompra =".$param['idCompra'];
             }
         }
         $arreglo = CompraItem::listar($where);
