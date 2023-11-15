@@ -57,10 +57,10 @@ $pagSeleccionada = "Gestionar Usuarios";
                     <?php
                     if (count($listaUsuarios) > 0) {
                         foreach ($listaUsuarios as $user) {
-                            echo '<tr><td>' . $user->getIdUsuario() . '</td>';
-                            echo '<td>' . $user->getUsNombre() . '  </td>';
-                            echo '<td>' . $user->getUsPass() . '  </td>';
-                            echo '<td>' . $user->getUsMail() . '  </td>';
+                            echo '<tr><td>'.$user->getIdUsuario().'</td>';
+                            echo '<td>'. $user->getUsNombre().'</td>';
+                            echo '<td>'. $user->getUsPass() . '</td>';
+                            echo '<td>'. $user->getUsMail() . '</td>';
                             if ($user->getUsDeshabilitado() == null) {
                                 echo '<td>Activo</td>';
                             } else {

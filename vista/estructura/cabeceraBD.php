@@ -29,9 +29,11 @@ if ($sesionValida) {
             $menues = $arrayMenu[$idSeleccionado];
         }
     } else {
+        $idSeleccionado=null;
         $menues = $objMenuRol->darMenusPorUsuario($objUsuario);
     }
 } else {
+    $idSeleccionado=null;
     $abmMenu = new AbmMenu();
     $array = [];
     $array["idMenu"] = 10;

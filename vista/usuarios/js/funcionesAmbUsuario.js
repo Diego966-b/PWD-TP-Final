@@ -1,5 +1,6 @@
 
-//Modificar
+
+//Modificar usuarios
 $(document).ready(function() {
     // Evento de clic en el botón "Modificar", usamos la clase para que no sea unico, si usamos id solo tomara el primero
     $(".btn-modificar").click(function() {
@@ -20,10 +21,7 @@ $(document).ready(function() {
     });
 });
 
-
-
-
-async function guardarCambios() {
+ function guardarCambios() {
     // trae los valores del formulario
     var idUsuario =$("#idUsuario").val();
     var usNombre = $("#usNombre").val();
@@ -53,7 +51,6 @@ async function guardarCambios() {
         }
     });
 }
-
 
 function eliminarUsuario(idUsuario) {
     console.log("entro");

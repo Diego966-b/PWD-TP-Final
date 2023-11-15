@@ -128,11 +128,12 @@ class Session
             $obj = new AbmUsuario();
             $param ['idUsuario'] = $_SESSION ['idUsuario'];
             $resultado = $obj -> darRoles ($param);
-            if (count($resultado) > 0)
-            {
-                $listaRoles = $resultado [0];
-            }
-            return $listaRoles;
+            // if (count($resultado) > 0)
+            // {
+            //     $listaRoles = $resultado [0];
+            // }
+            // return $listaRoles;
+            return $resultado;  
         }
     }
 
