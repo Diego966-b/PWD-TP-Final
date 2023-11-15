@@ -41,13 +41,14 @@
                     echo "</div>"; 
                     echo "<div class='col-md-8'>"; 
                     echo "<div class='card-body'>";
-                    echo "<form id='formCarrito' name='formCarrito' method='post'>";
+                    echo "<form id='formProductos' name='formProductos' method='post'>";
                         echo "<h5 class='card-title'>".$objProducto->getProNombre()."</h5>";
                         echo "<p class='card-text'>Precio: $ ".$objProducto->getProPrecio()."</p>";
                         echo "<p class='card-text'>".$objProducto->getProDetalle()."</p>";
                         echo "<p class='card-text'>Stock: ".$objProducto->getProCantStock()."</p>";
                         echo "<label for='proCantidad'>Cantidad:</label>";
                         echo "<input type='number' class='card-text proCantidad' name='proCantidad' value='1' id='proCantidad-" . $objProducto->getIdProducto() . "'>";
+                        echo "<div class='error-container' id='error-proCantidad-" . $objProducto->getIdProducto() . "'></div>"; // Contenedor de errores
                         echo "<br><br>";
                         if ($objProducto->getProCantStock() == 0)
                         {
@@ -82,6 +83,7 @@
         include_once($ESTRUCTURA."/pie.php"); 
         // agrgagr validaciones js
     ?>
+    <script src="<?php echo $JS; ?>/validar.js"></script>
     <script src="./js/agregarItem.js"></script>
 </body>
 </html>

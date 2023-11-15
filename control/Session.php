@@ -152,49 +152,42 @@ class Session
     */
 
     /**
-     * Valida si un idProducto ya esta cargado en el carrito
-     */
-    public function validarDuplicado ($idProductoIngresado)
-    {
-        $indice = "";
-        $arrayCarrito = $this -> setearCarrito();
-        for ($i = 0; $i < count($arrayCarrito); $i++)
-        {
-            $arrayProductoActual = [];
-            $arrayProductoActual = $arrayCarrito [$i];
-            $idProductoActual = $arrayProductoActual ["idProducto"];
-            if ($idProductoActual == $idProductoIngresado)
-            {
-                $indice = $i;
-            }
-        }
-        return $indice;
-    }
-
-    /**
      * Agrega un item al carrito que es un arreglo de arreglos en sesion
-     * @param array $arregloItem
+     * @param array $arregloProducto
      */
     public function agregarItemCarrito ($arregloProducto)
     {
-        $arrayCarrito = $this -> setearCarrito();
-        $arrayCarrito = $_SESSION['carrito'];
         $idProducto = $arregloProducto['idProducto'];
         $proCantidadInicial = $arregloProducto['proCantidad'];
-        $indice = $this -> validarDuplicado($idProducto);
-        if ($indice <> "")
+        $proStock = $arregloProducto["proCantStock"];
+        $stockFinal = $proStock - $proCantidadInicial;
+        if ($stockFinal >= 0)
         {
-            $arrayCarrito[$indice]["proCantidad"] += $proCantidadInicial;
-            $arrayProducto ["idProducto"] = $arrayCarrito[$indice]["idProducto"];
-            //$arrayProducto ["proCantidad"] = $proCantidadFinal;
+            $arregloProducto ["proCantStock"] = $stockFinal;
+            $arregloProducto ["accion"] = "editar";
+            $abmProducto = new AbmProducto();
+            $resultado = $abmProducto -> abm($arregloProducto);
+            $arrayCarrito = $this -> setearCarrito();
+            for ($i = 0; $i < count($arrayCarrito); $i++)
+            {
+                $arrayProductoActual = [];
+                $arrayProductoActual = $arrayCarrito [$i];
+                $idProductoActual = $arrayProductoActual ["idProducto"];
+                if ($idProductoActual == $idProducto)
+                {
+                    $arrayCarrito[$i]["proCantidad"] += $proCantidadInicial;
+                    $entre = true;
+                }
+            }
+            if (!$entre)
+            {
+                $arrayProducto ["idProducto"] = $idProducto;
+                $arrayProducto ["proCantidad"] = $proCantidadInicial;
+                array_push($arrayCarrito, $arrayProducto);
+                //$arrayCarrito [$idProducto] = $arrayProducto;
+            }
+            $_SESSION['carrito'] = $arrayCarrito;
         }
-        else
-        {
-            $arrayProducto ["idProducto"] = $idProducto;
-            $arrayProducto ["proCantidad"] = $proCantidadInicial;
-            $arrayCarrito [$idProducto] = $arrayProducto;    
-        }
-        $_SESSION['carrito'] = $arrayCarrito;
     }
 
     /**
@@ -207,7 +200,20 @@ class Session
         }
         return $_SESSION['carrito'];
     }
-    
+
+    /**
+     * Elimina el carrito
+     */
+    public function eliminarCarrito ()
+    {
+        $exito = false;
+        if (isset($_SESSION['carrito'])) {
+            unset($_SESSION["carrito"]);
+            $exito = true;
+        }
+        return $exito;
+    }
+
     public function tienePermisoB ($objUsuario)
     {
         $tienePermiso = false;

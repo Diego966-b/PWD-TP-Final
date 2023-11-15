@@ -76,6 +76,7 @@ class Compra
     public function insertar()
     {
         $respuesta = false;
+        $ultimoId = null;
         $base = new BaseDatos();
         $objUsuario = $this->getObjUsuario();
         /*  
@@ -85,21 +86,21 @@ class Compra
         MODIFICADO!!!
         */
         $sql = 
-        "INSERT INTO compra (idCompra, coFecha, idUsuario)
-            VALUES ('" . 
-            $this->getIdCompra() . "', '" . 
-            $this->getCoFecha() . "', '" . 
+        "INSERT INTO compra (coFecha, idUsuario)
+            VALUES ('" 
+            .$this->getCoFecha() . "', '" . 
             $objUsuario->getIdUsuario() . "')";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $respuesta = true;
+                $ultimoId = $base -> devolverUltimoId("idCompra");
             } else {
                 $this->setMensajeOperacion("compra->modificar: " . $base->getError());
             }
         } else {
             $this->setMensajeOperacion("compra->modificar: " . $base->getError());
         }
-        return $respuesta;
+        return $ultimoId;
     }
 
     public function modificar()

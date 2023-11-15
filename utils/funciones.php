@@ -60,6 +60,9 @@ function data_submitted()
     return $_AAux;
 }
 
+/**
+ * Convierte un OBJ a array
+ */
 function dismount($object)
 {
     $reflectionClass = new ReflectionClass(get_class($object));
@@ -72,9 +75,7 @@ function dismount($object)
     return $array;
 }
 
-/**
- * Convierte un OBJ a array
- */
+
 function convert_array($param)
 {
     $_AAux = array();

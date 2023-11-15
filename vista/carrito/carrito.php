@@ -29,10 +29,10 @@
             echo '<div class="container mt-5">';
             echo '<div class="row">';
             $carrito = $_SESSION['carrito'];
-            print_r($carrito);
+            //print_r($carrito);
             $totalPagar = 0;
             $colProductos = [];
-            for ($i = 1; $i <= count($carrito); $i++) {
+            for ($i = 0; $i < count($carrito); $i++) {
                 $abmProducto = new AbmProducto();
                 $producto = $carrito[$i];
                 $idProducto = $producto ["idProducto"];
@@ -57,21 +57,26 @@
                 echo '<button class="btnRestar btn btn-danger mx-1" onclick="eliminarUnidad('.$objProducto->getIdProducto().',\''.$producto["proCantidad"].'\','.')">-</button>';
                 echo "<p>".$objProducto->getProDetalle()."</p>";
 
-
                 echo "<input type='hidden' value=".$objProducto->getIdProducto()." name='idProducto' id='idProducto'>";
                 $totalPagar = (($objProducto -> getProPrecio()) * $producto["proCantidad"]) + $totalPagar;
                 echo "</div>";
                 echo "</div>";
-                array_push($colProductos, $objProducto); 
+                $objProductoArray = [];
+                $objProductoArray = dismount($objProducto);
+                
+                array_push($colProductos, $objProductoArray); 
             }
-            $colProductos = convert_array($colProductos);
-            print_r($colProductos);
+            
+            //$jsonProductos = json_encode($colProductos);
+            $jsonCarrito = json_encode($carrito);
+            print_r($carrito);
+            echo "<script>var carrito = $jsonCarrito;</script>";
             echo '</div>';
             echo '<div class="container">';
             echo '<div class="row">';
             echo '<div class="col-12">';
             echo "<p class='fs-4'>Total a pagar: $ ".$totalPagar."</p>";
-            echo '<button class="btn btn-primary btn-pago btn-lg mx-1 float-end" onclick="pagarCarrito('.$colProductos.')">Pagar</button>';
+            echo '<button class="btn btn-primary btn-pago btn-lg mx-1 float-end" onclick="pagarCarrito()">Pagar</button>';
             echo '</div></div></div>';
             echo "<br><br><br><br><br>";
             }
@@ -82,6 +87,7 @@
             echo "<a href=".$VISTA."/productos/productos.php>Ver productos disponibles</a>";
         }
     ?>
+    <a href="agregarCompraEstado.php">ACGREGARcomrpadwa </a>
     <script src="./js/funcionesCarrito.js"></script>
     <?php include_once($ESTRUCTURA."/pie.php"); ?>
 </body>

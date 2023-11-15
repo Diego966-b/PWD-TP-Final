@@ -57,18 +57,20 @@ class AbmCompraEstado
             $obj = new CompraEstado();
             $abmCompra = new AbmCompra ();
             $abmCompraEstadoTipo = new AbmCompraEstadoTipo();
-            $array = [];
-            $array ['idCompra'] = $param['idCompra'];
-            $array ['idCompraEstado'] = $param['idCompraEstado'];
+            $arrayCompra = [];
+            $arrayCompraEstadoTipo = [];
+            $arrayCompra ['idCompra'] = $param['idCompra'];
+            $arrayCompraEstadoTipo ['idCompraEstadoTipo'] = $param['idCompraEstadoTipo']; // Modificado!!!
             // MODIFICADO!!!
-            $listaCompras = $abmCompra -> buscar ($array);
-            $listaCompraEstadoTipo = $abmCompraEstadoTipo -> buscar ($array);
+            $listaCompras = $abmCompra -> buscar ($arrayCompra);
+            $listaCompraEstadoTipo = $abmCompraEstadoTipo -> buscar ($arrayCompraEstadoTipo);
             $objCompra = $listaCompras[0];
             $objCompraEstadoTipo = $listaCompraEstadoTipo[0];
             // MODIFICADO!!!
             $idCompraEstado = $param ['idCompraEstado'];
             $ceFechaIni = $param ['ceFechaIni'];
             $ceFechaFin = $param ['ceFechaFin'];
+
             $obj -> setear($idCompraEstado, $objCompra, $objCompraEstadoTipo, $ceFechaIni, $ceFechaFin);
         }
         return $obj;
@@ -106,6 +108,7 @@ class AbmCompraEstado
      */
     public function alta($param){
         $resp = false;
+        $param['idCompraEstado'] = null; // MODIFICADO!!!
         $elObjCompraEstado = $this->cargarObjeto($param);
         if ($elObjCompraEstado!=null and $elObjCompraEstado->insertar()){
             $resp = true;

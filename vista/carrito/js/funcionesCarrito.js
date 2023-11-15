@@ -1,20 +1,45 @@
-function pagarCarrito(colProductos){
-    console.log(colProductos);
+function pagarCarrito() {
+    for (var i = 0; i < carrito.length; i++) {
+        var producto = carrito[i];
+        console.log(producto);
+        console.log("ID Producto: " + producto.idProducto);
+        console.log("Pro Cantidad: " + producto.proCantidad);
+    }
+
     $.ajax({
-        
         type: "POST",
-        url: "./accion/accionAgregarItem.php", // Crea este archivo para procesar la solicitud
+        url: "./accion/pagarCarrito.php",
         data: { 
-            colProductos: colProductos
+            carrito: carrito
         },
-        success: function(response){
-            alert("Producto agregado al carrito");
+        success: function(response) {
+            alert("Pagado");
+            console.log("este es mi carrito:");
+            console.log(carrito);
+            /*
+            setTimeout(function () {
+                location.reload();
+            }, 100);
+            */
         },
         error: function(error) {
             console.error("Error en la solicitud AJAX:", error);
         }
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 function agregarUnidad(idProducto, proCantidad){
 
     $.ajax({

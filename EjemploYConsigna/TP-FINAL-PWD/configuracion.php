@@ -5,7 +5,7 @@ header ("Cache-Control: no-cache, must-revalidate ");
 // CONFIGURACION APP//
 /////////////////////////////
 
-$PROYECTO = 'Web/tpFinalPwd/EjemploYConsigna/TP-FINAL-PWD'; //Pone la ubicación de todo el proyecto desde htdocs del XAMP
+$PROYECTO = 'tpFinalPwd/EjemploYConsigna/TP-FINAL-PWD'; //Pone la ubicación de todo el proyecto desde htdocs del XAMP
 
 //variable que almacena el directorio del proyecto
 $ROOT =$_SERVER['DOCUMENT_ROOT']."/$PROYECTO/"; //Agarra la ubicación del servidor donde tiene guardada la carpeta

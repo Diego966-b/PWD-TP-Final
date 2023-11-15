@@ -65,14 +65,33 @@ $(document).ready(function() {
                 required: "Este campo es requerido",
             },
         },
-        errorElement: "div", // Cambia el elemento utilizado para mostrar mensajes de error a 'div'
-        errorClass: "text-danger", // Clase de Bootstrap para el color de texto rojo
+        errorElement: "div", 
+        errorClass: "text-danger", 
         errorPlacement: function(error, element) 
         {   
             error.insertAfter(element);   
         }   
     });
 
-    // 
+    // Productos
+
+    $("#formProductos").validate({
+        rules: {
+            proCantidad: {
+                required: true,
+            },
+        },
+        messages: {
+            proCantidad: {
+                required: "Este campo es requerido",
+            },
+        },
+        errorElement: "div", 
+        errorClass: "text-danger", 
+        errorPlacement: function(error, element) 
+        {   
+            error.insertAfter(element);   
+        } 
+    });
 
 });

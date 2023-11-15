@@ -47,7 +47,7 @@ CREATE TABLE `compra` (
 CREATE TABLE `compraEstado` (
   `idCompraEstado` bigint(20) UNSIGNED NOT NULL,
   `idCompra` bigint(11) NOT NULL,
-  `idCompraestadoTipo` int(11) NOT NULL,
+  `idCompraEstadoTipo` int(11) NOT NULL,
   `ceFechaIni` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ceFechaFin` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -268,8 +268,8 @@ ALTER TABLE `compra`
 ALTER TABLE `compraEstado`
   ADD PRIMARY KEY (`idCompraEstado`),
   ADD UNIQUE KEY `idCompraEstado` (`idCompraEstado`),
-  ADD KEY `fkcompraEstado_1` (`idCompra`),
-  ADD KEY `fkcompraEstado_2` (`idCompraEstadoTipo`);
+  ADD KEY `fkcompraestado_1` (`idCompra`), -- 
+  ADD KEY `fkcompraestado_2` (`idCompraEstadoTipo`); --
 
 --
 -- Indices de la tabla `compraestadotipo`
@@ -283,8 +283,8 @@ ALTER TABLE `compraEstadoTipo`
 ALTER TABLE `compraItem`
   ADD PRIMARY KEY (`idCompraItem`),
   ADD UNIQUE KEY `idCompraItem` (`idCompraItem`),
-  ADD KEY `fkcompraItem_1` (`idCompra`),
-  ADD KEY `fkcompraItem_2` (`idProducto`);
+  ADD KEY `fkcompraitem_1` (`idCompra`), --
+  ADD KEY `fkcompraitem_2` (`idProducto`); --
 
 --
 -- Indices de la tabla `menu`

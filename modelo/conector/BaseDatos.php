@@ -200,9 +200,23 @@ class BaseDatos extends PDO {
            print_r($e);
            echo "</pre>";
        }
-       
-       
    }
+
+   /**
+    * Devuelve el ultimo id de insercion
+    */
+    public function devolverUltimoId($name)
+    {
+        if ($name<> null)
+        {
+            $ultimoId = PDO::lastInsertId($name);
+        }
+        else
+        {
+            $ultimoId = PDO::lastInsertId();
+        }
+        return $ultimoId;
+    }
    
    private function setIndice ($valor){
        $this->indice = $valor;
