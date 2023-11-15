@@ -168,12 +168,11 @@ class CompraEstado
                     $abmCompra = new AbmCompra ();
                     $abmCompraEstadoTipo = new AbmCompraEstadoTipo ();
                     $obj = new CompraEstado ();
-                    $array = [];
-                    $array ['idCompra'] = $row['idCompra'];
-                    $array ['idCompraEstado'] = $row['idCompraEstado'];
+                    $array1 ['idCompra'] = $row['idCompra'];
+                    $array2 ['idCompraEstadoTipo'] = $row['idCompraEstadoTipo'];
                     // MODIFICADO!!!
-                    $listaCompras = $abmCompra -> buscar($array);
-                    $listaCompraEstadoTipo = $abmCompraEstadoTipo -> buscar($array);
+                    $listaCompras = $abmCompra -> buscar($array1);
+                    $listaCompraEstadoTipo = $abmCompraEstadoTipo -> buscar($array2);
                     $objCompra = $listaCompras[0];
                     $objCompraEstadoTipo = $listaCompraEstadoTipo[0];
                     // MODIFICADO!!!

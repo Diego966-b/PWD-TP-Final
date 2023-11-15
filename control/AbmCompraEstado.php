@@ -35,6 +35,12 @@ class AbmCompraEstado
                     $array ["exito"] = true;
                 }
             }
+            if($datos['accion']=='editarEstado')
+            {
+                if ($this->editarEstado($datos)) {
+                    $array ["exito"] = true;
+                }
+            }
             if ($array ["exito"]) {
                 $array ["mensaje"] = "<h3 class='text-success'>La accion " . $datos['accion'] . " se realizo correctamente.</h3>";
             } else {
@@ -44,6 +50,46 @@ class AbmCompraEstado
         return $array;
     }
     
+    private function editarEstado($datos)
+    {
+        $resp = false;
+        $idCompraEstado = $datos['idCompraEstado'];
+        $idCompra = $datos['idCompra'];
+        $idCompraEstadoTipo = $datos['idCompraEstadoTipo'];
+        $ceFechaIni = $datos['ceFechaIni'] ;
+        $fechaFin= $datos['ceFechaFin'];
+        $array['idCompraEstado'] = $idCompraEstado;
+
+        $AbmCompraEstado = new AbmCompraEstado();
+
+        $arregloEstados = $AbmCompraEstado->buscar($array);
+    
+        date_default_timezone_set('America/Argentina/Buenos_Aires');
+$fecha_actual = date("Y-m-d H:i:s");
+
+        $compraEstado = $arregloEstados[0];
+        echo "entro a editar Estado";
+        $array["idCompra"] =$compraEstado->getObjCompra()->getIdCompra();
+        $array['idCompraEstadoTipo'] = $compraEstado->getObjCompraEstadoTipo()->getIdCompraEstadoTipo();
+        $array['ceFechaIni'] = $compraEstado->getCeFechaIni();
+        $array['ceFechaFin'] = $fecha_actual;
+      // $array['ceFechaFin'] = "1994-03-15 00:00:00";
+        print_r($array);
+        if($this->modificacion($array)){
+            $resp = true;
+            
+            $arrayDatos['idCompra'] = $idCompra;
+            $arrayDatos['idCompraEstadoTipo'] =  $idCompraEstadoTipo;
+            $arrayDatos['ceFechaIni'] =  $fechaFin;
+            $arrayDatos['ceFechaFin'] = '0000-00-00 00:00:00';
+
+            $this->alta($arrayDatos);
+        }
+       
+        return $resp;
+    }
+
+
     /**
      * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto.
      * @param array $param
@@ -64,6 +110,7 @@ class AbmCompraEstado
             // MODIFICADO!!!
             $listaCompras = $abmCompra -> buscar ($arrayCompra);
             $listaCompraEstadoTipo = $abmCompraEstadoTipo -> buscar ($arrayCompraEstadoTipo);
+            print_r($listaCompraEstadoTipo);
             $objCompra = $listaCompras[0];
             $objCompraEstadoTipo = $listaCompraEstadoTipo[0];
             // MODIFICADO!!!
@@ -149,6 +196,7 @@ class AbmCompraEstado
         }
         return $resp;
     }
+
     
     /**
      * Busca en la BD con o sin parametros. Espera un array como parametro.
@@ -158,6 +206,7 @@ class AbmCompraEstado
      */
     public function buscar($param){
         $where = " true ";
+
         if ($param<>NULL)
         {
             if  (isset($param['idCompraEstado'])) {

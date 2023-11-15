@@ -14,13 +14,12 @@ $pagSeleccionada = "Productos";
 <table class="table table-dark">
     <thead>
         <tr>
+            <!--  <th scope="col">Productos Compra</th> Imagen, nombre, cantidad comprada--->
+            <!--   <th scope="col">Total por producto</th> Imagen, nombre, cantidad comprada--->
             <th scope="col">IdCompra</th> <!--IdCOmpra--->
             <th scope="col">Fecha de la compra</th>
             <th scope="col">Nombre del usuario</th>
-            <th scope="col">Producto</th> <!--Imagen, nombre, cantidad comprada--->
-            <th scope="col">Precio Total</th>
-            <th scope="col">Estado de la compra</th> <!--Muestra el estado, iniciada/cancelada/finalizada/etc--->
-            <th scope="col">fecha de finalizacion</th> <!--Muestra la fecha, en la que se termina la compra--->
+            <th scope="col">Estados de la compra</th> <!--Muestra el estado, iniciada/cancelada/finalizada/etc--->
             <th scope="col">Acciones</th>
 
         </tr>
@@ -38,61 +37,98 @@ $pagSeleccionada = "Productos";
 
         $listadoProducto = $objProducto->buscar(null);
         $listadoCompra = $objCompra->buscar(null);
-        $listadoCompraTipo = $objCompraEstadoTipo->buscar(null);
+        $listadoCompraEstadoTipo = $objCompraEstadoTipo->buscar(null);
         $listarCompraEstado = $objCompraEstado->buscar(null);
         $listadoCompraItem = $objCompraItem->buscar(null);
 
-        echo '<tr>';
+
+
+
+
+
         foreach ($listadoCompra as $compra) {
-            echo '<td>' . $compra->getIdCompra() . '</td>';
-            echo '<td>' . $compra->getCoFecha() . '</td>';
-            echo '<td>' . $compra->getObjUsuario()->getUsNombre() . '</td>';
+            $total = 0;
+            $arrayTotal = [];
+            echo '<tr>';
+            // echo '<td>';
             foreach ($listadoProducto as $producto) {
-                if ($producto->getIdProducto() == 1) {
-                    foreach($listadoCompraItem as $item){
-                    echo '<td>' . $producto->getProNombre() . '<br>' . "$" . $producto->getProPrecio() . '</td>';
-                    echo '<td>' . "$" . $producto->getProPrecio() * $item->getCiCantidad(). '</td>';
-                }
+
+
+                foreach ($listadoCompraItem as $item) {
+                    if ($item->getObjCompra()->getIdCompra() == $compra->getIdCompra()) {
+                        if ($item->getObjProducto()->getIdProducto() == $producto->getIdProducto()) {
+                            //  echo  $item->getObjProducto()->getProNombre() . "$" . $item->getObjProducto()->getProPrecio(). " x ".$item->getCiCantidad(). "<br>";
+                            //$total = $item->getObjProducto()->getProPrecio() * $item->getCiCantidad();
+                            array_push($arrayTotal,  $total);
+                            // echo "$" . $item->getObjProducto()->getProPrecio() * $item->getCiCantidad() ;                            
+                        }
+                    }
                 }
             }
+
+            // echo '<td>' ;
+            /*
+            foreach($arrayTotal as $precio){
+                echo $precio . "<br>";
+            }
+            */
+            echo '</td>';
+            echo '</td>';
+            echo '<td>' .  $compra->getIdCompra() . '</td>';
+            echo '<td>' . $compra->getCoFecha() . '</td>';
+            echo '<td>' . $compra->getObjUsuario()->getUsNombre() . '</td>';
+            echo '<td>';
+
+            foreach ($listarCompraEstado as $estado) {
+                if ($estado->getObjCompra()->getIdCompra() == $compra->getIdCompra()) {
+                    echo  "Estado: " . $estado->getObjCompraEstadoTipo()->getCetDescripcion() . '<br>';
+                    echo   "Fecha Inicio estado: " . $estado->getceFechaIni() . '<br>';
+                    echo  "Fecha fin de estado: " . $estado->getceFechaFin() . '<br>';
+                }
+            }
+
+            echo '</td>';
+
+            echo '<td>' .
+                '<form id="formSelect">' .
+                '<select name="estado" id="estado-'.$compra->getIdCompra().'">';
+            foreach ($listadoCompraEstadoTipo as $estadoTipo) {
+                echo '<option value=" ' . $estadoTipo->getIdCompraEstadoTipo() . '"> ' . $estadoTipo->getCetDescripcion() . '</option>';
+            }
+
+           echo '</select>';
+       //echo '<button type="button" class="btn btn-primary" onclick="enviarDatos('.$compra->getIdCompra().'\', \',' . $estadoTipo->getIdCompraEstadoTipo() .')">Guardar</button>';
+       echo '<button type="button" class="btn btn-primary" onclick="enviarDatos('.$compra->getIdCompra().')">Guardar</button>';
+       echo '</form>';
+
+            echo '</td>';
         }
 
-        foreach ($listarCompraEstado as $estado) {
-            echo '<td>' . $estado->getObjCompraEstadoTipo()->getIdCompraEstadoTipo() . '</td>';
-        }
 
-        foreach ($listarCompraEstado as $compraEstado) {
-            echo '<td>' .    $compraEstado->getceFechaFin() . '</td>';          
-        }
 
-        echo '<td>' .
-            '<form id="formSelect">' .
-            '</span><select name="estado" id="estado">';
-        foreach ($listadoCompraTipo as $estado) {
-            echo '<option value=" ' . $estado->getIdCompraEstadoTipo() . '"> ' . $estado->getCetDescripcion() . '</option>';
-        }
+        //codigo va aca
 
+    
         ?>
-        </select>
-        <button type="button" class="btn btn-primary" onclick="enviarDatos()">Guardar</button>
-        </form>
-        </td>
+        
         </tr>
 
     </tbody>
 </table>
 <div id="resultado"></div>
-<script src="./js/agregarItem.js"></script>
-<script>
-    function enviarDatos() {
-        console.log("entro aca");
-        var idCompraEstadoTipo = $("#estado").val();
 
+<script>
+    function enviarDatos(idCompra) {
+        console.log("entro");
+        var idCompraEstadoTipo = $("#estado-"+idCompra).val();
+        console.log(idCompraEstadoTipo);       
+    
         $.ajax({
             type: "POST",
             url: "actualizarEstado.php",
             data: {
-                idCompraEstadoTipo: idCompraEstadoTipo
+                idCompraEstadoTipo: idCompraEstadoTipo,
+                idCompra : idCompra,
             },
             success: function(response) {
                 $("#resultado").html(idCompraEstadoTipo);

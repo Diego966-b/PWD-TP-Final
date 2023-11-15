@@ -49,7 +49,7 @@ CREATE TABLE `compraEstado` (
   `idCompra` bigint(11) NOT NULL,
   `idCompraEstadoTipo` int(11) NOT NULL,
   `ceFechaIni` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `ceFechaFin` timestamp NULL DEFAULT NULL
+  `ceFechaFin` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -230,7 +230,8 @@ INSERT INTO `usuario` (`idUsuario`, `usNombre`, `usPass`, `usMail`, `usDeshabili
 (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.com', null),
 (2, 'cliente', '4983a0ab83ed86e0e7213c8783940193', 'cliente@cliente.com', null),
 (3, 'deposito', 'caaf856169610904e4f188e6ee23e88c', 'deposito@deposito.com', null),
-(4, 'deshabilitado', 'add0296c267f58af06b223537e0bff66', 'deshabilitado@deshabilitado.com', '2023-11-11 21:43:23');
+(4, 'deshabilitado', 'add0296c267f58af06b223537e0bff66', 'deshabilitado@deshabilitado.com', '2023-11-11 21:43:23'),
+(5,'super',md5('super'),'super@super', null);
 
 -- --------------------------------------------------------
 
@@ -253,7 +254,10 @@ INSERT INTO `usuarioRol` (`idUsuario`, `idRol`) VALUES
 (4, 3),
 (1, 1),
 (2, 2),
-(3, 3);
+(3, 3),
+(5, 1),
+(5, 2),
+(5, 3);
 
 --
 -- Índices para tablas volcadas

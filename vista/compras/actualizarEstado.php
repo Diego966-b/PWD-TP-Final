@@ -1,26 +1,27 @@
 <?php
 include_once('../../config.php');
-$data = devolverDatos();
-$data['idCompraEstadoTipo'];
+$data = data_submitted();
 
+$idCompra = $data['idCompra'];
 $idCompraEstadoTipo = $data['idCompraEstadoTipo'];
 $compraEstado = new AbmCompraEstado();
 
 $arrObjCompraEstado = $compraEstado->buscar(null);
-$idCompraEstado = $arrObjCompraEstado[0]->getIdCompraEstado();
-$idCompra = $arrObjCompraEstado[0]->getObjCompra()->getIdCompra();
-$ceFechaIni = $arrObjCompraEstado[0]->getCeFechaIni();
-$ceFechaFin = $arrObjCompraEstado[0]->getCeFechaFin();
+$arrObjCompraEstado = $arrObjCompraEstado[0];
+$idCompraEstado = $arrObjCompraEstado->getIdCompraEstado();
+// = $arrObjCompraEstado->getObjCompra()->getIdCompra();
+$ceFechaIni = $arrObjCompraEstado->getCeFechaIni();
+$ceFechaFin = $arrObjCompraEstado->getCeFechaFin();
 
-
+date_default_timezone_set('America/Argentina/Buenos_Aires');
 $fecha_actual = date("Y-m-d H:i:s");
 
 $datos['idCompraEstado'] = $idCompraEstado;
 $datos['idCompra'] = $idCompra;
 $datos['idCompraEstadoTipo'] = $idCompraEstadoTipo;
-$datos['ceFechaIni'] = $fecha_actual;
+$datos['ceFechaIni'] = $ceFechaIni;
 $datos['ceFechaFin'] = $fecha_actual;
-$datos['accion'] = "editar";
+$datos['accion'] = "editarEstado";
 
 $respuesta = $compraEstado->abm($datos);
 

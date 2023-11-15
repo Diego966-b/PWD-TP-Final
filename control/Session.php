@@ -193,36 +193,33 @@ class Session
      * Verifica si el usuario tiene permiso para ingresar a la pagina acutal.
      * Retorna un booleano
      */
-    public function tienePermisoB ($objUsuario)
+    public function tienePermisoB($objUsuario)
     {
         $tienePermiso = false;
         $url = $_SERVER["REQUEST_URI"];
-
         $array = [];
-        $array ["idUsuario"] = $objUsuario -> getIdUsuario();
-        $abmUsuarioRol = new AbmUsuarioRol ();
-        $objUsuarioRol = $abmUsuarioRol -> buscar($array);
-        $objUsuarioRol = $objUsuarioRol [0];
-    
-        $objRol = $objUsuarioRol -> getObjRol();
-        $idRol = $objRol -> getIdRol();
-        $arrayRol = [];
-        $arrayRol ["idRol"] = $idRol;
-        
-        $abmMenuRol = new AbmMenuRol();
-        $listaMenus = $abmMenuRol -> buscar($arrayRol);
-        foreach ($listaMenus as $objMenuRol)
-        {
-            $objMenu = $objMenuRol -> getObjMenu();
-            $urlMenu = $objMenu -> getMeDescripcion();
-            $urlMenu = substr($urlMenu , 2);
-            if (strpos($url, $urlMenu) <> false)
-            {
-                $tienePermiso = true;
+        $array["idUsuario"] = $objUsuario->getIdUsuario();
+        $abmUsuarioRol = new AbmUsuarioRol();
+        $listObjUsuarioRol = $abmUsuarioRol->buscar($array);
+        foreach ($listObjUsuarioRol as $objUsuarioRol) {
+            $objRol = $objUsuarioRol->getObjRol();
+            $idRol = $objRol->getIdRol();
+            $arrayRol = [];
+            $arrayRol["idRol"] = $idRol;
+            $abmMenuRol = new AbmMenuRol();
+            $listaMenus = $abmMenuRol->buscar($arrayRol);
+            foreach ($listaMenus as $objMenuRol) {
+                $objMenu = $objMenuRol->getObjMenu();
+                $urlMenu = $objMenu->getMeDescripcion();
+                $urlMenu = substr($urlMenu, 2);
+                if (strpos($url, $urlMenu) <> false) {
+                    $tienePermiso = true;
+                }
             }
         }
+
         return $tienePermiso;
-    }   
+    } 
     public function estadoMenu(){
         $habilitado =false;
         $url = $_SERVER["REQUEST_URI"];
