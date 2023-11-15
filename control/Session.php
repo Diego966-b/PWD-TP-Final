@@ -118,11 +118,12 @@ class Session
             $obj = new AbmUsuario();
             $param ['idUsuario'] = $_SESSION ['idUsuario'];
             $resultado = $obj -> darRoles ($param);
-            if (count($resultado) > 0)
-            {
-                $listaRoles = $resultado [0];
-            }
-            return $listaRoles;
+            // if (count($resultado) > 0)
+            // {
+            //     $listaRoles = $resultado [0];
+            // }
+            // return $listaRoles;
+            return $resultado;  
         }
     }
  
@@ -222,4 +223,19 @@ class Session
         }
         return $tienePermiso;
     }   
+    public function estadoMenu(){
+        $habilitado =false;
+        $url = $_SERVER["REQUEST_URI"];
+        $ambMenu=new AbmMenu();
+        $listaMenus= $ambMenu->buscar(null);
+        foreach($listaMenus as $menu){
+            $urlMenu=$menu->getMeDescripcion();
+            $urlMenu = substr($urlMenu , 2);
+            if(strpos($url, $urlMenu) <> false && $menu->getMeDeshabilitado() == null){
+                $habilitado = true;
+            }
+        }
+        return $habilitado;
+
+    }
 }

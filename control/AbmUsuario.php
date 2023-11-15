@@ -61,6 +61,13 @@ class AbmUsuario{
                     $array ["exito"] = true;
                 }
             }
+            if($datos['accion']=='actualizarRol') 
+            {   
+                if($this->actualizarRol($datos)) // NUEVO!
+                {
+                    $array ["exito"] = true;
+                }
+            }
             if ($array ["exito"]) {
                 $array ["mensaje"] = "La accion " . $datos['accion'] . " se realizo correctamente.";
             } else {
@@ -244,6 +251,21 @@ class AbmUsuario{
             $elObjUsuarioRol = new UsuarioRol();
             $elObjUsuarioRol -> setearConClave($param);
             $resp = $elObjUsuarioRol->insertar();
+        }
+        return $resp;  
+    }
+     /**
+     * Cambia el rol que tiene el usuario. Pide como parametro un arreglo.
+     * Retorna un booleano.
+     * @param array $param
+     * @return boolean
+     */
+    public function actualizarRol($param){
+        $resp = false;
+        if(isset($param['idUsuario']) && isset($param['idRol'])){
+            $amb= new AbmUsuarioRol();
+            $resp=$amb->modificacion($param) ;  
+
         }
         return $resp;  
     }

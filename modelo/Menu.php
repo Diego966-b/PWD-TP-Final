@@ -136,6 +136,39 @@ class Menu {
         }
         return $resp;
     }
+    public function eliminarLogico(){
+        $resp = false;
+        $base = new BaseDatos();
+        $sql = 
+        "UPDATE menu SET meDeshabilitado = NOW() WHERE idMenu='" . $this->getIdMenu() . "'";
+        if ($base->Iniciar()) {
+            if ($base->Ejecutar($sql)) {
+                return true;
+            } else {
+                $this->setmensajeoperacion("menu->eliminarLogico: " . $base->getError());
+            }
+        } else {
+            $this->setmensajeoperacion("menu->eliminarLogico: " . $base->getError());
+        }
+        return $resp;
+    }
+    public function activarMenu (){
+        $resp = false;
+        $base = new BaseDatos();
+        $sql = 
+        "UPDATE menu SET meDeshabilitado = null WHERE idMenu='" . $this->getIdMenu() . "'";
+        if ($base->Iniciar()) {
+            if ($base->Ejecutar($sql)) {
+                return true;
+            } else {
+                $this->setmensajeoperacion("menu->eliminarLogico: " . $base->getError());
+            }
+        } else {
+            $this->setmensajeoperacion("menu->eliminarLogico: " . $base->getError());
+        }
+        return $resp;
+    }
+
     
     public static  function listar($parametro=""){
         $arreglo = array();
@@ -165,7 +198,7 @@ class Menu {
 
     public function __toString()
     {
-        $frase = "Datos del objMenu: ".$this -> GetMeDeshabilitado(). $this -> getObjMenu(). $this -> getMeDescripcion().$this -> getMeNombre(). $this -> getIdMenu();
+        $frase = "Datos del objMenu: Estado".$this -> getMeDeshabilitado()."<br>objto" .$this -> getObjMenu()."<br>descripcion" . $this -> getMeDescripcion()."<br>nombre" .$this -> getMeNombre()."ID". $this -> getIdMenu();
         return $frase;
     }
 }

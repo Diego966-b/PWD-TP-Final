@@ -1,9 +1,35 @@
 <?php
 class AbmMenu{
+
+    public function abm($datos)
+    {
+        $resp = false;
+        if ($datos['accion'] == 'borrar') {
+            if ($this->bajaLogica($datos)) {
+                $resp = true;
+            }
+        }
+        if ($datos['accion'] == 'editar') {
+            if ($this->modificacion($datos)) {
+                $resp = true;
+            }
+        }
+        if ($datos['accion'] == 'alta') {
+            if ($this->altaLogica($datos)) {
+                $resp = true;
+            }
+        }
+        if ($datos['accion'] == 'nuevo') {
+            if ($this->alta($datos)) {
+                $resp = true;
+            }
+        }
+        return $resp;
+    }
     /**
      * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto
      * @param array $param
-     * @return Tabla
+     * @return Menu
      */
     private function cargarObjeto($param){
         $obj = null;
@@ -28,7 +54,7 @@ class AbmMenu{
     /**
      * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto que son claves
      * @param array $param
-     * @return Tabla
+     * @return Menu
      */
     private function cargarObjetoConClave($param){
         $obj = null;
@@ -60,12 +86,47 @@ class AbmMenu{
         $resp = false;
         $param['idMenu'] =null;
         $param['meDeshabilitado'] = null;
-        $elObjtTabla = $this->cargarObjeto($param);
-        if ($elObjtTabla!=null and $elObjtTabla->insertar()){
+        $elObjtMenu = $this->cargarObjeto($param);
+        if ($elObjtMenu!=null and $elObjtMenu->insertar()){
             $resp = true;
         }
       return $resp;
      
+    }
+      /**
+     * Realiza un alta logica, es decir setea en null el campo usDeshabilitado.
+     * Retorna un booleano.
+     * @param array $param
+     * @return boolean
+     */
+    public function altaLogica ($param){
+        $resp = false;
+        if ($this->seteadosCamposClaves($param)){
+            $objMenu = $this->buscar($param);
+            $menu=$objMenu[0];
+            if($menu->activarMenu()){
+                $resp = true;
+            }
+        }
+        return $resp;
+    }
+    
+    /**
+     * Realiza un borrado logico. Espera un array como parametro.
+     * Retorna un booleano.
+     * @param array $param
+     * @return boolean
+     */
+    public function bajaLogica($param){
+        $resp = false;
+        if ($this->seteadosCamposClaves($param)){
+            $objMenu = $this->buscar($param);
+            $menu=$objMenu[0];
+            if( $menu->eliminarLogico()){
+                $resp = true;
+            }
+        }
+        return $resp;
     }
     /**
      * permite eliminar un objeto 
@@ -102,7 +163,7 @@ class AbmMenu{
     /**
      * permite buscar un objeto
      * @param array $param
-     * @return boolean
+     * @return array
      */
     public function buscar($param){
         $where = " true ";

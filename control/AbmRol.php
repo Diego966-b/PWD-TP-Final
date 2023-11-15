@@ -34,6 +34,12 @@ class AbmRol {
                     $array ["exito"] = true;
                 }
             }
+            if($datos['accion']=='alta')
+            {
+                if ($this->altaL($datos)) {
+                    $array ["exito"] = true;
+                }
+            }
             if ($array ["exito"]) {
                 $array ["mensaje"] = "<h3 class='text-success'>La accion " . $datos['accion'] . " se realizo correctamente.</h3>";
             } else {
@@ -50,9 +56,9 @@ class AbmRol {
     private function cargarObjeto($param)
     {
         $obj = null;
-        if(array_key_exists('idRol', $param) && array_key_exists('rolDescripcion', $param)){
+        if(array_key_exists('idRol', $param) && array_key_exists('rolDescripcion', $param) && array_key_exists('rolDeshabilitado', $param)){
             $obj = new Rol();
-            $obj->setear($param['idRol'], $param['rolDescripcion']);
+            $obj->setear($param['idRol'], $param['rolDescripcion'],$param['rolDeshabilitado']);
         }
         return $obj;
     }
@@ -66,7 +72,7 @@ class AbmRol {
         $obj = null;
         if (isset($param['idRol'])) {
             $obj = new Rol();
-            $obj->setear($param['idRol'], null);
+            $obj->setear($param['idRol'], null,null);
         }
         return $obj;
     }
@@ -95,6 +101,7 @@ class AbmRol {
     {
         $respuesta = false;
         $param['idRol'] = null;
+        $param['rolDeshabilitado']= NULL;
         $elObjRol = $this->cargarObjeto($param);
         if ($elObjRol != null and $elObjRol->insertar()) {
             $respuesta = true;
@@ -113,7 +120,18 @@ class AbmRol {
         $respuesta = false;
         if ($this->seteadosCamposClaves($param)) {
             $elObjRol = $this->cargarObjetoConClave($param);
-            if ($elObjRol != null && $elObjRol->eliminar()) {
+            if ($elObjRol != null && $elObjRol->eliminarLogico()) {
+                $respuesta = true;
+            }
+        }
+        return $respuesta;
+    }
+    public function altaL($param)
+    {
+        $respuesta = false;
+        if ($this->seteadosCamposClaves($param)) {
+            $elObjRol = $this->cargarObjetoConClave($param);
+            if ($elObjRol != null && $elObjRol->altaLogica()) {
                 $respuesta = true;
             }
         }

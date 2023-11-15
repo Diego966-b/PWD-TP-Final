@@ -3,7 +3,7 @@ class Rol {
 
     // Atributos
 
-    private $idRol, $rolDescripcion, $mensajeoperacion;
+    private $idRol, $rolDescripcion, $mensajeoperacion,$rolDeshabilitado;
 
     // Constructor y setear
 
@@ -11,25 +11,30 @@ class Rol {
     {
         $this->idRol = "";
         $this->rolDescripcion = "";
+        $this->rolDeshabilitado = "";
         $this->mensajeoperacion = "";
     }
 
-    public function setear($idRol, $rolDescripcion){
+    public function setear($idRol, $rolDescripcion,$rolDeshabilitado){
         $this->setIdRol($idRol);
         $this->setRolDescripcion($rolDescripcion);
+        $this->setRolDeshabilitado($rolDeshabilitado);
     }
 
     // Sets
 
     public function setIdRol($idRol){ $this->idRol = $idRol; }
     public function setRolDescripcion($rolDescripcion){ $this->rolDescripcion = $rolDescripcion; }
+    public function setRolDeshabilitado($rolDeshabilitado){$this->rolDeshabilitado= $rolDeshabilitado;}
     public function setMensajeOperacion($mensaje){ $this->mensajeoperacion = $mensaje; }
 
     // Gets
 
+    public function getIdRol(){ return $this->idRol; }
     public function getRolDescripcion(){ return $this->rolDescripcion; }
     public function getMensajeOperacion(){ return $this->mensajeoperacion; }
-    public function getIdRol(){ return $this->idRol; }
+    public function getRolDeshabilitado(){return $this->rolDeshabilitado;}
+
 
     // Métodos
 
@@ -44,7 +49,7 @@ class Rol {
             if ($res > -1) {
                 if ($res > 0) {
                     $row = $base->Registro();
-                    $this->setear($row['idRol'], $row['rolDescripcion']);
+                    $this->setear($row['idRol'], $row['rolDescripcion'],$row['rolDeshabilitado']);
                 }
             }
         } else {
@@ -57,8 +62,8 @@ class Rol {
     {
         $respuesta = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO rol (idRol, rolDescripcion)
-            VALUES ('".$this->getidRol() . "', '".$this->getRolDescripcion() . "')";
+        $sql = "INSERT INTO rol (rolDescripcion)
+            VALUES ('".$this->getRolDescripcion() ."')";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $respuesta = true;
@@ -77,7 +82,6 @@ class Rol {
         $base = new BaseDatos();
         $sql = 
         "UPDATE rol SET 
-            idRol='" . $this->getIdRol() . "',
             rolDescripcion='" . $this->getRolDescripcion() . "' 
         WHERE idRol='" . $this->getIdRol() . "'";
         if ($base->Iniciar()) {
@@ -109,6 +113,39 @@ class Rol {
         }
         return $respuesta;
     }
+    public function eliminarLogico()
+    {
+        $respuesta = false;
+        $base = new BaseDatos();
+        $sql = 
+        "UPDATE rol SET rolDeshabilitado= NOW() WHERE idRol=" . $this->getIdRol();
+        if ($base->Iniciar()) {
+            if ($base->Ejecutar($sql)) {
+                $respuesta = true;
+            } else {
+                $this->setMensajeOperacion("Rol->eliminar: " . $base->getError());
+            }
+        } else {
+            $this->setMensajeOperacion("Rol->eliminar: " . $base->getError());
+        }
+        return $respuesta;
+    }
+    public function altaLogica(){
+        $respuesta = false;
+        $base = new BaseDatos();
+        $sql = 
+        "UPDATE rol SET rolDeshabilitado= NULL WHERE idRol=" . $this->getIdRol();
+        if ($base->Iniciar()) {
+            if ($base->Ejecutar($sql)) {
+                $respuesta = true;
+            } else {
+                $this->setMensajeOperacion("Rol->eliminar: " . $base->getError());
+            }
+        } else {
+            $this->setMensajeOperacion("Rol->eliminar: " . $base->getError());
+        }
+        return $respuesta;
+    }
 
     public static function listar($parametro = "")
     {
@@ -123,7 +160,7 @@ class Rol {
             if ($res > 0) {
                 while ($row = $base->Registro()) {
                     $obj = new Rol();
-                    $obj->setear($row['idRol'], $row['rolDescripcion']);
+                    $obj->setear($row['idRol'], $row['rolDescripcion'], $row["rolDeshabilitado"]);
                     array_push($arreglo, $obj);
                 }
             }
@@ -137,7 +174,8 @@ class Rol {
     {
         $frase =
             "<br>El Id del Rol es: " . $this->getIdRol() .
-            ".<br>La descripcion es: " . $this->getRolDescripcion()."<br>";
+            ".<br>La descripcion es: " . $this->getRolDescripcion()."<br>".
+            ".<br>Estado es: " . $this->getRolDeshabilitado()."<br>";
         return $frase;
     }
 }
