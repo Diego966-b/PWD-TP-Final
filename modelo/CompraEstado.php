@@ -119,7 +119,7 @@ class CompraEstado
         $sql = 
         "UPDATE compraEstado SET 
             idCompra='" . $objCompra->getIdCompra() . "',
-            idCompraEstado='" . $objCompraEstadoTipo->getIdCompraEstadoTipo() . "',
+            idCompraEstadoTipo='" . $objCompraEstadoTipo->getIdCompraEstadoTipo() . "',
             ceFechaIni='" . $this->getCeFechaIni() . "',
             ceFechaFin='" . $this->getceFechaFin() . "'
         WHERE idCompraEstado='" . $this->getIdCompraEstado() . "'";
@@ -170,7 +170,7 @@ class CompraEstado
                     $obj = new CompraEstado ();
                     $array = [];
                     $array ['idCompra'] = $row['idCompra'];
-                    $array ['idCompraEstadoTipo'] = $row['idCompraEstadoTipo'];
+                    $array ['idCompraEstado'] = $row['idCompraEstado'];
                     // MODIFICADO!!!
                     $listaCompras = $abmCompra -> buscar($array);
                     $listaCompraEstadoTipo = $abmCompraEstadoTipo -> buscar($array);

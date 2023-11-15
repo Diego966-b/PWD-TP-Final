@@ -177,6 +177,59 @@ class Session
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Agrega un item al carrito que es un arreglo de arreglos en sesion
+     * @param array $arregloProducto
+     */
+    public function agregarItemCarrito ($arregloProducto)
+    {
+        $idProducto = $arregloProducto['idProducto'];
+        $proCantidadInicial = $arregloProducto['proCantidad'];
+        $proStock = $arregloProducto["proCantStock"];
+        $stockFinal = $proStock - $proCantidadInicial;
+        if ($stockFinal >= 0)
+        {
+            $arregloProducto ["proCantStock"] = $stockFinal;
+            $arregloProducto ["accion"] = "editar";
+            $abmProducto = new AbmProducto();
+            $resultado = $abmProducto -> abm($arregloProducto);
+            $arrayCarrito = $this -> setearCarrito();
+            for ($i = 0; $i < count($arrayCarrito); $i++)
+            {
+                $arrayProductoActual = [];
+                $arrayProductoActual = $arrayCarrito [$i];
+                $idProductoActual = $arrayProductoActual ["idProducto"];
+                if ($idProductoActual == $idProducto)
+                {
+                    $arrayCarrito[$i]["proCantidad"] += $proCantidadInicial;
+                    $entre = true;
+                }
+            }
+            if (!$entre)
+            {
+                $arrayProducto ["idProducto"] = $idProducto;
+                $arrayProducto ["proCantidad"] = $proCantidadInicial;
+                array_push($arrayCarrito, $arrayProducto);
+                //$arrayCarrito [$idProducto] = $arrayProducto;
+            }
+            $_SESSION['carrito'] = $arrayCarrito;
+        }
+    }
+
+    /**
+     * Setea el carrito en la variable $_SESSION
+     */
+    public function setearCarrito ()
+    {   
+        if (!isset($_SESSION['carrito'])) {
+            $_SESSION['carrito'] = array();
+        }
+        return $_SESSION['carrito'];
+    }
+
+    /**
+>>>>>>> marco
      * Elimina el carrito
      */
     public function eliminarCarrito ()
@@ -189,10 +242,13 @@ class Session
         return $exito;
     }
 
+<<<<<<< HEAD
     /**
      * Verifica si el usuario tiene permiso para ingresar a la pagina acutal.
      * Retorna un booleano
      */
+=======
+>>>>>>> marco
     public function tienePermisoB ($objUsuario)
     {
         $tienePermiso = false;
