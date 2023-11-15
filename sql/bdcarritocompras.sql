@@ -178,7 +178,6 @@ CREATE TABLE `producto` (
 
 INSERT INTO `producto` 
 (`idProducto`, `proNombre`, `proDetalle`, `proCantStock`, `proPrecio`,`proImagen`, `prodeshabilitado`) VALUES
-<<<<<<< HEAD
 (1, 'Dulce de leche', 'Marca la serenisima', 100, 1000, 'dulceDeLeche.jpg', null),
 (2, 'Fideos', 'Marca Lucchetti', 300, 10000, 'fideos.jpg', null),
 (3, 'Yerba', 'Paquete de 1kg', 100, 10000, 'yerba.jpg', null),
@@ -186,12 +185,6 @@ INSERT INTO `producto`
 (5, 'Cafe', 'Cafe en granos 500g', 10, 15000, 'cafeLV.jpg', null),
 (6, 'Chocolate Aguila', 'Para taza, 100g', 50, 2000, 'chocolateAguila.jpg', null),
 (7, 'estoyDeshabilitado', 'No deberia verse', 10000000000000000000, 100000000000000000000, 'deshabilitado', '2023-11-11 21:43:23');
-=======
-(1, 'Dulce de leche', 'Marca la serenisima', 1000000000, 1000, 'dulceDeLeche.jpg', null),
-(2, 'Fideos', 'Ricos', 1000000000, 10000, 'fideos.jpg', null),
-(3, 'Yerba', 'Mate', 3, 10000, 'yerba.jpg', null),
-(4, 'estoyDeshabilitado', 'No deberia verse', 10000000000000000000, 100000000000000000000, 'deshabilitado', '2023-11-11 21:43:23');
->>>>>>> marco
 
 -- --------------------------------------------------------
 
@@ -201,7 +194,7 @@ INSERT INTO `producto`
 
 CREATE TABLE `rol` (
   `idRol` bigint(20) NOT NULL,
-  `rolDescripcion` varchar(50) NOT NULL
+  `rolDescripcion` varchar(50) NOT NULL,
   `rolDeshabilitado` timestamp NULL DEFAULT NULL -- NUEVO!!!
 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
