@@ -7,11 +7,22 @@ $pagSeleccionada = "Mi Perfil";
 
 <head>
     <?php include_once($ESTRUCTURA . "/header.php"); ?>
-    <?php include_once($ESTRUCTURA . "/cabeceraBD.php"); ?>
+    <?php include_once($ESTRUCTURA . "/cabeceraBD.php"); 
+      if ($objSession->validar()) {
+        $tienePermiso = $objSession->tienePermisoB($objSession->getUsuario());
+        if (!$tienePermiso) {
+            header("Refresh: 3; URL='$VISTA/acceso/login.php'");
+        }
+        // agreegar para todas las paginas 
+        $estadoPagina = $objSession->estadoMenu();
+        if (!$estadoPagina) {
+            header("Refresh: 3; URL='$VISTA/home/index.php'");
+        }
+    } else {
+        header("Refresh: 3; URL='$VISTA/acceso/login.php'");
+    } ?>
 
-    <style>
-
-    </style>
+  
 </head>
 
 <body>
@@ -19,20 +30,7 @@ $pagSeleccionada = "Mi Perfil";
         <div id="contenido-perfil">
             <br>
             <br>
-            <?php
-            if ($objSession->validar()) {
-                $tienePermiso = $objSession->tienePermisoB($objSession->getUsuario());
-                if (!$tienePermiso) {
-                    header("Refresh: 3; URL='$VISTA/acceso/login.php'");
-                }
-                // agregar para todas las paginas  !!!!!!!!!!!!!!!!!!!!!!!! IMPORTANTE
-                $estadoPagina = $objSession->estadoMenu();
-                if (!$estadoPagina) {
-                    header("Refresh: 3; URL='$VISTA/home/index.php'");
-                }
-            } else {
-                header("Refresh: 3; URL='$VISTA/acceso/login.php'");
-            }
+            <?php          
             $objUsuario = $objSession->getUsuario();
             if ($objUsuario <> null) {
                 if ($objUsuario->getUsDeshabilitado() == null) {

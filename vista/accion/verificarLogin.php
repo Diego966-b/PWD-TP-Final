@@ -18,8 +18,8 @@
         $valido = $objUsuarioAuth -> validarCredenciales($nombreIngresado, $usPassEncriptada);
         if ($valido)
         {
-            $objSesion = new Session();
-            $objSesion -> iniciar($nombreIngresado, $usPassEncriptada);
+           // $objSession = new Session();
+            $objSession -> iniciar($nombreIngresado, $usPassEncriptada);
             echo '
             <div class="bg-success-subtle">
                 <h3 class="text-success fs-5 text-center p-3">Sesion iniciada, redirigiendo</h3>

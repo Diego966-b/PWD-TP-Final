@@ -1,6 +1,6 @@
 <?php
     include_once("../../config.php");
-    $objSesion = new Session();
+    //$objSesion = new Session();
     $pagSeleccionada = "";
 ?>
 <!DOCTYPE html>
@@ -11,7 +11,7 @@
 </head>
 <body>
     <?php
-        $exito = $objSesion -> cerrar();
+        $exito = $objSession -> cerrar();
         if ($exito)
         {
             echo '

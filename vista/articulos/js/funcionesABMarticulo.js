@@ -20,11 +20,12 @@ $(document).ready(function() {
             success: function(response) {
                 // Manejar la respuesta del servidor
                 //$("#resultado").html(response);
-                alert(response);
+                accionSuccess()
 
-                setTimeout(function() {
+               /* setTimeout(function() {
                     location.reload();
                 }, 200);
+                */
             },
             error: function(error) {
                 alert("Error en la solicitud AJAX:", error);
@@ -153,4 +154,29 @@ function altaArticulo(idProducto){
             console.error("Error en la solicitud AJAX:", error);
         }
     });
+}
+
+
+function accionSuccess() {
+    Swal.fire({
+        icon: 'success',
+        title: 'La accion se realizo correctamente!',
+        showConfirmButton: false,
+        timer: 1500
+    })
+    setTimeout(function(){
+        location.reload();
+    },1500);
+}
+
+function accionFailure() {
+    Swal.fire({
+        icon: 'error',
+        title: 'No se ha realizado la accion!',
+        showConfirmButton: false,
+        timer: 1500
+    })
+    setTimeout(function(){
+        location.reload();
+    },1500);
 }

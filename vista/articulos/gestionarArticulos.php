@@ -27,7 +27,7 @@ $pagSeleccionada = "Gestionar Articulos";
 
 <body>
     <div id="filtro-opacidad">
-        <div id="contenido-perfil">
+     <div id="contenido-perfil">
             <br>
             <br>
             <div style="margin-bottom: 80px;">
@@ -82,6 +82,8 @@ $pagSeleccionada = "Gestionar Articulos";
                         </table>
 
                     </div>
+
+                     
                     <button type="button" class="btn btn-success my-2" id="abrirModal">
                         Agregar Producto
                     </button>
@@ -91,13 +93,13 @@ $pagSeleccionada = "Gestionar Articulos";
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <!-- Cabecera del modal -->
-                                <div class="modal-header">
+                                <form id="miFormularioNuevo" name="miFormulario">
+                                <div class="modal-header bg-dark text-ligth">
                                     <h4 class="modal-title">Cargar nuevo producto</h4>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                                 </div>
                                 <!-- Cuerpo del modal con el formulario -->
-                                <div class="modal-body">
-                                    <form id="miFormularioNuevo" name="miFormulario">
+                                <div class="modal-body text-black">
                                         <label for="proNombre">Nombre del Producto:</label>
                                         <input type="text" id="proNombre" name="proNombre" class="form-control" required>
 
@@ -113,27 +115,26 @@ $pagSeleccionada = "Gestionar Articulos";
                                         <label for="proPrecio">Precio:</label>
                                         <input type="number" id="proPrecio" name="proPrecio" class="form-control" required>
 
-                                        <br>
-                                        <button type="submit" class="btn btn-primary">Enviar</button>
-                                    </form>
-                                </div>
-                                <!-- Pie del modal -->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                </div>
+                                    </div>
+                                    <!-- Pie del modal -->
+                                    <div class="modal-footer bg-dark">
+                                        <input type="submit" value="Enviar" class="btn btn-success">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-
+                 
                     <!-- Modal de Modificación -->
 
                     <div class="modal" id="modalModificar">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <div class="modal-header">
+                                <div class="modal-header bg-dark text-ligth">
                                     <h4 class="modal-title">Modificar Producto</h4>
                                 </div>
-                                <div class="modal-body">
+                                <div class="modal-body text-black">
                                     <form id="miFormularioModificar" name="miFormulario">
                                         <input type="number" id="proIdModificar" hidden>
 
@@ -150,14 +151,11 @@ $pagSeleccionada = "Gestionar Articulos";
                                         <input type="number" id="proCantStockModificar" name="proCantStockModificar" class="form-control" required>
 
                                         <label for="proPrecioModificar">Precio:</label>
-                                        <input type="number" id="proPrecioModificar" name="proPrecioModificar" class="form-control" required>
-
-                                        <br>
-                                        <button type="submit" class="btn btn-primary">Enviar</button>
+                                        <input type="number" id="proPrecioModificar" name="proPrecioModificar" class="form-control" required>                                        
                                     </form>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <div class="modal-footer bg-dark">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                     <button type="button" class="btn btn-primary" onclick="guardarCambios()">Guardar Cambios</button>
                                 </div>
                             </div>

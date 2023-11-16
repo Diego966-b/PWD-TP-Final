@@ -7,7 +7,23 @@ $pagSeleccionada = "Productos";
 
 <head>
     <?php include_once($ESTRUCTURA . "/header.php"); ?>
-    <?php include_once($ESTRUCTURA . "/cabeceraBD.php"); ?>
+    <?php include_once($ESTRUCTURA . "/cabeceraBD.php"); 
+    
+    if ($objSession->validar()) {
+        $tienePermiso = $objSession->tienePermisoB($objSession->getUsuario());
+        if (!$tienePermiso) {
+            header("Refresh: 3; URL='$VISTA/acceso/login.php'");
+        }
+        // agreegar para todas las paginas 
+        $estadoPagina = $objSession->estadoMenu();
+        if (!$estadoPagina) {
+            header("Refresh: 3; URL='$VISTA/home/index.php'");
+        }
+    } else {
+        header("Refresh: 3; URL='$VISTA/acceso/login.php'");
+    }
+    ?>
+    
 
 </head>
 
@@ -15,15 +31,7 @@ $pagSeleccionada = "Productos";
     <div id="filtro-opacidad">
         <div id="contenido">
             <?php
-            if ($objSession->validar()) {
-                $tienePermiso = $objSession->tienePermisoB($objSession->getUsuario());
-                if (!$tienePermiso) {
-                    header("Refresh: 3; URL='$VISTA/acceso/login.php'");
-                }
-            } else {
-                header("Refresh: 3; URL='$VISTA/acceso/login.php'");
-            }
-
+            
             echo '<div class="container mt-5">';
             echo '<h1>Productos a la venta</h1>';
             echo '<div class="row">';

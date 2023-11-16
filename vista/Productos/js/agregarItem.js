@@ -27,12 +27,37 @@ function agregarItemCarrito(idProducto, proImagen, proPrecio, proDetalle, proNom
                 proCantStock : proCantStock,
             },
             success: function(response){
-                alert("Producto agregado al carrito");
+                accionSuccess();
                 console.log(data);
             },
             error: function(error) {
+                accionFailure()
                 console.error("Error en la solicitud AJAX:", error);
             }
         });
     }
+}
+
+function accionSuccess() {
+    Swal.fire({
+        icon: 'success',
+        title: 'La accion se realizo correctamente!',
+        showConfirmButton: false,
+        timer: 2000
+    })
+    setTimeout(function(){
+        location.reload();
+    },2000);
+}
+
+function accionFailure() {
+    Swal.fire({
+        icon: 'error',
+        title: 'No se ha realizado la accion!',
+        showConfirmButton: false,
+        timer: 2000
+    })
+    setTimeout(function(){
+        location.reload();
+    },2000);
 }

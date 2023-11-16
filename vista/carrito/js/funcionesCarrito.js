@@ -13,12 +13,12 @@ function pagarCarrito() {
             carrito: carrito
         },
         success: function(response) {
-            alert("Pagado");
-            console.log("este es mi carrito:");
-            console.log(carrito);
+            accionSuccess(); 
+            /*         
             setTimeout(function () {
                 location.reload();
             }, 100);
+            */
         },
         error: function(error) {
             console.error("Error en la solicitud AJAX:", error);
@@ -26,6 +26,29 @@ function pagarCarrito() {
     });
 }
 
+function accionSuccess() {
+    Swal.fire({
+        icon: 'success',
+        title: 'La accion se realizo correctamente!',
+        showConfirmButton: false,
+        timer: 2000
+    })
+    setTimeout(function(){
+        location.reload();
+    },2000);
+}
+
+function accionFailure() {
+    Swal.fire({
+        icon: 'error',
+        title: 'No se ha realizado la accion!',
+        showConfirmButton: false,
+        timer: 2000
+    })
+    setTimeout(function(){
+        location.reload();
+    },2000);
+}
 
 
 

@@ -10,7 +10,7 @@
 <html lang="en">
 <head>
     <?php include_once($ESTRUCTURA."/header.php");?>
-    <?php include_once($ESTRUCTURA."/cabecera.php"); ?>
+    <?php include_once($ESTRUCTURA."/cabeceraBD.php"); ?>
 </head>
 <body>
     <?php
@@ -23,7 +23,9 @@
             echo '
             <div class="bg-success-subtle">
                 <h3 class="text-success fs-5 text-center p-3">'.$resultado["mensaje"].'</h3>
+                
             </div>';
+            header("Refresh: 5; URL='$VISTA/acceso/login.php'");
         }
         else
         {
