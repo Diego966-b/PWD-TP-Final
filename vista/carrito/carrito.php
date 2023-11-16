@@ -93,7 +93,7 @@ $pagSeleccionada = "Carrito";
                 echo '<div id="filtro-opacidad">';
                 echo '<div id="contenido"> 
           <h2>No hay items en el carrito</h2>
-          <a href="' . $VISTA . '/productos/productos.php"><button class="btn btn-warning"> Ir a la Tienda</button></a>     
+          <a href="' . $VISTA . '/productos/productos.php?rol='.$idSeleccionado.'"><button class="btn btn-warning"> Ir a la Tienda</button></a>     
             </div>';
                 echo '</div >';
             }

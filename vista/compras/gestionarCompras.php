@@ -150,7 +150,7 @@ $pagSeleccionada = "Gestionar Compras";
                                             $ultimoIdCompraEstado = $estado->getIdCompraEstado();
                                         }
                                     }
-                                    echo  "Estado: " . $estado->getObjCompraEstadoTipo()->getCetDescripcion() . '<br>';
+                                    echo  "Estado: <strong>" . $estado->getObjCompraEstadoTipo()->getCetDescripcion() . '</strong><br>';
                                     echo   "Fecha Inicio estado: " . $estado->getceFechaIni() . '<br>';
                                     echo  "Fecha fin de estado: " . $estado->getceFechaFin() . '<br>';
                                     echo '</td>';
@@ -240,18 +240,19 @@ $pagSeleccionada = "Gestionar Compras";
 
                 var compraItem = arregloObjetos[i];
                 if (compraItem.objCompra.idCompra == idComprax) {
-                    contenidoModal.innerHTML += '<h3>IdCOmpraItem:' + compraItem.idCompraItem + '</h3>' +
+                    // contenidoModal.innerHTML += '<h3>Id CompraItem:' + compraItem.idCompraItem + '</h3>' +
+                    mensaje = '<h3>Producto Numero: ' + (i+1) + '</h3>' +
                         '<div class="cajaLista">' +
                         '<div class="row align-items-center">' +
                         '<div class="col "><p>Producto: ' + compraItem.objProducto.proNombre +
                         '<p>Precio por Unidad: $' + compraItem.objProducto.proPrecio +
                         '<p>Unidades: ' + compraItem.ciCantidad + '</div>';
                     if (idCompraEstado == 3 || idCompraEstado == 4) {
-                        contenidoModal.innerHTML += '<div class="col"><button type="button" disabled class="btn btn-secondary" onclick="eliminarItem(' + compraItem.idCompraItem + ',' + idComprax + ')">Eliminar</button> </div></div></div>';
+                        mensaje += '<div class="col"><button type="button" disabled class="btn btn-secondary" onclick="eliminarItem(' + compraItem.idCompraItem + ',' + idComprax + ')">Eliminar</button> </div></div></div>';
                     } else {
-                        contenidoModal.innerHTML += '<div class="col"><button type="button" class="btn btn-danger" onclick="eliminarItem(' + compraItem.idCompraItem + ',' + idComprax + ')">Eliminar</button> </div></div></div>';
+                        mensaje += '<div class="col"><button type="button" class="btn btn-danger" onclick="eliminarItem(' + compraItem.idCompraItem + ',' + idComprax + ')">Eliminar</button> </div></div></div>';
                     }
-
+                    contenidoModal.innerHTML +=   mensaje
                 }
             }
             $("#productosModal").modal("show");
@@ -266,11 +267,11 @@ $pagSeleccionada = "Gestionar Compras";
             for (var i = 0; i < arregloObjetos.length; i++) {
                 var compraEstado = arregloObjetos[i];
                 if (compraEstado.objCompra.idCompra == idComprax) {
-                    contenidoModal.innerHTML += '<h3>ESTADO:' + compraEstado.idCompraEstado + '</h3><div class="cajaLista">' +
-                        '<p> ID tipo Estado:' + compraEstado.objCompraEstadoTipo.idCompraEstadoTipo +
-                        '<p> DESCRIPCION:' + compraEstado.objCompraEstadoTipo.cetDescripcion +
-                        '<p> FECHA INICIO:' + compraEstado.ceFechaIni + ' ' +
-                        '<p> FECHA FIN:' + compraEstado.ceFechaFin + '</div> </p> ';
+                    contenidoModal.innerHTML += '<h3>ESTADO NUMERO:' + (i+1) + '</h3><div class="cajaLista">' +
+                        '<p> ID tipo Estado: ' + compraEstado.objCompraEstadoTipo.idCompraEstadoTipo +
+                        '<p> DESCRIPCION: ' + compraEstado.objCompraEstadoTipo.cetDescripcion +
+                        '<p> FECHA INICIO: ' + compraEstado.ceFechaIni + ' ' +
+                        '<p> FECHA FIN: ' + compraEstado.ceFechaFin + '</div> </p> ';
                 }
             }
             $("#estadosModal").modal("show");
