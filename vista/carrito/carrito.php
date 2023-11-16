@@ -54,9 +54,9 @@
                         echo "<div class='parrafo' id='parrafo-" . $objProducto->getIdProducto() . "'>";
                         echo "<p id='proCantidad-" . $objProducto->getIdProducto() . "' name='proCantidad' class='proCantidad'>Cantidad: " . $producto["proCantidad"] . "</p>";
                         echo "</div>";
-                        //echo '<button class="btnRestar btn btn-danger mx-1" onclick="eliminarUnidad('.$objProducto->getIdProducto().',\''.$producto["proCantidad"].'\','.')">-</button>';
                         echo "<p>" . $objProducto->getProDetalle() . "</p>";
                         echo "<input type='hidden' value=" . $objProducto->getIdProducto() . " name='idProducto' id='idProducto'>";
+                        echo '<button class="btnRestar btn btn-danger mx-1" onclick="eliminarUnidad('.$objProducto->getIdProducto().')">Eliminar item</button>';
                         $totalPagar = (($objProducto->getProPrecio()) * $producto["proCantidad"]) + $totalPagar;
                         echo "</div>";
                         echo "</div>";

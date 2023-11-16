@@ -1,26 +1,41 @@
 <?php
-    // ACUTALMENTE NO SE USA
-    include_once("../../../config.php");
-    include_once($ESTRUCTURA."/header.php");
-    include_once($ESTRUCTURA."/cabeceraBD.php");
-    $colDatos = data_submitted();
-    $arrayConsulta = [];
-    $idProducto = $colDatos ["idProducto"];
-    $cantUnidades = $colDatos ["cantProductos"];
+include_once("../../../config.php");
+//include_once($ESTRUCTURA . "/header.php"); 
+//include_once($ESTRUCTURA . "/cabeceraBD.php");
 
-    $abmProducto = new AbmProducto();
-    $arrayConsulta ["idProducto"] = $idProducto;
-    $listaProductos = $abmProducto -> buscar($arrayConsulta);
-    $objProducto = $listaProductos [0];
-    $arrayProducto = convert_array($objProducto);
-    $arrayProducto ["accion"] = "editar";
-    $arrayProducto ["proCantStock"] = $arrayProducto["proCantStock"] + 1;
-    $resultado = $abmProducto -> abm($arrayProducto);
+$colDatos = data_submitted();
+$idProducto = $colDatos["idProducto"];
+//$objSession->eliminarUnidad($idProducto);
 
-    if ($arrayProducto["proCantStock"] == 0)
-    {
+$objSession = new Session();
+$carrito = $_SESSION['carrito'];
+$nuevoCarrito = array();
 
+
+print_r($carrito);
+/*
+for ($i = 0; $i < count ($carrito); $i++)
+{
+    if ($idProducto <> $arrayProducto[$i]["idProducto"]) {
+        // Agrego el producto al nuevo carrito si no coincide con el ID a eliminar
+        array_push($nuevoCarrito, $arrayProducto);
     }
-    $arrayCarrito = $_SESSION["carrito"];
-    
+}
+*/
+
+foreach ($carrito as $arrayProducto) {
+    if ($idProducto == $arrayProducto["idProducto"]) {
+        // Agrego el producto al nuevo carrito si no coincide con el ID a eliminar
+        
+        array_push($nuevoCarrito, $arrayProducto);
+    }
+}
+
+if (count($nuevoCarrito) == 0) {
+    // Borro carrito
+    unset($_SESSION["carrito"]);
+} else {
+    // Actualizo el carrito en la sesión
+    $_SESSION["carrito"] = $nuevoCarrito;
+}
 ?>

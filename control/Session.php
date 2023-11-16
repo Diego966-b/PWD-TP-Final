@@ -190,7 +190,41 @@ class Session
     }
 
     /**
-     * 
+     * Elimina 1 unidad del carrito. Si el carrito se queda sin unidades, borra el carrito.
+     */
+    public function eliminarUnidad ($idProducto)
+    {
+        $carrito = $this -> setearCarrito ();
+        
+        print_r($carrito);
+        
+        echo "<script>";
+        echo "console.log('entro a eliminarUnidad');";  
+        echo "echo(" . json_encode($carrito) . ")";
+        echo "</script>";
+
+        foreach ($carrito as $indice => $arrayProducto) 
+        {
+            if ($idProducto == $arrayProducto["idProducto"]) {
+                // Borro item
+                unset($carrito[$indice]);
+            }
+        }
+
+        if (count($carrito) == 0)
+        {
+            // borro carrito
+            unset($_SESSION["carrito"]);
+        }
+        else
+        {
+            // Actualizo el carrito en la sesión
+            $_SESSION["carrito"] = $carrito;
+        }
+    }
+
+    /**
+     * Paga el carrito
      */
     public function pagarCarrito ($colDatos)
     {
