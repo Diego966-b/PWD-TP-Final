@@ -4,11 +4,6 @@
     include_once($ESTRUCTURA."/cabeceraBD.php");
     date_default_timezone_set('America/Argentina/Buenos_Aires');
     $colDatos = data_submitted();
-    /*
-    $carrito = new Carrito();
-    $objUsuario = $objSession->getObjUsuario();
-    $carrito -> pagarCarrito ($colDatos, $objUsuario);
-    */
     
     $abmProducto = new AbmProducto();
     $abmCompra = new AbmCompra();
@@ -63,7 +58,6 @@
         $arrayConsulta ["idProducto"] = $idProducto;
         $arrayConsulta ["idCompra"] = $idCompra; 
         $abmCompraItem -> abm($arrayConsulta);
-        //array_push($colProductosCarrito, $objProducto);
     }
 
     $objSession -> eliminarCarrito();
