@@ -1,18 +1,28 @@
 <?php
-    include_once("../../config.php");
-    $pagSeleccionada = "Home";
+include_once("../../config.php");
+$pagSeleccionada = "Home";
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <?php include_once($ESTRUCTURA."/header.php"); ?>
-    <?php include_once($ESTRUCTURA."/cabeceraBD.php"); ?>
-    <h2>Home</h2>
+    <?php include_once($ESTRUCTURA . "/header.php"); ?>
+    <?php include_once($ESTRUCTURA . "/cabeceraBD.php"); ?>
 </head>
+
 <body>
-    <div class="container text-center my-4">
-        <img src='<?php echo $VISTA;?>/imagenes/almacen.jpeg' class="img-fluid mx-auto" alt="Almacen">
+    <!--  <div class="container text-center my-4">-->
+    <div id="fondo">
+
+        <div id="filtro-opacidad">
+            <div id="contenido">
+                <h2>Bienvenidos</h2>
+            </div>
+
+        </div>
+
     </div>
-    <?php include_once($ESTRUCTURA."/pie.php"); ?>
+    <?php include_once($ESTRUCTURA . "/pie.php"); ?>
 </body>
+
 </html>

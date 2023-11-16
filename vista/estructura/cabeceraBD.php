@@ -65,7 +65,7 @@ foreach ($menues as $objMenu) {
 if ($sesionValida) {
     echo
     '<form name="cerrarSesion" id="cerrarSesion" method="post" action=' . $VISTA . '/accion/eliminarSesion.php>
-        <input class="m-3 p-2"type="submit" value="Cerrar Sesion">
+        <input class="m-3 p-2 btn btn-danger" type="submit" value="Cerrar Sesion">
         </form>';
 }
 if ($sesionValida) {
