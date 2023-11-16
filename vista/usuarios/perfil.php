@@ -7,6 +7,7 @@ $pagSeleccionada = "Mi Perfil";
 
 <head>
     <?php include_once($ESTRUCTURA . "/header.php"); ?>
+    
     <?php include_once($ESTRUCTURA . "/cabeceraBD.php"); 
       if ($objSession->validar()) {
         $tienePermiso = $objSession->tienePermisoB($objSession->getUsuario());
@@ -26,7 +27,7 @@ $pagSeleccionada = "Mi Perfil";
 
 <body>
     <div id="filtro-opacidad">
-        <div id="contenido-perfil">
+        <div id="contenido-perfil-n">
             <br>
             <br>
             <?php          

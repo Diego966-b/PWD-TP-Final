@@ -37,7 +37,7 @@ $pagSeleccionada = "Gestionar Usuarios";
 
     ?>
     <div id="filtro-opacidad">
-        <div id="contenido-perfil">
+        <div id="contenido-perfil-n">
             <br>
             <br>
         <div class="container text-center p-4 mt-3 cajaLista">
