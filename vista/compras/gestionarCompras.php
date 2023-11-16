@@ -24,33 +24,35 @@ $pagSeleccionada = "Gestionar Compras";
 </head>
 
 <body>
-    <div style="margin-bottom: 80px;">
-        <div class="container text-center p-4 mt-3 cajaLista">
-            <h2>Lista de Compras </h2>
-            <div class="table-responsive">
-                <table class="table  m-auto">
-                    <thead class="table-dark fw-bold">
-                        <tr>
-                            <!--  <th scope="col">Productos Compra</th> Imagen, nombre, cantidad comprada--->
-                            <!--   <th scope="col">Total por producto</th> Imagen, nombre, cantidad comprada--->
-                            <th scope="col">IdCompra</th> <!--IdCOmpra--->
-                            <th scope="col">Fecha de la compra</th>
-                            <th scope="col">Nombre del usuario</th>
-                            <th scope="col">Precio Total</th>
+    <div id="filtro-opacidad">
+        <div id="contenido-perfil">
+            <br>
+            <br>
+            <div style="margin-bottom: 80px;">
+                <div class="container text-center p-4 mt-3 cajaLista">
+                    <h2>Lista de Compras </h2>
+                    <div class="table-responsive">
+                        <table class="table  m-auto">
+                            <thead class="table-dark fw-bold">
+                                <tr>
+                                    <th scope="col">IdCompra</th>
+                                    <th scope="col">Fecha de la compra</th>
+                                    <th scope="col">Nombre del usuario</th>
+                                    <th scope="col">Precio Total</th>
                             <th scope="col">Estado compra</th> <!--Muestra el estado, iniciada/cancelada/finalizada/etc--->
                             <th scope="col">Productos</th>
-                            <th scope="col">Historial Estados</th> <!--Muestra el estado, iniciada/cancelada/finalizada/etc--->
-                            <th scope="col">Acciones</th>
+                            <th scope="col">Historial Estados</th>
+                                    <th scope="col">Acciones</th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $objCompraEstadoTipo = new AbmCompraEstadoTipo();
-                        $objCompra = new AbmCompra();
-                        $objProducto = new AbmProducto();
-                        $objCompraEstado = new AbmCompraEstado();
-                        $objCompraItem = new AbmCompraItem();
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $objCompraEstadoTipo = new AbmCompraEstadoTipo();
+                                $objCompra = new AbmCompra();
+                                $objProducto = new AbmProducto();
+                                $objCompraEstado = new AbmCompraEstado();
+                                $objCompraItem = new AbmCompraItem();
 
                         $listadoProducto = $objProducto->buscar(null);
                         $listadoCompra = $objCompra->buscar(null);
@@ -128,6 +130,32 @@ $pagSeleccionada = "Gestionar Compras";
                                             // echo "$" . $item->getObjProducto()->getProPrecio() * $item->getCiCantidad() ;                            
                                         }
                                     }
+
+                                    echo '<td>' .  $compra->getIdCompra() . '</td>';
+                                    echo '<td>' . $compra->getCoFecha() . '</td>';
+                                    echo '<td>' . $compra->getObjUsuario()->getUsNombre() . '</td>';
+
+                                    echo '<td>';
+                                    foreach ($listarCompraEstado as $estado) {
+                                        if ($estado->getObjCompra()->getIdCompra() == $compra->getIdCompra()) {
+                                            echo  "Estado: " . $estado->getObjCompraEstadoTipo()->getCetDescripcion() . '<br>';
+                                            echo   "Fecha Inicio estado: " . $estado->getceFechaIni() . '<br>';
+                                            echo  "Fecha fin de estado: " . $estado->getceFechaFin() . '<br>';
+                                            $ultimoIdCompraEstado = $estado->getIdCompraEstado();
+                                        }
+                                    }
+                                    echo '</td>';
+
+                                    echo '<td>' .
+                                        '<form id="formSelect">' .
+                                        '<select name="estado" id="estado-' . $compra->getIdCompra() . '">';
+                                    foreach ($listadoCompraEstadoTipo as $estadoTipo) {
+                                        echo '<option value=" ' . $estadoTipo->getIdCompraEstadoTipo() . '"> ' . $estadoTipo->getCetDescripcion() . '</option>';
+                                    }
+                                    echo '</select>';
+                                    echo '<button type="button" class="btn btn-primary" onclick="enviarDatos(' . $compra->getIdCompra() . ',\'' . $ultimoIdCompraEstado . '\',' . ')">Guardar</button>';
+                                    echo '</form>';
+                                    echo '</td>';
                                 }
                             }
                             echo '<td>' .  $compra->getIdCompra() . '</td>';

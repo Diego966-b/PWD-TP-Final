@@ -30,6 +30,10 @@ $pagSeleccionada = "Gestionar Roles";
     $listadoRoles = $objRol->buscar(null);
 
     ?>
+    <div id="filtro-opacidad">
+        <div id="contenido-perfil">
+            <br>
+            <br>
     <div class="container text-center p-4 mt-3 cajaLista">
         <h2>Lista de Roles </h2>
         <div class="table-responsive">
@@ -124,6 +128,8 @@ $pagSeleccionada = "Gestionar Roles";
                 </div>
             </form>
         </div>
+    </div>
+    </div>
     </div>
     <script src="./js/funcionesAmbRoles.js"></script>
 
