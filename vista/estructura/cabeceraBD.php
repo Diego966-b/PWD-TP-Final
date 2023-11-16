@@ -36,7 +36,7 @@ if ($sesionValida) {
     $idSeleccionado=null;
     $abmMenu = new AbmMenu();
     $array = [];
-    $array["idMenu"] = 10;
+    $array["idMenu"] = 1;
     $menu = $abmMenu->buscar($array);
     $menues = [];
     array_push($menues, $menu[0]);

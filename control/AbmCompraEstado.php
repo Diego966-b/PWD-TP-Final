@@ -56,28 +56,21 @@ class AbmCompraEstado
         $idCompraEstado = $datos['idCompraEstado'];
         $idCompra = $datos['idCompra'];
         $idCompraEstadoTipo = $datos['idCompraEstadoTipo'];
-        $ceFechaIni = $datos['ceFechaIni'] ;
-        $fechaFin= $datos['ceFechaFin'];
+        // $ceFechaIni = $datos['ceFechaIni'] ; // no lo usamos
+        $fechaFin= $datos['ceFechaFin']; // tecnicamente deberia ser 0000
+        //seteo el objeto compraEstado (el ultimo estado que tiene/ estado actual)
         $array['idCompraEstado'] = $idCompraEstado;
-
         $AbmCompraEstado = new AbmCompraEstado();
-
         $arregloEstados = $AbmCompraEstado->buscar($array);
-    
-        date_default_timezone_set('America/Argentina/Buenos_Aires');
-$fecha_actual = date("Y-m-d H:i:s");
-
         $compraEstado = $arregloEstados[0];
-        echo "entro a editar Estado";
+
         $array["idCompra"] =$compraEstado->getObjCompra()->getIdCompra();
         $array['idCompraEstadoTipo'] = $compraEstado->getObjCompraEstadoTipo()->getIdCompraEstadoTipo();
         $array['ceFechaIni'] = $compraEstado->getCeFechaIni();
-        $array['ceFechaFin'] = $fecha_actual;
-      // $array['ceFechaFin'] = "1994-03-15 00:00:00";
+        $array['ceFechaFin'] = $fechaFin;
         print_r($array);
         if($this->modificacion($array)){
-            $resp = true;
-            
+            $resp = true; 
             $arrayDatos['idCompra'] = $idCompra;
             $arrayDatos['idCompraEstadoTipo'] =  $idCompraEstadoTipo;
             $arrayDatos['ceFechaIni'] =  $fechaFin;

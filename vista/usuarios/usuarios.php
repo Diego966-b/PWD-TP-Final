@@ -40,7 +40,6 @@ $pagSeleccionada = "Gestionar Usuarios";
     <div class="container text-center p-4 mt-3 cajaLista">
         <h2>Lista de usuarios </h2>
         <div class="table-responsive">
-
             <table class="table m-auto">
                 <thead class="table-dark fw-bold">
                     <tr>

@@ -49,7 +49,7 @@ CREATE TABLE `compraEstado` (
   `idCompra` bigint(11) NOT NULL,
   `idCompraEstadoTipo` int(11) NOT NULL,
   `ceFechaIni` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `ceFechaFin` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+  `ceFechaFin` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -107,24 +107,23 @@ CREATE TABLE `menu` (
 
 INSERT INTO `menu` (`idMenu`, `meNombre`, `meDescripcion`, `idPadre`, `meDeshabilitado`) VALUES
 -- cliente:
-(1, 'Productos', '../productos/productos.php', NULL, NULL),
 (2, 'Mi Perfil', '../usuarios/perfil.php', NULL, NULL), -- MODIFICADO!!!, Ahora todos los roles tienen acceso a esto
-(3, 'Carrito', '../carrito/carrito.php', NULL, NULL),
-(4, 'Mis Compras', '../usuarios/compras.php', NULL, NULL),
+(3, 'Productos', '../productos/productos.php', NULL, NULL),
+(4, 'Carrito', '../carrito/carrito.php', NULL, NULL),
+(5, 'Mis Compras', '../usuarios/compras.php', NULL, NULL),
 -- deposito:
-(5, 'Gestionar Articulos', '../articulos/gestionarArticulos.php', NULL, NULL),
-(6, 'Gestionar Compras', '../compras/gestionarCompras.php', NULL, NULL),
+(6, 'Gestionar Articulos', '../articulos/gestionarArticulos.php', NULL, NULL),
+(7, 'Gestionar Compras', '../compras/gestionarCompras.php', NULL, NULL),
 -- admin:
-(7, 'Gestionar Usuarios', '../usuarios/usuarios.php', NULL, NULL),
-(8, 'Gestionar Roles', '../roles/roles.php', NULL, NULL),
-(9, 'Gestionar Menus', '../menus/menus.php', NULL, NULL),
+(8, 'Gestionar Usuarios', '../usuarios/usuarios.php', NULL, NULL),
+(9, 'Gestionar Roles', '../roles/roles.php', NULL, NULL),
+(10, 'Gestionar Menus', '../menus/menus.php', NULL, NULL),
 -- Usuario sin rol:
-(10, 'Iniciar Sesion', '../acceso/login.php', NULL, NULL),
-(11, 'Registrarse', '../acceso/registrarse.php', NULL, NULL),
-(12, 'Home', '../home/index.php', NULL, NULL);
+(11, 'Iniciar Sesion', '../acceso/login.php', NULL, NULL),
+(12, 'Registrarse', '../acceso/registrarse.php', NULL, NULL),
+(1, 'Home', '../home/index.php', NULL, NULL);
 
 -- --------------------------------------------------------
-
 --
 -- Estructura de tabla para la tabla `menurol`
 --
@@ -142,21 +141,21 @@ INSERT INTO `menuRol` (`idMenu`, `idRol`) VALUES
 -- 2 - cliente
 -- 3 - deposito
 -- Cliente:
-(12, 2),
 (1, 2),
+(2, 2),
 (3, 2),
 (4, 2),
-(2, 2),
+(5, 2),
 -- Deposito:
-(12, 3),
-(5, 3),
+(1, 3),
 (6, 3),
+(7, 3),
 (2, 3), -- Modificado!!!
 -- Admin:
-(12, 1),
-(7, 1),
+(1, 1),
 (8, 1),
 (9, 1),
+(10, 1),
 (2, 1); -- Modificado!!!
 
 
