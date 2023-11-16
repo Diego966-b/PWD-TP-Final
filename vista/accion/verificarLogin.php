@@ -18,7 +18,6 @@
         $valido = $objUsuarioAuth -> validarCredenciales($nombreIngresado, $usPassEncriptada);
         if ($valido)
         {
-           // $objSession = new Session();
             $objSession -> iniciar($nombreIngresado, $usPassEncriptada);
             echo '
             <div class="bg-success-subtle">

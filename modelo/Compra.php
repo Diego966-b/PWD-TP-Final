@@ -1,11 +1,4 @@
 <?php
-/*
-CREATE TABLE `compra` (
-  `idCompra` bigint(20) NOT NULL,
-  `coFecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `idUsuario` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-*/
 class Compra 
 {
     // Atributos
@@ -58,10 +51,8 @@ class Compra
                     $abmUsuario = new AbmUsuario();
                     $array = [];
                     $array ['idUsuario'] = $row['idUsuario'];
-                    // MODIFICADO!!!
                     $listaUsuarios = $abmUsuario -> buscar ($array);
                     $objUsuario = $listaUsuarios[0];
-                    // MODIFICADO!!!
                     $idCompra = $row['idCompra'];
                     $coFecha = $row['coFecha'];
                     $this -> setear($idCompra, $coFecha, $objUsuario);
@@ -79,12 +70,6 @@ class Compra
         $ultimoId = null;
         $base = new BaseDatos();
         $objUsuario = $this->getObjUsuario();
-        /*  
-        MODIFICADO!!!
-            $objUsuario = $this -> getObjUsuario();
-            $objUsuarioDeVerdad = $objUsuario[0];
-        MODIFICADO!!!
-        */
         $sql = 
         "INSERT INTO compra (coFecha, idUsuario)
             VALUES ('" 
@@ -108,12 +93,6 @@ class Compra
         $resp = false;
         $base = new BaseDatos();
         $objUsuario = $this->getObjUsuario();
-        /*
-        MODIFICADO!!!
-            $objUsuario = $this -> getObjUsuario();
-            $objUsuarioDeVerdad = $objUsuario[0];
-        MODIFICADO!!!
-        */
         $sql = 
         "UPDATE compra SET 
             coFecha='" . $this->getCoFecha() . "',
@@ -165,10 +144,8 @@ class Compra
                     $obj = new Compra();
                     $array = [];
                     $array ['idUsuario'] = $row['idUsuario'];
-                    // MODIFICADO!!!
                     $listaUsuarios = $abmUsuario -> buscar ($array);
                     $objUsuario = $listaUsuarios[0];
-                    // MODIFICADO!!!
                     $idCompra = $row['idCompra'];
                     $coFecha = $row['coFecha'];
                     $obj -> setear($idCompra, $coFecha, $objUsuario);

@@ -1,6 +1,5 @@
 <?php
     include_once("../../config.php");
-    //$objSesion = new Session();
     $pagSeleccionada = "";
 ?>
 <!DOCTYPE html>

@@ -91,7 +91,6 @@ class CompraEstadoTipo
             cetDescripcion='" . $this->getCetDescripcion() . "',
             cetDetalle='" . $this->getCetDetalle() . "'
         WHERE idCompraEstadoTipo='" . $this->getIdCompraEstadoTipo() . "'";
-
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;

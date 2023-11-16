@@ -1,11 +1,8 @@
 <?php
-    include_once('../../../config.php');
-    //  include_once($ESTRUCTURA . "/header.php"); 
-
+    include_once('../../../config.php'); 
     $data = data_submitted();
     $objAbmCompraItem= new AbmCompraItem();
     $data['accion']='borrar';
-    // $listaObjCompraItem = $objAmbCompraItem->buscar($data);
     $idCompra=$data['idCompra'];
     $param['idCompraItem']=$data['idCompraItem'];
     $param['accion']='borrar';

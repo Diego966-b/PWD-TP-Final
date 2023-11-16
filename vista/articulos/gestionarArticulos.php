@@ -7,21 +7,21 @@ $pagSeleccionada = "Gestionar Articulos";
 
 <head>
     <?php include_once($ESTRUCTURA . "/header.php"); ?>
-    <!-- <link rel="stylesheet" type="text/css" href="<?php echo $CSS ?>/estilos.css"> -->
-    <?php include_once($ESTRUCTURA . "/cabeceraBD.php");
-    if ($objSession->validar()) {
-        $tienePermiso = $objSession->tienePermisoB($objSession->getUsuario());
-        if (!$tienePermiso) {
+    <?php 
+        include_once($ESTRUCTURA . "/cabeceraBD.php");
+        if ($objSession->validar()) {
+            $tienePermiso = $objSession->tienePermisoB($objSession->getUsuario());
+            if (!$tienePermiso) {
+                header("Refresh: 3; URL='$VISTA/acceso/login.php'");
+            }
+            // agreegar para todas las paginas 
+            $estadoPagina = $objSession->estadoMenu();
+            if (!$estadoPagina) {
+                header("Refresh: 3; URL='$VISTA/home/index.php'");
+            }
+        } else {
             header("Refresh: 3; URL='$VISTA/acceso/login.php'");
         }
-        // agreegar para todas las paginas 
-        $estadoPagina = $objSession->estadoMenu();
-        if (!$estadoPagina) {
-            header("Refresh: 3; URL='$VISTA/home/index.php'");
-        }
-    } else {
-        header("Refresh: 3; URL='$VISTA/acceso/login.php'");
-    }
     ?>
 </head>
 

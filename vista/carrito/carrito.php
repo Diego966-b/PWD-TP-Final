@@ -6,21 +6,20 @@
 <html lang="en">
 <head>
     <?php include_once($ESTRUCTURA . "/header.php"); ?>
-    <?php include_once($ESTRUCTURA . "/cabeceraBD.php");
-
-    if ($objSession->validar()) {
-        $tienePermiso = $objSession->tienePermisoB($objSession->getUsuario());
-        if (!$tienePermiso) {
+    <?php 
+        include_once($ESTRUCTURA . "/cabeceraBD.php");
+        if ($objSession->validar()) {
+            $tienePermiso = $objSession->tienePermisoB($objSession->getUsuario());
+            if (!$tienePermiso) {
+                header("Refresh: 3; URL='$VISTA/acceso/login.php'");
+            } 
+            $estadoPagina = $objSession->estadoMenu();
+            if (!$estadoPagina) {
+                header("Refresh: 3; URL='$VISTA/home/index.php'");
+            }
+        } else {
             header("Refresh: 3; URL='$VISTA/acceso/login.php'");
         }
-        // agreegar para todas las paginas 
-        $estadoPagina = $objSession->estadoMenu();
-        if (!$estadoPagina) {
-            header("Refresh: 3; URL='$VISTA/home/index.php'");
-        }
-    } else {
-        header("Refresh: 3; URL='$VISTA/acceso/login.php'");
-    }
     ?>
 </head>
 <body>
@@ -62,8 +61,6 @@
                         echo "</div>";
                         echo "</div>";
                     }
-
-
                     $jsonCarrito = json_encode($carrito);
 
                     echo "<script>var carrito = $jsonCarrito;</script>";
@@ -72,7 +69,6 @@
                     echo '<div class="row">';
                     echo '<div class="col-12">';
                     echo "<p class='fs-4'>Total a pagar: $ " . $totalPagar . "</p>";
-                    //echo '<button class="btn btn-primary btn-pago btn-lg mx-1 float-end" onclick="pagarCarrito(' . $colProductos . ')">Pagar</button>';
                     echo '<button class="btn btn-primary btn-pago btn-lg mx-1 float-end" onclick="pagarCarrito()">Pagar</button>';
                     echo '</div></div></div>';
                     echo "<br><br><br><br><br>";
@@ -90,5 +86,4 @@
     <script src="./js/funcionesCarrito.js"></script>
     <?php include_once($ESTRUCTURA . "/pie.php"); ?>
 </body>
-
 </html>

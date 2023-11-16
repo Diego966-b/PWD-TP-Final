@@ -1,5 +1,4 @@
 function eliminarItem(idCompraItem, idCompra) {
-    // console.log(idCompraItem);
   $.ajax({
     type: "POST",
     url: "./accion/actualizarCompraItem.php",
@@ -16,10 +15,7 @@ function eliminarItem(idCompraItem, idCompra) {
   });
 }
 function enviarDatos(idCompra, ultimoIdCompraEstado) {
-  // console.log("entro");
   var idCompraEstadoTipo = $("#estado-" + idCompra).val();
-  // console.log(idCompraEstadoTipo);
-  // console.log(ultimoIdCompraEstado);
   $.ajax({
     type: "POST",
     url: "./accion/actualizarEstado.php",
@@ -29,7 +25,6 @@ function enviarDatos(idCompra, ultimoIdCompraEstado) {
       idCompra: idCompra,
     },
     success: function (response) {
-    //   $("#resultado").html(idCompraEstadoTipo);
       accionSuccess();
     },
     error: function (error) {

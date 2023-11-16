@@ -13,7 +13,6 @@ $pagSeleccionada = "Gestionar Menus";
         if (!$tienePermiso) {
             header("Refresh: 3; URL='$VISTA/acceso/login.php'");
         }
-        // agreegar para todas las paginas 
         $estadoPagina = $objSession->estadoMenu();
         if (!$estadoPagina) {
             header("Refresh: 3; URL='$VISTA/home/index.php'");

@@ -1,15 +1,12 @@
 <?php
-include_once("../../config.php");
-$pagSeleccionada = "Registrarse";
+    include_once("../../config.php");
+    $pagSeleccionada = "Registrarse";
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php include($ESTRUCTURA . "/header.php"); ?>
-    <link rel="stylesheet" type="text/css" href="<?php echo $CSS ?>/estilos.css">
 </head>
-
 <body>
     <?php include($ESTRUCTURA . "/cabeceraBD.php"); ?>
     <div id="filtro-opacidad">

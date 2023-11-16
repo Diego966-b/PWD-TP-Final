@@ -61,16 +61,13 @@ class CompraEstado
                     $abmCompraEstadoTipo = new AbmCompraEstadoTipo ();
                     $arrayCompra = [];
                     $arrayCompraEstadoTipo = [];
-
                     $arrayCompra ['idCompra'] = $row['idCompra'];
                     $arrayCompraEstadoTipo ['idCompraEstadoTipo'] = $row['idCompraEstadoTipo'];
-
-                    // MODIFICADO!!!
+                    
                     $listaCompras = $abmCompra -> buscar($arrayCompra);
                     $listaCompraEstadoTipo = $abmCompraEstadoTipo -> buscar($arrayCompraEstadoTipo);
                     $objCompra = $listaCompras[0];
                     $objCompraEstadoTipo = $listaCompraEstadoTipo[0];
-                    // MODIFICADO!!!
                     $idCompraEstado = $row ['idCompraEstado'];
                     $ceFechaIni = $row ['ceFechaIni'];
                     $ceFechaFin = $row ['ceFechaFin'];
@@ -96,8 +93,6 @@ class CompraEstado
          . $this->getCeFechaFin() . "', '" 
          .$objCompra->getIdCompra() 
          . "', '" .$objCompraEstadoTipo->getIdCompraEstadoTipo() . "')";
-        //echo "CONSULKTA;:".$sql."<br>";
-        //echo "(idCompraEstado, objCompra, objCompraEstadoTipo, ceFechaIni, ceFechaFin)";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $respuesta = true;
@@ -170,12 +165,10 @@ class CompraEstado
                     $obj = new CompraEstado ();
                     $array1 ['idCompra'] = $row['idCompra'];
                     $array2 ['idCompraEstadoTipo'] = $row['idCompraEstadoTipo'];
-                    // MODIFICADO!!!
                     $listaCompras = $abmCompra -> buscar($array1);
                     $listaCompraEstadoTipo = $abmCompraEstadoTipo -> buscar($array2);
                     $objCompra = $listaCompras[0];
                     $objCompraEstadoTipo = $listaCompraEstadoTipo[0];
-                    // MODIFICADO!!!
                     $idCompraEstado = $row ['idCompraEstado'];
                     $ceFechaIni = $row ['ceFechaIni'];
                     $ceFechaFin = $row ['ceFechaFin'];

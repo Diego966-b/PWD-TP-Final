@@ -1,10 +1,4 @@
 <?php
-/*
-CREATE TABLE `menurol` (
-  `idmenu` bigint(20) NOT NULL,
-  `idrol` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-*/
 class MenuRol 
 {
     // Atributos
@@ -57,12 +51,10 @@ class MenuRol
                     $array = [];
                     $array ['idRol'] = $row['idRol'];
                     $array ['idMenu'] = $row['idMenu'];
-                    // MODIFICADO!!!
                     $listaMenus = $abmMenu -> buscar ($array);
                     $listaRoles = $abmRol -> buscar ($array);
                     $objMenu = $listaMenus[0];
                     $objRol = $listaRoles[0]; // Si hay mas de 1 rol aca priorizaria el primero que encuentra!!!
-                    // MODIFICADO!!!
                     $this -> setear($objRol, $objMenu);
                 }
             }
@@ -129,20 +121,16 @@ class MenuRol
         if ($res > -1) {
             if ($res > 0) {
                 while ($row = $base->Registro()) {
-                    //echo "<br><br><br>";
-                    //echo "<br><br><br>";
                     $obj = new MenuRol();
                     $abmMenu = new AbmMenu();
                     $abmRol = new AbmRol();
                     $array = [];
                     $array ['idRol'] = $row['idRol'];
                     $array ['idMenu'] = $row['idMenu'];
-                    // MODIFICADO!!!
                     $listaMenus = $abmMenu -> buscar ($array);
                     $listaRoles = $abmRol -> buscar ($array);
                     $objMenu = $listaMenus[0];
                     $objRol = $listaRoles[0]; // Si hay mas de 1 rol aca priorizaria el primero que encuentra!!!
-                    // MODIFICADO!!!
                     $obj->setear($objRol, $objMenu); 
                     array_push($arreglo, $obj);
                 }

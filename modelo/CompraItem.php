@@ -57,12 +57,10 @@ class CompraItem
                     $array = [];
                     $array ['idProducto'] = $row['idProducto'];
                     $array ['idCompra'] = $row['idCompra'];
-                    // MODIFICADO!!!
                     $listaProductos = $abmProducto -> buscar ($array);
                     $listaCompras = $abmCompra -> buscar ($array);
                     $objProducto = $listaProductos[0];
                     $objCompra = $listaCompras[0];
-                    // MODIFICADO!!!
                     $idCompraItem = $row['idCompraItem'];
                     $ciCantidad = $row['ciCantidad'];
 
@@ -81,12 +79,6 @@ class CompraItem
         $base = new BaseDatos();
         $objProductoDeVerdad = $this->getObjProducto();
         $objCompraDeVerdad = $this->getObjCompra();
-        /*  
-        MODIFICADO!!!
-            $objProductoDeVerdad = $objProducto[0]; //Modificado por Marco
-            $objCompraDeVerdad = $objCompra[0]; //Modificado por Marco  
-        MODIFICADO!!!
-        */
         $sql = 
         "INSERT INTO compraItem (idCompraItem, ciCantidad, idProducto, idCompra)
             VALUES ('" . 
@@ -112,19 +104,12 @@ class CompraItem
         $base = new BaseDatos();
         $objProductoDeVerdad = $this->getObjProducto();
         $objCompraDeVerdad = $this->getObjCompra();
-        /*
-        MODIFICADO!!!
-            $objProductoDeVerdad = $objProducto[0]; //Modificado por Marco
-            $objCompraDeVerdad = $objCompra[0]; //Modificado por Marco  
-        MODIFICADO!!!
-        */
         $sql = 
         "UPDATE compraItem SET 
             ciCantidad='" . $this->getCiCantidad() . "',
             idProducto='" . $objProductoDeVerdad->getIdProducto() . "',
             idCompra='" . $objCompraDeVerdad->getIdCompra() . "'
         WHERE idCompraItem='" . $this->getIdCompraItem() . "'";
-
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -172,12 +157,10 @@ class CompraItem
                     $array = [];
                     $array ['idProducto'] = $row['idProducto'];
                     $array ['idCompra'] = $row['idCompra'];
-                    // MODIFICADO!!!
                     $listaProductos = $abmProducto -> buscar ($array);
                     $listaCompras = $abmCompra -> buscar ($array);
                     $objProducto = $listaProductos[0];
                     $objCompra = $listaCompras[0];
-                    // MODIFICADO!!!
                     $idCompraItem = $row['idCompraItem'];
                     $ciCantidad = $row['ciCantidad'];
                     $obj->setear($idCompraItem, $ciCantidad, $objProducto, $objCompra);
