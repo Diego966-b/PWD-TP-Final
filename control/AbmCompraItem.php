@@ -35,6 +35,12 @@ class AbmCompraItem
                     $array ["exito"] = true;
                 }
             }
+            if($datos['accion']=='borrarItem')
+            {
+                if ($this->borrarItem($datos)) {
+                    $array ["exito"] = true;
+                }
+            }
             if ($array ["exito"]) {
                 $array ["mensaje"] = "<h3 class='text-success'>La accion " . $datos['accion'] . " se realizo correctamente.</h3>";
             } else {
@@ -148,6 +154,42 @@ class AbmCompraItem
         return $resp;
     }
     
+    /**
+     * Borra un item, si no hay mas items de compra borra compra
+     */
+    public function borrarItem($data)
+    {
+        $data['accion']='borrar';
+        $idCompra=$data['idCompra'];
+        $param['idCompraItem']=$data['idCompraItem'];
+        $param['accion']='borrar';
+        $this->abm($param);
+        
+        $param1['idCompra']=$idCompra;
+        $listaObjCompraItem = $this->buscar($param1);
+        $objAbmCompraEstado=new AbmCompraEstado();
+        $objAbmCompra= new AbmCompra();
+        if(count($listaObjCompraItem)==0){
+            $listarCompraEstado = $objAbmCompraEstado->buscar(null);
+            foreach ($listarCompraEstado as $compraEstado) {
+                $idCompraActual = $compraEstado->getObjCompra()->getIdCompra();
+                if ($idCompra == $idCompraActual) {
+                    $arrayBorrar = [];
+                    $arrayBorrar['idCompraEstado'] = $compraEstado->getIdCompraEstado();
+                    $arrayBorrar['accion'] = "borrar";
+                    $objAbmCompraEstado->abm($arrayBorrar);
+                }
+            }
+            $arregloCompras = $objAbmCompra->buscar($data);
+            $objCompra = $arregloCompras[0];
+            $array['idCompra'] = $idCompra;
+            $array['accion'] = "borrar";
+            $respuesta = $objAbmCompra->abm($array);
+        }
+        $exito = $respuesta ["exito"];
+        return $exito;
+    }
+
     /**
      * Busca en la BD con o sin parametros. Espera un array como parametro.
      * Retorna un array con lo encontrado.

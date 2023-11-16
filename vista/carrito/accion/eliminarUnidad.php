@@ -1,5 +1,5 @@
 <?php
-     // ACUTALMENTE NO SE USA
+    // ACUTALMENTE NO SE USA
     include_once("../../../config.php");
     include_once($ESTRUCTURA."/header.php");
     include_once($ESTRUCTURA."/cabeceraBD.php");

@@ -5,7 +5,6 @@ function pagarCarrito() {
         console.log("ID Producto: " + producto.idProducto);
         console.log("Pro Cantidad: " + producto.proCantidad);
     }
-
     $.ajax({
         type: "POST",
         url: "./accion/pagarCarrito.php",
@@ -14,11 +13,6 @@ function pagarCarrito() {
         },
         success: function(response) {
             accionSuccess(); 
-            /*         
-            setTimeout(function () {
-                location.reload();
-            }, 100);
-            */
         },
         error: function(error) {
             console.error("Error en la solicitud AJAX:", error);
