@@ -217,8 +217,6 @@ class AbmProducto
             }  
         }
         $arreglo = Producto::listar($where);
-        //echo "ARREGLO:";
-        //print_r($arreglo);
         return $arreglo;
     }
 }

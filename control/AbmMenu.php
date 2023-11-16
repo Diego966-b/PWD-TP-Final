@@ -1,6 +1,14 @@
 <?php
 class AbmMenu{
+    
+    // Metodos
 
+    /**
+     * Funcion ABM. Espera un array de parametro. Indicando la accion a realizar.
+     * Retorna un array con un mensaje y un booleano segun su exito.
+     * @param array $datos
+     * @return boolean
+     */
     public function abm($datos)
     {
         $resp = false;
@@ -26,6 +34,7 @@ class AbmMenu{
         }
         return $resp;
     }
+
     /**
      * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto
      * @param array $param
@@ -93,7 +102,7 @@ class AbmMenu{
       return $resp;
      
     }
-      /**
+    /**
      * Realiza un alta logica, es decir setea en null el campo usDeshabilitado.
      * Retorna un booleano.
      * @param array $param

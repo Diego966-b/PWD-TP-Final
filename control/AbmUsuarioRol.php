@@ -58,13 +58,10 @@ class AbmUsuarioRol {
             $array = [];
             $array ['idUsuario'] = $param['idUsuario'];
             $array ['idRol'] = $param['idRol'];
-            // MODIFICADO!!!
             $listaUsuarios = $abmUsuario -> buscar ($array);
             $listaRoles = $abmRol -> buscar ($array);
             $objUsuario = $listaUsuarios[0];
             $objRol = $listaRoles[0];
-            // MODIFICADO!!!
-            //Fin modificacion Marco
             $obj -> setear($objUsuario, $objRol);
         }
         return $obj;
@@ -84,12 +81,10 @@ class AbmUsuarioRol {
             $array = [];
             $array ['idUsuario'] = $param['idUsuario'];
             $array ['idRol'] = $param['idRol'];
-            // MODIFICADO!!!
             $listaUsuarios = $abmUsuario -> buscar ($array);
             $listaRoles = $abmRol -> buscar ($array);
             $objUsuario = $listaUsuarios[0];
             $objRol = $listaRoles[0];
-            // MODIFICADO!!!
             $obj -> setear($objUsuario, $objRol);
         }
         return $obj;

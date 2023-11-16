@@ -1,9 +1,5 @@
 <?php
 class AbmUsuario{
-    /*
-        LA PROFE NO TIENE UN AbmUsuarioRol DEFINIDO, USA METODOS PARA AGREGAR ROLES ACA. 
-        TENGO SUS METODOS ACA ( borrarRol() y altaRol() ) Y AbmUsuarioRol DEFINIDOS, HAY QUE VER CUAL USAR.
-    */
 
     // Métodos
 
@@ -49,21 +45,21 @@ class AbmUsuario{
             }
             if($datos['accion']=='borrarRol') 
             {
-                if($this->borrarRol($datos)) // NUEVO!
+                if($this->borrarRol($datos))
                 {
                     $array ["exito"] = true;
                 }
             }
             if($datos['accion']=='nuevoRol') 
             {   
-                if($this->altaRol($datos)) // NUEVO!
+                if($this->altaRol($datos))
                 {
                     $array ["exito"] = true;
                 }
             }
             if($datos['accion']=='actualizarRol') 
             {   
-                if($this->actualizarRol($datos)) // NUEVO!
+                if($this->actualizarRol($datos)) 
                 {
                     $array ["exito"] = true;
                 }
@@ -127,7 +123,7 @@ class AbmUsuario{
      */
     public function alta($param){
         $resp = false;
-        $param['idUsuario'] = null; // MODIFICADO!!!
+        $param['idUsuario'] = null; 
         $elObjtUser= $this->cargarObjeto($param);
         if ($elObjtUser!=null and $elObjtUser->insertar()){
             $resp = true;

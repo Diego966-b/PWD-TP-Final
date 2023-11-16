@@ -94,7 +94,7 @@ class AbmCompraEstadoTipo
      */
     public function alta($param){
         $resp = false;
-        $param['idCompraEstadoTipo'] = null; // MODIFICADO!!!
+        $param['idCompraEstadoTipo'] = null; 
         $elObjCompraEstadoTipo = $this->cargarObjeto($param);
         if ($elObjCompraEstadoTipo!=null and $elObjCompraEstadoTipo->insertar()){
             $resp = true;

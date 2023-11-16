@@ -59,10 +59,8 @@ class AbmCompra
             $abmUsuario = new AbmUsuario();
             $array = [];
             $array ['idUsuario'] = $param['idUsuario'];
-            // MODIFICADO!!!
             $listaUsuarios = $abmUsuario -> buscar($array);
             $objUsuario = $listaUsuarios [0];
-            // MODIFICADO!!!
             $idCompra = $param ['idCompra'];
             $coFecha = $param ['coFecha'];
             $obj -> setear ($idCompra, $coFecha, $objUsuario);

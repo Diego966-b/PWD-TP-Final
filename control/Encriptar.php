@@ -28,19 +28,9 @@ class Encriptar
 
     // Métodos get
 
-    public function getTexto ()
-    {
-        return $this -> texto;
-    }
+    public function getTexto () { return $this -> texto; }
 
     // Métodos set
 
-    /**
-     * Set de texto
-     * @param string $textoNuevo
-     */
-    public function setTexto ($textoNuevo)
-    {
-        $this -> texto = $textoNuevo;
-    }
+    public function setTexto ($textoNuevo){ $this -> texto = $textoNuevo; }
 }

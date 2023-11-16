@@ -85,6 +85,7 @@ class AbmCompraItem
         }
         return $obj;
     }
+
     /**
      * Corrobora que dentro del arreglo asociativo estan seteados los campos claves
      * @param array $param
@@ -105,7 +106,7 @@ class AbmCompraItem
      */
     public function alta($param){
         $resp = false;
-        $param['idCompraItem'] = null; // MODIFICADO!!!
+        $param['idCompraItem'] = null; 
         $elObjCompraItem = $this->cargarObjeto($param);
         if ($elObjCompraItem!=null and $elObjCompraItem->insertar()){
             $resp = true;

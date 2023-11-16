@@ -68,6 +68,7 @@ class AbmMenuRol {
         }
         return $respuesta;
     }
+
     /**
      * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto.
      * @param array $param
@@ -83,13 +84,10 @@ class AbmMenuRol {
             $array = [];
             $array ['idMenu'] = $param['idMenu'];
             $array ['idRol'] = $param['idRol'];
-            // MODIFICADO!!!
             $listaMenu = $abmMenu -> buscar ($array);
             $listaRoles = $abmRol -> buscar ($array);
             $objMenu = $listaMenu[0];
             $objRol = $listaRoles[0];
-            // MODIFICADO!!!
-            //Fin modificacion Marco
             $obj -> setear($objRol, $objMenu);
         }
         return $obj;
@@ -109,12 +107,10 @@ class AbmMenuRol {
             $array = [];
             $array ['idMenu'] = $param['idMenu'];
             $array ['idRol'] = $param['idRol'];
-            // MODIFICADO!!!
             $listaMenus = $abmMenu -> buscar ($array);
             $listaRoles = $abmRol -> buscar ($array);
             $objMenu = $listaMenus[0];
             $objRol = $listaRoles[0];
-            // MODIFICADO!!!
             $obj -> setear($objRol, $objMenu);
         }
         return $obj;
@@ -243,8 +239,5 @@ class AbmMenuRol {
         }
         return $arrayMenus;
     }
-    // public function darMenuPorRol(){
-        
-    // }
 }
 ?>
