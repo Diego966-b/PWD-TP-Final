@@ -25,7 +25,7 @@
                 <h3 class="text-success fs-5 text-center p-3">'.$resultado["mensaje"].'</h3>
                 
             </div>';
-            header("Refresh: 5; URL='$VISTA/acceso/login.php'");
+            header("Refresh: 1; URL='$VISTA/acceso/login.php'");
         }
         else
         {

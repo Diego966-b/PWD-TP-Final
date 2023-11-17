@@ -16,12 +16,6 @@ function eliminarUnidad (idProducto){
 }
 
 function pagarCarrito() {
-    for (var i = 0; i < carrito.length; i++) {
-        var producto = carrito[i];
-        console.log(producto);
-        console.log("ID Producto: " + producto.idProducto);
-        console.log("Pro Cantidad: " + producto.proCantidad);
-    }
     $.ajax({
         type: "POST",
         url: "./accion/pagarCarrito.php",

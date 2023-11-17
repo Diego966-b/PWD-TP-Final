@@ -4,7 +4,6 @@ $pagSeleccionada = "Gestionar Roles";
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php include_once($ESTRUCTURA . "/header.php"); ?>
     <?php 
@@ -12,14 +11,14 @@ $pagSeleccionada = "Gestionar Roles";
         if ($objSession->validar()) {
             $tienePermiso = $objSession->tienePermisoB($objSession->getUsuario());
             if (!$tienePermiso) {
-                header("Refresh: 3; URL='$VISTA/acceso/login.php'");
+                header("Refresh: 0; URL='$VISTA/acceso/login.php'");
             }
             $estadoPagina = $objSession->estadoMenu();
             if (!$estadoPagina) {
-                header("Refresh: 3; URL='$VISTA/home/index.php'");
+                header("Refresh: 0; URL='$VISTA/home/index.php'");
             }
         } else {
-            header("Refresh: 3; URL='$VISTA/acceso/login.php'");
+            header("Refresh: 0; URL='$VISTA/acceso/login.php'");
         }
     ?>
 </head>
@@ -45,7 +44,6 @@ $pagSeleccionada = "Gestionar Roles";
                         <td>Descripcion</td>
                         <td>Estado</td>
                         <td>Acciones</td>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -59,7 +57,6 @@ $pagSeleccionada = "Gestionar Roles";
                             } else {
                                 echo '<td>Baja desde: ' . $rol->getRolDeshabilitado() . '  </td>';
                             }
-
                             echo '</td>';
                             echo "<td>";
                             if ($rol->getRolDeshabilitado() == null) {

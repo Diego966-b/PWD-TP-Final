@@ -3,7 +3,7 @@ class Session
 {
 
     // Métodos 
-    
+
     /**
      * Hace un session_start. 
      */
@@ -18,24 +18,21 @@ class Session
      * @param $contrasenia
      * @return boolean
      */
-    public function iniciar ($nombreUsuario, $contrasenia)
-    {  
+    public function iniciar($nombreUsuario, $contrasenia)
+    {
         $exito = false;
         $obj = new AbmUsuario();
         $param['usNombre'] = $nombreUsuario;
         $param['usPass'] = $contrasenia;
-        $param['usDeshabilitado'] = "null"; 
-        $resultado = $obj -> buscar ($param);
-        if (count($resultado) > 0)
-        {
+        $param['usDeshabilitado'] = "null";
+        $resultado = $obj->buscar($param);
+        if (count($resultado) > 0) {
             $usuario = $resultado[0];
-            $idUsuario = $usuario -> getIdUsuario();
-            $_SESSION ['idUsuario'] = $idUsuario;
+            $idUsuario = $usuario->getIdUsuario();
+            $_SESSION['idUsuario'] = $idUsuario;
             $exito = true;
-        }
-        else
-        {
-            $this -> cerrar();
+        } else {
+            $this->cerrar();
         }
         return $exito;
     }
@@ -44,31 +41,27 @@ class Session
      * Devuelve un booleano dependiendo de si la sesion esta activa o no.
      * @return boolean
      */
-    public function activa ()
+    public function activa()
     {
         $resp = false;
-        if (php_sapi_name() !== 'cli')
-        {
-            if (version_compare(phpversion(), '5.4.0', '>=')) 
-            {
+        if (php_sapi_name() !== 'cli') {
+            if (version_compare(phpversion(), '5.4.0', '>=')) {
                 $resp = session_status() === PHP_SESSION_ACTIVE ? TRUE : FALSE;
-            }
-            else
-            {
+            } else {
                 $resp = session_id() === '' ? FALSE : TRUE;
             }
         }
         return $resp;
     }
-    
+
     /**
      * Valida una sesion. Retorna un booleano
      * @return boolean
      */
-    public function validar(){
+    public function validar()
+    {
         $resp = false;
-        if ($this -> activa() && isset($_SESSION['idUsuario']))
-        {
+        if ($this->activa() && isset($_SESSION['idUsuario'])) {
             $resp = true;
         }
         return $resp;
@@ -78,11 +71,10 @@ class Session
      * Cierra sesion. Retorna un booleano.
      * @return boolean
      */
-    public function cerrar ()
+    public function cerrar()
     {
         $exito = false;
-        if (session_destroy())
-        {
+        if (session_destroy()) {
             $exito = true;
         }
         return $exito;
@@ -92,15 +84,14 @@ class Session
      * Devuelve el obj del usuario logeado.
      * Retorna null si no hay usuario logeado.
      */
-    public function getUsuario(){
+    public function getUsuario()
+    {
         $usuario = null;
-        if ($this -> validar())
-        {
+        if ($this->validar()) {
             $obj = new AbmUsuario();
-            $param ['idUsuario'] = $_SESSION['idUsuario'];
-            $resultado = $obj -> buscar ($param);
-            if (count($resultado) > 0)
-            {
+            $param['idUsuario'] = $_SESSION['idUsuario'];
+            $resultado = $obj->buscar($param);
+            if (count($resultado) > 0) {
                 $usuario = $resultado[0];
             }
             return $usuario;
@@ -111,54 +102,50 @@ class Session
      * Devuelve obj rol o roles del usuario logeado.
      * Retorna null si no hay usuario logeado.
      */
-    public function getRol(){
+    public function getRol()
+    {
         $listaRoles = null;
-        if ($this -> validar())
-        {
+        if ($this->validar()) {
             $obj = new AbmUsuario();
-            $param ['idUsuario'] = $_SESSION ['idUsuario'];
-            $resultado = $obj -> darRoles ($param);
+            $param['idUsuario'] = $_SESSION['idUsuario'];
+            $resultado = $obj->darRoles($param);
             // if (count($resultado) > 0)
             // {
             //     $listaRoles = $resultado [0];
             // }
             // return $listaRoles;
-            return $resultado;  
+            return $resultado;
         }
     }
- 
+
     /**
      * Agrega un item al carrito que es un arreglo de arreglos en sesion
      * @param array $arregloProducto
      */
-    public function agregarItemCarrito ($arregloProducto)
+    public function agregarItemCarrito($arregloProducto)
     {
         $idProducto = $arregloProducto['idProducto'];
         $proCantidadInicial = $arregloProducto['proCantidad'];
         $proStock = $arregloProducto["proCantStock"];
         $stockFinal = $proStock - $proCantidadInicial;
-        if ($stockFinal >= 0)
-        {
-            $arregloProducto ["proCantStock"] = $stockFinal;
-            $arregloProducto ["accion"] = "editar";
+        if ($stockFinal >= 0) {
+            $arregloProducto["proCantStock"] = $stockFinal;
+            $arregloProducto["accion"] = "editar";
             $abmProducto = new AbmProducto();
-            $resultado = $abmProducto -> abm($arregloProducto);
-            $arrayCarrito = $this -> setearCarrito();
-            for ($i = 0; $i < count($arrayCarrito); $i++)
-            {
+            $resultado = $abmProducto->abm($arregloProducto);
+            $arrayCarrito = $this->setearCarrito();
+            for ($i = 0; $i < count($arrayCarrito); $i++) {
                 $arrayProductoActual = [];
-                $arrayProductoActual = $arrayCarrito [$i];
-                $idProductoActual = $arrayProductoActual ["idProducto"];
-                if ($idProductoActual == $idProducto)
-                {
+                $arrayProductoActual = $arrayCarrito[$i];
+                $idProductoActual = $arrayProductoActual["idProducto"];
+                if ($idProductoActual == $idProducto) {
                     $arrayCarrito[$i]["proCantidad"] += $proCantidadInicial;
                     $entre = true;
                 }
             }
-            if (!$entre)
-            {
-                $arrayProducto ["idProducto"] = $idProducto;
-                $arrayProducto ["proCantidad"] = $proCantidadInicial;
+            if (!$entre) {
+                $arrayProducto["idProducto"] = $idProducto;
+                $arrayProducto["proCantidad"] = $proCantidadInicial;
                 array_push($arrayCarrito, $arrayProducto);
             }
             $_SESSION['carrito'] = $arrayCarrito;
@@ -168,8 +155,8 @@ class Session
     /**
      * Setea el carrito en la variable $_SESSION
      */
-    public function setearCarrito ()
-    {   
+    public function setearCarrito()
+    {
         if (!isset($_SESSION['carrito'])) {
             $_SESSION['carrito'] = array();
         }
@@ -179,7 +166,7 @@ class Session
     /**
      * Elimina el carrito
      */
-    public function eliminarCarrito ()
+    public function eliminarCarrito()
     {
         $exito = false;
         if (isset($_SESSION['carrito'])) {
@@ -192,41 +179,35 @@ class Session
     /**
      * Elimina 1 unidad del carrito. Si el carrito se queda sin unidades, borra el carrito.
      */
-    public function eliminarUnidad ($idProducto)
+    public function eliminarUnidad($idProducto)
     {
-        $carrito = $this -> setearCarrito ();
-        
+        $resp = false;
+        $carrito = $_SESSION['carrito'];
+        $nuevoCarrito = array();
         print_r($carrito);
-        
-        echo "<script>";
-        echo "console.log('entro a eliminarUnidad');";  
-        echo "echo(" . json_encode($carrito) . ")";
-        echo "</script>";
-
-        foreach ($carrito as $indice => $arrayProducto) 
-        {
-            if ($idProducto == $arrayProducto["idProducto"]) {
-                // Borro item
-                unset($carrito[$indice]);
+        foreach ($carrito as $arrayProducto) {
+            if ($idProducto <> $arrayProducto["idProducto"]) {
+                // Agrego el producto al nuevo carrito si no coincide con el ID a eliminar
+                array_push($nuevoCarrito, $arrayProducto);
             }
         }
-
-        if (count($carrito) == 0)
-        {
-            // borro carrito
-            unset($_SESSION["carrito"]);
-        }
-        else
-        {
+        if (count($nuevoCarrito) == 0) {
+            // Borro carrito
+            $resp = true;
+            $this->eliminarCarrito();
+            // unset($_SESSION["carrito"]);
+        } else {
             // Actualizo el carrito en la sesión
-            $_SESSION["carrito"] = $carrito;
+            $_SESSION["carrito"] = $nuevoCarrito;
+            $resp = true;
         }
+        return $resp;
     }
 
     /**
      * Paga el carrito
      */
-    public function pagarCarrito ($colDatos)
+    public function pagarCarrito($colDatos)
     {
         $abmProducto = new AbmProducto();
         $abmCompra = new AbmCompra();
@@ -236,54 +217,50 @@ class Session
         $colProductosCarrito = [];
         $arrayConsulta = [];
         $carrito = $colDatos["carrito"];
-        $objUsuario = $this -> getUsuario();
-    
+        $objUsuario = $this->getUsuario();
+
         // Creo un nuevo Compra
-    
+
         $arrayConsulta = [];
-        $idUsuario = $objUsuario -> getIdUsuario();
-        $arrayConsulta ["idUsuario"] = $idUsuario;
-        $arrayConsulta ["coFecha"] = date("Y-m-d H:i:s");
-        $arrayConsulta ["accion"] = "nuevo";
-        $resultado = $abmCompra -> abm($arrayConsulta);
-    
+        $idUsuario = $objUsuario->getIdUsuario();
+        $arrayConsulta["idUsuario"] = $idUsuario;
+        $arrayConsulta["coFecha"] = date("Y-m-d H:i:s");
+        $arrayConsulta["accion"] = "nuevo";
+        $resultado = $abmCompra->abm($arrayConsulta);
+
         $exito = $resultado["exito"];
-        if ($exito)
-        {
-            $idCompra = $resultado ["id"]; 
-        }
-        else
-        {
+        if ($exito) {
+            $idCompra = $resultado["id"];
+        } else {
             $idCompra = "";
         }
-    
+
         // Creo un nuevo CompraEstado
-    
+
         $arrayConsultaCE = [];
-        $arrayConsultaCE ["accion"] = "nuevo";
-        $arrayConsultaCE ["idCompraEstadoTipo"] = 1; // guardo 1 ya que es el id de la compra iniciada
-        $arrayConsultaCE ["ceFechaIni"] = date("Y-m-d H:i:s");
-        $arrayConsultaCE ["ceFechaFin"] = "0000-00-00 00:00:00";
-        $arrayConsultaCE ["idCompra"] = $idCompra; 
-        $resultado = $abmCompraEstado -> abm($arrayConsultaCE);
-    
+        $arrayConsultaCE["accion"] = "nuevo";
+        $arrayConsultaCE["idCompraEstadoTipo"] = 1; // guardo 1 ya que es el id de la compra iniciada
+        $arrayConsultaCE["ceFechaIni"] = date("Y-m-d H:i:s");
+        $arrayConsultaCE["ceFechaFin"] = "0000-00-00 00:00:00";
+        $arrayConsultaCE["idCompra"] = $idCompra;
+        $resultado = $abmCompraEstado->abm($arrayConsultaCE);
+
         // Creo el CompraItem
-    
-        for ($i = 0; $i < count($carrito); $i++)
-        {
+
+        for ($i = 0; $i < count($carrito); $i++) {
             $arrayConsulta = [];
-            $arrayProducto = $carrito [$i];
-            $idProducto = $arrayProducto ["idProducto"];
-            $proCantidad = $arrayProducto ["proCantidad"];
+            $arrayProducto = $carrito[$i];
+            $idProducto = $arrayProducto["idProducto"];
+            $proCantidad = $arrayProducto["proCantidad"];
             // compraItem
-            $arrayConsulta ["accion"] = "nuevo";
-            $arrayConsulta ["ciCantidad"] = $proCantidad;
-            $arrayConsulta ["idProducto"] = $idProducto;
-            $arrayConsulta ["idCompra"] = $idCompra; 
-            $abmCompraItem -> abm($arrayConsulta);
+            $arrayConsulta["accion"] = "nuevo";
+            $arrayConsulta["ciCantidad"] = $proCantidad;
+            $arrayConsulta["idProducto"] = $idProducto;
+            $arrayConsulta["idCompra"] = $idCompra;
+            $abmCompraItem->abm($arrayConsulta);
         }
-    
-        $this -> eliminarCarrito();
+
+        $this->eliminarCarrito();
     }
 
 
@@ -317,20 +294,20 @@ class Session
         }
 
         return $tienePermiso;
-    } 
-    public function estadoMenu(){
-        $habilitado =false;
+    }
+    public function estadoMenu()
+    {
+        $habilitado = false;
         $url = $_SERVER["REQUEST_URI"];
-        $ambMenu=new AbmMenu();
-        $listaMenus= $ambMenu->buscar(null);
-        foreach($listaMenus as $menu){
-            $urlMenu=$menu->getMeDescripcion();
-            $urlMenu = substr($urlMenu , 2);
-            if(strpos($url, $urlMenu) <> false && $menu->getMeDeshabilitado() == null){
+        $ambMenu = new AbmMenu();
+        $listaMenus = $ambMenu->buscar(null);
+        foreach ($listaMenus as $menu) {
+            $urlMenu = $menu->getMeDescripcion();
+            $urlMenu = substr($urlMenu, 2);
+            if (strpos($url, $urlMenu) <> false && $menu->getMeDeshabilitado() == null) {
                 $habilitado = true;
             }
         }
         return $habilitado;
-
     }
 }

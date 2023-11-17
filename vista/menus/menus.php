@@ -11,20 +11,19 @@ $pagSeleccionada = "Gestionar Menus";
     if ($objSession->validar()) {
         $tienePermiso = $objSession->tienePermisoB($objSession->getUsuario());
         if (!$tienePermiso) {
-            header("Refresh: 3; URL='$VISTA/acceso/login.php'");
+            header("Refresh: 0; URL='$VISTA/acceso/login.php'");
         }
         $estadoPagina = $objSession->estadoMenu();
         if (!$estadoPagina) {
-            header("Refresh: 3; URL='$VISTA/home/index.php'");
+            header("Refresh: 0; URL='$VISTA/home/index.php'");
         }
     } else {
-        header("Refresh: 3; URL='$VISTA/acceso/login.php'");
+        header("Refresh: 0; URL='$VISTA/acceso/login.php'");
     }
     ?>
 </head>
 
 <body id="filtro-opacidad">
-    <!--<div id="filtro-opacidad">-->
         <div id="contenido-perfil">
         
             <div>

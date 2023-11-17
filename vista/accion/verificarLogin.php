@@ -23,7 +23,7 @@
             <div class="bg-success-subtle">
                 <h3 class="text-success fs-5 text-center p-3">Sesion iniciada, redirigiendo</h3>
             </div>';
-            header("Refresh: 2; URL='$VISTA/home/index.php'");
+            header("Refresh: 1; URL='$VISTA/home/index.php'");
         }
         else
         {
@@ -31,7 +31,7 @@
             <div class="bg-danger">
                 <h3 class="fs-5 text-center p-3">Error, usuario o contrase&ntilde;a incorrectos, redirigiendo</h3>
             </div>';
-            header("Refresh: 2; URL='$VISTA/acceso/login.php'");
+            header("Refresh: 1; URL='$VISTA/acceso/login.php'");
         }
     ?>
     <?php include_once($ESTRUCTURA."/pie.php");?>
